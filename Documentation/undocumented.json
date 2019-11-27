@@ -1,0 +1,12 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/michael/Developer/Alaska/Atom/Framework/Atom/Models/Atom+Response.swift",
+      "line": 22,
+      "symbol": "Atom.Response.HeaderFields",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/michael/Developer/Alaska/Atom/Framework"
+}

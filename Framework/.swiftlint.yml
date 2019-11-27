@@ -1,0 +1,65 @@
+disabled_rules:
+- cyclomatic_complexity
+- function_body_length
+- function_parameter_count
+- implicit_return
+- nesting
+- pattern_matching_keywords
+- private_over_fileprivate
+- private_unit_testing
+- identifier_name
+- vertical_whitespace
+- trailing_whitespace
+
+opt_in_rules:
+- array_init
+- closure_spacing
+- closure_parameter_position
+- contains_over_first_not_nil
+- empty_count
+- empty_string
+- empty_xctest_method
+- explicit_init
+- fatal_error_message
+- first_where
+- force_unwrapping
+- identical_operands
+- implicitly_unwrapped_optional
+- joined_default_parameter
+- legacy_random
+- let_var_whitespace
+- literal_expression_end_indentation
+- missing_empty_line
+- modifier_order
+- object_literal
+- operator_usage_whitespace
+- overridden_super_call
+- prohibited_super_call
+- redundant_nil_coalescing
+- sorted_first_last
+- sorted_imports
+- switch_case_on_newline
+- toggle_bool
+- trailing_closure
+- unneeded_parentheses_in_closure_argument
+- untyped_error_in_catch
+- unused_private_declaration
+- unused_import
+- vertical_parameter_alignment_on_call
+- yoda_condition
+
+excluded:
+- Carthage
+
+line_length: 250
+
+file_length:
+    warning: 500
+    failure: 1200
+
+custom_rules:
+    missing_space:
+        name: "Missing Space"
+        regex: '(\[[a-zA-Z]+?:[a-zA-Z]+?\])'
+        message: "Missing space. use [DataType: DataType]."
+        severity: warning
