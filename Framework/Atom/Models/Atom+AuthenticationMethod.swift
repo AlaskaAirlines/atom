@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Michael Babiy
+// Copyright (c) 2019 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
