@@ -2,7 +2,7 @@
 
 The lightweight & delightful networking library.
 
-Atom is a wrapper library built around a subset of features offered by `URLSession` with added ability to decode data into models, handle access token refresh and authorization headers on behalf of the client, and more. It takes advantage of Swift features such as default implementation for protocols, generics and `Decodable` to make it extremely easy to integrate and use in an existing project. Atom offers support for any endpoint, a much stricter URL host and path validation, comprehensive documentation and an example application to eliminate any guesswork.
+Atom is a wrapper library built around a subset of features offered by `URLSession` with added ability to decode data into models, handle access token refresh and authorization headers on behalf of the client, and more. It takes advantage of Swift features such as default implementation for protocols, generics and `Decodable` to make it extremely easy to integrate and use in an existing project. Atom offers support for any endpoint, a much stricter URL host and path validation, comprehensive [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html) and an example application to eliminate any guesswork.
 
 
 ## Features
@@ -13,7 +13,7 @@ Atom is a wrapper library built around a subset of features offered by `URLSessi
 - [x] Handles and applies authorization headers on behalf of the client
 - [x] Handles URL host validation
 - [x] Handles URL path validation
-- [x] Complete Documentation
+- [x] Complete [Documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html)
 
 
 ## Requirements
@@ -43,15 +43,15 @@ Once you have your Swift package set up, adding Atom as a dependency is as easy 
 ## Usage
 Getting started is easy. First, create an instance of Atom.
 
-```
+```swift
 let atom = Atom()
 ```
 
 In the above example, default configuration will be used. Default configuration will setup `URLSession`to use ephemeral configuration as well as ensure that the data returned by the service is available on the main thread.
 
-Any network request needs to conform and implement `Requestable` protocol. The `Requestable ` protocol provides default implementation for all of its properties - except for the `func baseURL() throws -> Atom.BaseURL`. See documentation for more information.
+Any network request needs to conform and implement `Requestable` protocol. The `Requestable ` protocol provides default implementation for all of its properties - except for the `func baseURL() throws -> Atom.BaseURL`. See [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html) for more information.
 
-```
+```swift
 extension Seatmap {
     enum Endpoint: Requestable {
         case refresh
@@ -65,7 +65,7 @@ extension Seatmap {
 
 Atom offers a handful of methods with support for fully decoded model objects, raw data,  or status indicating success / failure of a request.
 
-```
+```swift
 typealias Endpoint = Seatmap.Endpoint
 
 service.load(Endpoint.refresh).execute(expecting: Seatmap.self) { [weak self] result in
@@ -81,7 +81,7 @@ service.load(Endpoint.refresh).execute(expecting: Seatmap.self) { [weak self] re
 
 The above example demonstrates how to use `execute()` method to get a fully decoded `Seatmap` model object.
 
-For more information, please see documentation.
+For more information, please see [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html).
 
 ### Authentication
 
@@ -95,7 +95,7 @@ If the token refresh call fails, all enqueued network calls will be executed at 
 
 You can configure Atom to apply `Basic` authorization header like this:
 
-```
+```swift
 let atom: Atom = {
     let credential = Atom.BasicCredential(password: "password", username: "username")
     let basic = Atom.AuthenticationMethod.basic(credential)
@@ -108,7 +108,7 @@ let atom: Atom = {
 
 An existing implementation can be extended by conforming and implementing `BasicCredentialConvertible` protocol. A hypothetical configuration can look something like this:
 
-```
+```swift
 final class CredentialManager {
     private(set) var username = String()
     private(set) var password = String()
@@ -145,7 +145,7 @@ Once configured, Atom will combine username and password into a single string `u
 ### Bearer
 You can configure Atom to apply `Bearer ` authorization header. Here is an example:
 
-```
+```swift
 class TokenManager: TokenCredentialWritable {
     var tokenCredential: Atom.TokenCredential {
     	// Read values from the keychain.
@@ -178,7 +178,7 @@ Once configured, Atom will apply authorization header to a request as `Authoriza
 
 Please note, Atom will only decode token credential from a JSON objecting returned in this form:
 
-```
+```json
 {
     "access_token": "2YotnFZFEjr1zCsicMWpAA",
     "expires_in": 3600,
@@ -188,7 +188,7 @@ Please note, Atom will only decode token credential from a JSON objecting return
 
 The above response is in accordance with [RFC 6749, section 1.5](https://tools.ietf.org/html/rfc6749#section-1.5).
 
-For more information and Atom usage example, please see documentation and the provided Example application.
+For more information and Atom usage example, please see [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html) and the provided Example application.
 
 ## Communication
 * If you found a bug, open an issue.
