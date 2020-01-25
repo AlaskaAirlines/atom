@@ -264,6 +264,10 @@ extension Atom.Service: AuthenticationManagerDelegate {
     }
 
     func authenticationManagerDidFailToRefreshAccessTokenWithError(_ error: AtomError) {
+        // Notify observers of a failed token refresh.
+        center.post(name: Atom.didFailToRefreshAccessToken, object: nil, userInfo: ["error": error])
+
+        // Complete, with error, all requests after token refresh failure.
         for retryable in retryables {
             // Notify the client of errors for each request that required authorization - token refresh failed.
             retryable.completion(nil, nil, error)

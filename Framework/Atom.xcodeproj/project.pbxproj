@@ -60,6 +60,8 @@
 		4C3345B32371F10A0075ED92 /* TokenCredentialWritable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3345B22371F10A0075ED92 /* TokenCredentialWritable.swift */; };
 		4C3345B92371F9550075ED92 /* Atom+TokenCredential+Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3345B82371F9550075ED92 /* Atom+TokenCredential+Decodable.swift */; };
 		4C3345BB237218670075ED92 /* Atom+Retryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3345BA237218670075ED92 /* Atom+Retryable.swift */; };
+		4C6A0D3923DBC28300A64975 /* Atom+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A0D3823DBC28300A64975 /* Atom+Notifications.swift */; };
+		4C6A0D3C23DBC3C100A64975 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6A0D3B23DBC3C100A64975 /* Constants.swift */; };
 		4C7B85F023721F7800FA85FC /* Atom+AuthenticationMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B85EF23721F7800FA85FC /* Atom+AuthenticationMethod.swift */; };
 		4C7B85F2237223C800FA85FC /* Atom+BasicCredential+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B85F1237223C800FA85FC /* Atom+BasicCredential+Additions.swift */; };
 		4C7B85F4237226EC00FA85FC /* Date+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7B85F3237226EC00FA85FC /* Date+Additions.swift */; };
@@ -140,6 +142,8 @@
 		4C3345B22371F10A0075ED92 /* TokenCredentialWritable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCredentialWritable.swift; sourceTree = "<group>"; };
 		4C3345B82371F9550075ED92 /* Atom+TokenCredential+Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Atom+TokenCredential+Decodable.swift"; sourceTree = "<group>"; };
 		4C3345BA237218670075ED92 /* Atom+Retryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Atom+Retryable.swift"; sourceTree = "<group>"; };
+		4C6A0D3823DBC28300A64975 /* Atom+Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Atom+Notifications.swift"; sourceTree = "<group>"; };
+		4C6A0D3B23DBC3C100A64975 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4C7B85EF23721F7800FA85FC /* Atom+AuthenticationMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Atom+AuthenticationMethod.swift"; sourceTree = "<group>"; };
 		4C7B85F1237223C800FA85FC /* Atom+BasicCredential+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Atom+BasicCredential+Additions.swift"; sourceTree = "<group>"; };
 		4C7B85F3237226EC00FA85FC /* Date+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 				1C4819B520D039C600CB6F31 /* Atom */,
 				1CC3285420D8773A0099644D /* Common */,
 				1CC3280920D813AF0099644D /* Extensions */,
+				4C6A0D3A23DBC3AE00A64975 /* Global */,
 				4C7B85F7237229D000FA85FC /* Managers */,
 				1CC3283D20D85A330099644D /* Models */,
 				1CC3280A20D813C90099644D /* Service */,
@@ -254,6 +259,7 @@
 			children = (
 				1CFD5ACA2135F86B0075EED1 /* Atom Error */,
 				1CC3284220D863130099644D /* Foundation */,
+				4C6A0D3723DBC26200A64975 /* Framework */,
 				1CC3287120D970310099644D /* Requestable */,
 			);
 			path = Extensions;
@@ -394,6 +400,22 @@
 				1CFD5ACB2135F8870075EED1 /* AtomError+StringConvertible.swift */,
 			);
 			path = "Atom Error";
+			sourceTree = "<group>";
+		};
+		4C6A0D3723DBC26200A64975 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				4C6A0D3823DBC28300A64975 /* Atom+Notifications.swift */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		4C6A0D3A23DBC3AE00A64975 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				4C6A0D3B23DBC3C100A64975 /* Constants.swift */,
+			);
+			path = Global;
 			sourceTree = "<group>";
 		};
 		4C7B85F7237229D000FA85FC /* Managers */ = {
@@ -567,8 +589,10 @@
 				1CC3287B20D9990F0099644D /* URLRequest+Additions.swift in Sources */,
 				4C316011221E0C8300E853F5 /* Atom+Response.swift in Sources */,
 				4C316027221F0E5400E853F5 /* Data+Additions.swift in Sources */,
+				4C6A0D3923DBC28300A64975 /* Atom+Notifications.swift in Sources */,
 				4C7B85F2237223C800FA85FC /* Atom+BasicCredential+Additions.swift in Sources */,
 				1CC3285620D8774E0099644D /* StringConvertible.swift in Sources */,
+				4C6A0D3C23DBC3C100A64975 /* Constants.swift in Sources */,
 				1CC3280C20D813E70099644D /* Atom+ServiceConfiguration.swift in Sources */,
 				4C316017221E0CFC00E853F5 /* Model.swift in Sources */,
 				1CC3285B20D8BB360099644D /* AtomError.swift in Sources */,
