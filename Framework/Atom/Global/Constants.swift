@@ -18,3 +18,7 @@ import Foundation
 
 /// Global `NotificationCenter` instance.
 internal let center = NotificationCenter.default
+
+/// A `Bool` indicating whether or not all service requests should be
+/// logged to the console. This property is set in `Atom.swift` only.
+internal var consoleLog: Bool = .off

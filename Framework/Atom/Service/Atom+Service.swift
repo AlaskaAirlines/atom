@@ -50,7 +50,7 @@ public extension Atom {
             self.requestable = Atom.Endpoint()
             self.retryables = [Retryable]()
             self.serviceConfiguration = serviceConfiguration
-            self.session = URLSession(configuration: serviceConfiguration.sessionConfiguration)
+            self.session = URLSession(configuration: serviceConfiguration.sessionConfiguration, delegate: Interceptor(for: .network), delegateQueue: .main)
         }
     }
 }

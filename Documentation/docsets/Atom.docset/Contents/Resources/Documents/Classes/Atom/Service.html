@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Service Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Service" class="dashAnchor"></a>
+    <a title="Service Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html">Atom Docs</a> (99% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html">Atom Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        Service Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom.html">Atom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/AuthenticationMethod.html">– AuthenticationMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/AuthorizationEndpoint.html">– AuthorizationEndpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/BaseURL.html">– BaseURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/BasicCredential.html">– BasicCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/ClientCredential.html">– ClientCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/HeaderItem.html">– HeaderItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/Response.html">– Response</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/TokenCredential.html">– TokenCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/URLPath.html">– URLPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/Service.html">– Service</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Atom/ServiceConfiguration.html">– ServiceConfiguration</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Enums/AtomError.html">AtomError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/RequestableError.html">RequestableError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Optional.html">Optional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/URLRequest.html">URLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/URLResponse.html">URLResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/URLSessionTask.html">URLSessionTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/URLSessionTaskMetrics.html">URLSessionTaskMetrics</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Protocols/BasicCredentialConvertible.html">BasicCredentialConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/ClientCredentialConvertible.html">ClientCredentialConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols.html#/s:4Atom5ModelP">Model</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/Requestable.html">Requestable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/TokenCredentialWritable.html">TokenCredentialWritable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Service</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Service</span></code></pre>
+
+                </div>
+              </div>
+            <p><code>Service</code> is a public facing class responsible for managing
+<code>URLSession</code> configuration, network calls, and decoding instances of a
+ data type into internal models.</p>
+
+<p><code>Service</code> is available through the <code><a href="../../Classes/Atom.html">Atom</a></code> instance only and cannot be
+initialized dirrectly. This behavior is intentional to allow for better separation
+of responsibilities such as creating a request, network call, and data decoding.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4AtomAAC7ServiceC7execute9expecting10completionyxm_ys6ResultOyxAA0A5ErrorOGctAA5ModelRzlF"></a>
+                    <a name="//apple_ref/swift/Method/execute(expecting:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4AtomAAC7ServiceC7execute9expecting10completionyxm_ys6ResultOyxAA0A5ErrorOGctAA5ModelRzlF">execute(expecting:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates and executes <code>URLRequest</code> initialized from <code><a href="../../Protocols/Requestable.html">Requestable</a></code>.</p>
+
+<p>Use this method to make network requests where you expect data returned by the
+service and require that data to be decoded into internal representations - models.</p>
+
+<p>Network request and decoding will be performed on a background thread after
+which the client will be notified of a <code>result</code> on a queue <code><a href="../../Classes/Atom.html">Atom</a></code> was configured to use.</p>
+
+<p>A typical usage pattern for this method could look like this:</p>
+<pre class="highlight swift"><code><span class="n">atom</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span><span class="o">.</span><span class="nf">execute</span><span class="p">(</span><span class="nv">expecting</span><span class="p">:</span> <span class="kt">User</span><span class="o">.</span><span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+        <span class="c1">// Handle `AtomError`.</span>
+
+        <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">user</span><span class="p">):</span>
+        <span class="c1">// Handle decoded `User` instance.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>In the above example, data will be decoded into a <code>User</code> instance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">execute</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">expecting</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt"><a href="../../Enums/AtomError.html">AtomError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">where</span> <span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../../Protocols.html#/s:4Atom5ModelP">Model</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The type to decode.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The completion containing <code>Result</code> where the associated value is either an <code><a href="../../Enums/AtomError.html">AtomError</a></code> or decoded model instance.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4AtomAAC7ServiceC7executeyyys6ResultOyAB8ResponseVAA0A5ErrorOGcF"></a>
+                    <a name="//apple_ref/swift/Method/execute(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4AtomAAC7ServiceC7executeyyys6ResultOyAB8ResponseVAA0A5ErrorOGcF">execute(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates and executes <code>URLRequest</code> initialized from <code><a href="../../Protocols/Requestable.html">Requestable</a></code>.</p>
+
+<p>Use this method to make network requests where you don&rsquo;t expect any data returned
+and are only interested in knowing if the network call succeeded or failed.</p>
+
+<p><code><a href="../../Classes/Atom.html">Atom</a></code> framework uses a convenience computed variable on <code>URLResponse</code> - <code>isSuccessful</code>
+to determine success or a failure of a response based on a status code returned by the service.</p>
+
+<p>A typical usage pattern for this method after getting a <code>result</code> could look like this:</p>
+<pre class="highlight swift"><code><span class="n">atom</span><span class="o">.</span><span class="nf">load</span><span class="p">(</span><span class="n">endpoint</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
+        <span class="c1">// Handle `AtomError`.</span>
+
+        <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">response</span><span class="p">):</span>
+        <span class="c1">// Handle `URLResponse`.</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="n">_</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../../Classes/Atom.html">Atom</a></span><span class="o">.</span><span class="kt"><a href="../../Classes/Atom/Response.html">Response</a></span><span class="p">,</span> <span class="kt"><a href="../../Enums/AtomError.html">AtomError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The completion containing <code>Result</code> where the associated value is either an <code><a href="../../Enums/AtomError.html">AtomError</a></code> or <code>URLResponse</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-03-18)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -42,3 +42,26 @@ internal extension URLRequest {
         httpMethod = requestable.method.stringValue
     }
 }
+
+// MARK: Debug Description
+
+extension URLRequest {
+    /// Returns a textual representation of this instance, suitable for debugging.
+    ///
+    /// If the request does not contain a valid URL, default description will be returned
+    /// without evaluating remaining properties of this request.
+    public var debugDescription: String {
+        guard let url = url else { return description }
+
+        let body = httpBody ?? .init()
+        let headers = allHTTPHeaderFields ?? .init()
+        let method = httpMethod ?? .init()
+
+        return """
+        ↖︎ Request Body: \(body.jsonObjectOrSelf)
+        ↖︎ Request Headers: \(headers)
+        ↖︎ Request Method: \(method)
+        ↖︎ Request URL: \(url)
+        """
+    }
+}

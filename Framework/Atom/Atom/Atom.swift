@@ -17,9 +17,24 @@
 import Foundation
 
 /// The lightweight & delightful networking library.
-public struct Atom {
+public final class Atom {
     /// The `Atom.Service` instance.
     private let service: Atom.Service
+
+    /// A `Bool` indicating whether or not all service requests should be logged to the console.
+    ///
+    /// Setting `log` to `on` will log all requests to the Console. Because implementation is written
+    /// using `os_log`, you can use the Colsole app to monitor and save network activity to a file for further
+    /// debugging. You can also just use Xcode's console.
+    ///
+    /// If you choose to use the Console app for monitoring outgoing requests, you can use the
+    /// following categories and subsystems to filter results.
+    ///
+    /// - Categories: Network, Authentication.
+    /// - Subsystems: Your App's Bundle Identifier.
+    public var log: Bool = .off {
+        didSet { consoleLog = log }
+    }
 
     /// Creates a `Atom` instance given the provided parameter(s).
     ///

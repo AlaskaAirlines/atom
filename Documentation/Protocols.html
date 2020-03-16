@@ -28,6 +28,50 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/Atom.html">Atom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/AuthenticationMethod.html">– AuthenticationMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/AuthorizationEndpoint.html">– AuthorizationEndpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/BaseURL.html">– BaseURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/BasicCredential.html">– BasicCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/ClientCredential.html">– ClientCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/HeaderItem.html">– HeaderItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/Method.html">– Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/Response.html">– Response</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/TokenCredential.html">– TokenCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/URLPath.html">– URLPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/Service.html">– Service</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Atom/ServiceConfiguration.html">– ServiceConfiguration</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -42,10 +86,22 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/Optional.html">Optional</a>
               </li>
               <li class="nav-group-task">
+                <a href="Extensions/URLRequest.html">URLRequest</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Extensions/URLResponse.html">URLResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLSessionTask.html">URLSessionTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLSessionTaskMetrics.html">URLSessionTaskMetrics</a>
               </li>
             </ul>
           </li>
@@ -66,50 +122,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/TokenCredentialWritable.html">TokenCredentialWritable</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Structs.html">Structures</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Structs/Atom.html">Atom</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/AuthenticationMethod.html">– AuthenticationMethod</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/AuthorizationEndpoint.html">– AuthorizationEndpoint</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/BaseURL.html">– BaseURL</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/BasicCredential.html">– BasicCredential</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/ClientCredential.html">– ClientCredential</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/HeaderItem.html">– HeaderItem</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/Method.html">– Method</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/Response.html">– Response</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/TokenCredential.html">– TokenCredential</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/URLPath.html">– URLPath</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/Service.html">– Service</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/ServiceConfiguration.html">– ServiceConfiguration</a>
               </li>
             </ul>
           </li>
@@ -138,7 +150,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>BasicCredentialConvertible</code> protocol declares an interface used for converting conforming type to <code><a href="Structs/Atom/BasicCredential.html">Atom.BasicCredential</a></code>.</p>
+                        <p>The <code>BasicCredentialConvertible</code> protocol declares an interface used for converting conforming type to <code><a href="Classes/Atom/BasicCredential.html">Atom.BasicCredential</a></code>.</p>
 
 <p>Atom can be configured to automatically apply authorization header to any <code><a href="Protocols/Requestable.html">Requestable</a></code> instance. Once properly configured, Atom will read
 credentials from the storage specified by the client and apply them to <code><a href="Protocols/Requestable.html">Requestable</a></code> instance if <code>requiresAuthentication</code> property
@@ -176,7 +188,7 @@ is set to <code>true</code>. Values will be set as <code>Authorization: Basic ba
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>ClientCredentialConvertible</code> protocol declares an interface used for converting conforming type to <code><a href="Structs/Atom/ClientCredential.html">Atom.ClientCredential</a></code>.</p>
+                        <p>The <code>ClientCredentialConvertible</code> protocol declares an interface used for converting conforming type to <code><a href="Classes/Atom/ClientCredential.html">Atom.ClientCredential</a></code>.</p>
 
                         <a href="Protocols/ClientCredentialConvertible.html" class="slightly-smaller">See more</a>
                       </div>
@@ -208,7 +220,7 @@ is set to <code>true</code>. Values will be set as <code>Authorization: Basic ba
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>Model</code> protocol declares an interface used as a generic constraint on <code><a href="Structs/Atom/Service.html">Atom.Service</a></code> methods.</p>
+                        <p>The <code>Model</code> protocol declares an interface used as a generic constraint on <code><a href="Classes/Atom/Service.html">Atom.Service</a></code> methods.</p>
 
                       </div>
                       <div class="declaration">
@@ -271,7 +283,7 @@ is set to <code>true</code>. Values will be set as <code>Authorization: Basic ba
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>TokenCredentialWritable</code> protocol declares an interface used for reading from / writing to <code><a href="Structs/Atom/TokenCredential.html">Atom.TokenCredential</a></code>.</p>
+                        <p>The <code>TokenCredentialWritable</code> protocol declares an interface used for reading from / writing to <code><a href="Classes/Atom/TokenCredential.html">Atom.TokenCredential</a></code>.</p>
 
 <p>Atom can be configured to automatically apply authorization header to any <code><a href="Protocols/Requestable.html">Requestable</a></code> instance. Once properly configured, Atom will read
 credentials from the storage specified by the client and apply them to <code><a href="Protocols/Requestable.html">Requestable</a></code> instance if <code>requiresAuthentication</code> property
@@ -306,7 +318,7 @@ is set to <code>true</code>. Values will be set as <code>Authorization: Bearer t
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-01-24)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-03-18)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

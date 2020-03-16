@@ -35,7 +35,7 @@ internal extension Atom {
         private var isRefreshing = false
 
         /// The `URLSession` instance used for token refresh.
-        private let session: URLSession = .shared
+        private let session: URLSession
 
         /// The authentication method to apply to a request.
         private let method: Atom.AuthenticationMethod
@@ -48,6 +48,7 @@ internal extension Atom {
         internal init(_ method: Atom.AuthenticationMethod, delegate: AuthenticationManagerDelegate) {
             self.method = method
             self.delegate = delegate
+            self.session = URLSession(configuration: .default, delegate: Interceptor(for: .authentication), delegateQueue: .main)
         }
     }
 }

@@ -15,8 +15,23 @@
 		1CC3288220D9BE2C0099644D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC3288120D9BE2C0099644D /* Constants.swift */; };
 		1CC3288520D9BE5F0099644D /* Joke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC3288420D9BE5F0099644D /* Joke.swift */; };
 		1CC3288920D9BEC70099644D /* Joke+Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC3288820D9BEC70099644D /* Joke+Endpoint.swift */; };
-		1CC3288C20D9C4A80099644D /* Atom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CC3288B20D9C4A80099644D /* Atom.framework */; };
+		4C015F93242027820028811D /* Atom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CC3288B20D9C4A80099644D /* Atom.framework */; };
+		4C015F94242027820028811D /* Atom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1CC3288B20D9C4A80099644D /* Atom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4C015F95242027820028811D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4C015F94242027820028811D /* Atom.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1C48198B20D034E200CB6F31 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CC3288C20D9C4A80099644D /* Atom.framework in Frameworks */,
+				4C015F93242027820028811D /* Atom.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +166,7 @@
 				1C48198720D034E200CB6F31 /* Sources */,
 				1C48198820D034E200CB6F31 /* Frameworks */,
 				1C48198920D034E200CB6F31 /* Resources */,
+				4C015F95242027820028811D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

@@ -22,8 +22,6 @@ internal extension Joke {
         /// Get a random, single, Chuck Norris joke.
         case random
 
-        var requiresAuthentication: Bool { true }
-
         internal func baseURL() throws -> Atom.BaseURL {
             try Atom.BaseURL(host: "api.icndb.com")
         }
