@@ -18,3 +18,20 @@ import Foundation
 
 /// Conforming `Data` type to `Model` protocol allows it to be used where `Model` is expected.
 extension Data: Model { }
+
+// MARK: Internal
+
+internal extension Data {
+    /// Attempts to serialize `self` into a JSON object for debug purposes. If serialization
+    /// fails, an instance of `self` is returned.
+    ///
+    /// This property is used in `URLRequest+Additions` for constructing debug description of
+    /// the request that is about to be resumed by `URLSession`.
+    var jsonObjectOrSelf: Any {
+        guard let jsonObject = try? JSONSerialization.jsonObject(with: self, options: []) else {
+            return self
+        }
+
+        return jsonObject
+    }
+}

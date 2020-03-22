@@ -32,3 +32,17 @@ public extension URLResponse {
         }
     }
 }
+
+// MARK: Debug Description
+
+extension URLResponse {
+    /// Returns a textual representation of this instance, suitable for debugging.
+    override public var debugDescription: String {
+        guard let response = self as? HTTPURLResponse else { return description }
+
+        return """
+        ↘︎ Response Code: \(response.statusCode)
+        ↘︎ Response Headers: \(response.allHeaderFields)
+        """
+    }
+}

@@ -73,6 +73,11 @@
 		4C92FD19224E6A6100D16767 /* Result+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92FD18224E6A6100D16767 /* Result+Additions.swift */; };
 		4C96B7142360B6CB0021EDB8 /* Atom+Response+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96B7132360B6CB0021EDB8 /* Atom+Response+Additions.swift */; };
 		4C973FD3237372EC006B2736 /* Atom+AuthenticationMethod+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C973FD2237372EC006B2736 /* Atom+AuthenticationMethod+Additions.swift */; };
+		4CA6564D242189E000E35D9F /* URLSessionTaskMetrics+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6564C242189E000E35D9F /* URLSessionTaskMetrics+Additions.swift */; };
+		4CAB5A69242012E900E4FB97 /* Atom+Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB5A68242012E900E4FB97 /* Atom+Interceptor.swift */; };
+		4CAB5A6C2420217E00E4FB97 /* OSLog+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB5A6B2420217E00E4FB97 /* OSLog+Additions.swift */; };
+		4CAB5A6E2420223800E4FB97 /* Bool+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB5A6D2420223800E4FB97 /* Bool+Additions.swift */; };
+		4CAB5A702420226400E4FB97 /* URLSessionTask+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB5A6F2420226400E4FB97 /* URLSessionTask+Additions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +160,11 @@
 		4C92FD18224E6A6100D16767 /* Result+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Additions.swift"; sourceTree = "<group>"; };
 		4C96B7132360B6CB0021EDB8 /* Atom+Response+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Atom+Response+Additions.swift"; sourceTree = "<group>"; };
 		4C973FD2237372EC006B2736 /* Atom+AuthenticationMethod+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Atom+AuthenticationMethod+Additions.swift"; sourceTree = "<group>"; };
+		4CA6564C242189E000E35D9F /* URLSessionTaskMetrics+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionTaskMetrics+Additions.swift"; sourceTree = "<group>"; };
+		4CAB5A68242012E900E4FB97 /* Atom+Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Atom+Interceptor.swift"; sourceTree = "<group>"; };
+		4CAB5A6B2420217E00E4FB97 /* OSLog+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+Additions.swift"; sourceTree = "<group>"; };
+		4CAB5A6D2420223800E4FB97 /* Bool+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+Additions.swift"; sourceTree = "<group>"; };
+		4CAB5A6F2420226400E4FB97 /* URLSessionTask+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionTask+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +220,7 @@
 				1CC3285420D8773A0099644D /* Common */,
 				1CC3280920D813AF0099644D /* Extensions */,
 				4C6A0D3A23DBC3AE00A64975 /* Global */,
+				4CAB5A67242012D600E4FB97 /* Interceptor */,
 				4C7B85F7237229D000FA85FC /* Managers */,
 				1CC3283D20D85A330099644D /* Models */,
 				1CC3280A20D813C90099644D /* Service */,
@@ -260,6 +271,7 @@
 				1CFD5ACA2135F86B0075EED1 /* Atom Error */,
 				1CC3284220D863130099644D /* Foundation */,
 				4C6A0D3723DBC26200A64975 /* Framework */,
+				4CAB5A6A2420216100E4FB97 /* OSLog */,
 				1CC3287120D970310099644D /* Requestable */,
 			);
 			path = Extensions;
@@ -325,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				1CC3285C20D8BBE80099644D /* Array+Additions.swift */,
+				4CAB5A6D2420223800E4FB97 /* Bool+Additions.swift */,
 				4C316026221F0E5400E853F5 /* Data+Additions.swift */,
 				4C7B85F3237226EC00FA85FC /* Date+Additions.swift */,
 				1CC3284320D863540099644D /* NSRegularExpression+Additions.swift */,
@@ -334,6 +347,8 @@
 				1CC3287C20D99D3F0099644D /* URLComponents+Additions.swift */,
 				1CC3287A20D9990F0099644D /* URLRequest+Additions.swift */,
 				1C67F23020DB10CA00403C93 /* URLResponse+Additions.swift */,
+				4CAB5A6F2420226400E4FB97 /* URLSessionTask+Additions.swift */,
+				4CA6564C242189E000E35D9F /* URLSessionTaskMetrics+Additions.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -433,6 +448,22 @@
 				4C7B85FB23722C5C00FA85FC /* Atom+AuthenticationManager+Status.swift */,
 			);
 			path = "Authentication Manager";
+			sourceTree = "<group>";
+		};
+		4CAB5A67242012D600E4FB97 /* Interceptor */ = {
+			isa = PBXGroup;
+			children = (
+				4CAB5A68242012E900E4FB97 /* Atom+Interceptor.swift */,
+			);
+			path = Interceptor;
+			sourceTree = "<group>";
+		};
+		4CAB5A6A2420216100E4FB97 /* OSLog */ = {
+			isa = PBXGroup;
+			children = (
+				4CAB5A6B2420217E00E4FB97 /* OSLog+Additions.swift */,
+			);
+			path = OSLog;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -573,6 +604,7 @@
 				1CC3285320D875490099644D /* Atom+Method.swift in Sources */,
 				1CC3287320D970560099644D /* Requestable+Implementation.swift in Sources */,
 				1CC3281E20D844610099644D /* Atom+Service.swift in Sources */,
+				4CAB5A6C2420217E00E4FB97 /* OSLog+Additions.swift in Sources */,
 				1CC3284420D863540099644D /* NSRegularExpression+Additions.swift in Sources */,
 				4C3345A52370D23C0075ED92 /* Atom+BaseURL+Scheme.swift in Sources */,
 				1CC3288E20DA010C0099644D /* Atom+Endpoint.swift in Sources */,
@@ -583,6 +615,7 @@
 				4C7B85FA237229F300FA85FC /* Atom+AuthenticationManager.swift in Sources */,
 				1CC3286120D9614C0099644D /* Atom+URLPath.swift in Sources */,
 				4C7B85FC23722C5C00FA85FC /* Atom+AuthenticationManager+Status.swift in Sources */,
+				4CAB5A702420226400E4FB97 /* URLSessionTask+Additions.swift in Sources */,
 				1CC3284620D864210099644D /* String+Additions.swift in Sources */,
 				4C7B86002372361F00FA85FC /* Atom+AuthorizationEndpoint.swift in Sources */,
 				1C241795216687100032A994 /* RequestableError.swift in Sources */,
@@ -597,6 +630,7 @@
 				4C316017221E0CFC00E853F5 /* Model.swift in Sources */,
 				1CC3285B20D8BB360099644D /* AtomError.swift in Sources */,
 				4C3345A92371E6A90075ED92 /* Atom+ClientCredential+GrantType.swift in Sources */,
+				4CAB5A6E2420223800E4FB97 /* Bool+Additions.swift in Sources */,
 				4C7B86022373353B00FA85FC /* Atom+Retryable+Additions.swift in Sources */,
 				4C3345B12371EEE70075ED92 /* Atom+TokenCredential.swift in Sources */,
 				4C3345AD2371E9BF0075ED92 /* Atom+BasicCredential.swift in Sources */,
@@ -607,6 +641,7 @@
 				4C92FD19224E6A6100D16767 /* Result+Additions.swift in Sources */,
 				1C67F23120DB10CA00403C93 /* URLResponse+Additions.swift in Sources */,
 				4C31600D221DE0BE00E853F5 /* Atom+ServiceConfiguration+Timeout.swift in Sources */,
+				4CAB5A69242012E900E4FB97 /* Atom+Interceptor.swift in Sources */,
 				4C3345BB237218670075ED92 /* Atom+Retryable.swift in Sources */,
 				1CC3286520D965F60099644D /* Atom+BaseURL.swift in Sources */,
 				1CC3284B20D8685C0099644D /* Atom+QueryItem.swift in Sources */,
@@ -616,6 +651,7 @@
 				1C4819B720D039D700CB6F31 /* Atom.swift in Sources */,
 				1CFD5ACC2135F8870075EED1 /* AtomError+StringConvertible.swift in Sources */,
 				4C7B85F023721F7800FA85FC /* Atom+AuthenticationMethod.swift in Sources */,
+				4CA6564D242189E000E35D9F /* URLSessionTaskMetrics+Additions.swift in Sources */,
 				4C3345B92371F9550075ED92 /* Atom+TokenCredential+Decodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

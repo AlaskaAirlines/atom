@@ -18,4 +18,9 @@ import Atom
 import Foundation
 
 /// Global instance of Atom networking library.
-internal let atom = Atom()
+internal let atom: Atom = {
+    let atom = Atom()
+    atom.log = .on
+
+    return atom
+}()
