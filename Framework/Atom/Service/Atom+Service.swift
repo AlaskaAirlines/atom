@@ -110,6 +110,10 @@ public extension Atom.Service {
 
             // Initialize `Retryable` with `URLRequest` instance and completion.
             let retryable = Atom.Retryable(request: request, requiresAuthorization: requestable.requiresAuthentication) { data, response, error in
+                print("→ \(data)")
+                print("→ \(response)")
+                print("→ \(error)")
+
                 // Process error returned by the service.
                 if let error = error {
                     queue.async { completion(Result(AtomError.session(error))) }
