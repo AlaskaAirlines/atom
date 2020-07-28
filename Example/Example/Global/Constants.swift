@@ -19,7 +19,8 @@ import Foundation
 
 /// Global instance of Atom networking library.
 internal let atom: Atom = {
-    let atom = Atom()
+    let configuration = Atom.ServiceConfiguration(multipathServiceType: .handover)
+    let atom = Atom(serviceConfiguration: configuration)
     atom.log = .on
 
     return atom
