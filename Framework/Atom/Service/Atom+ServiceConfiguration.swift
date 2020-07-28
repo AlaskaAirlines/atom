@@ -31,6 +31,9 @@ public extension Atom {
         /// The queue to dispatch `Result` object on.
         internal let dispatchQueue: DispatchQueue
 
+        /// The service type that specifies the Multipath TCP connection policy for transmitting data over Wi-Fi and cellular interfaces.
+        internal let multipathServiceType: MultipathServiceType
+
         /// The standardized timeout interval for request and resource.
         internal let timeout: Atom.ServiceConfiguration.Timeout
 
@@ -50,6 +53,19 @@ public extension Atom {
             case ephemeral
         }
 
+        /// Constants that specify the type of service that Multipath TCP uses.
+        ///
+        /// The multipath service type determines whether multipath TCP should be attempted and the conditions
+        /// for creating and switching between subflows. Using these service types requires the appropriate entitlement. Any
+        /// connection attempt will fail if the process does not have the required entitlement.
+        ///
+        /// Available options are:
+        ///  - `.none`        - The default service type indicating that Multipath TCP should not be used.
+        ///  - `.handover`    - A Multipath TCP service that provides seamless handover between Wi-Fi and cellular in order to preserve the connection.
+        ///  - `.interactive` - A service whereby Multipath TCP attempts to use the lowest-latency interface.
+        ///  - `.aggregate`   - A service that aggregates the capacities of other Multipath options in an attempt to increase throughput and minimize latency.
+        public typealias MultipathServiceType = URLSessionConfiguration.MultipathServiceType
+
         /// Creates a `ServiceConfiguration` instance given the provided parameter(s).
         ///
         /// - Parameters:
@@ -57,11 +73,13 @@ public extension Atom {
         ///   - configuration:        The `Atom.ServiceConfiguration.Configuration` - default value is `.ephemeral`.
         ///   - decoder:              The `JSONDecoder` for decoding data into models.
         ///   - dispatchQueue:        The queue to dispatch `Result` object on.
-        public init(authenticationMethod: Atom.AuthenticationMethod = .none, configuration: Atom.ServiceConfiguration.Configuration = .ephemeral, decoder: JSONDecoder = JSONDecoder(), dispatchQueue: DispatchQueue = .main) {
+        ///   - multipathServiceType: The service type that specifies the Multipath TCP connection policy for transmitting data over Wi-Fi and cellular interfaces.
+        public init(authenticationMethod: AuthenticationMethod = .none, configuration: Configuration = .ephemeral, decoder: JSONDecoder = JSONDecoder(), dispatchQueue: DispatchQueue = .main, multipathServiceType: MultipathServiceType = .none) {
             self.authenticationMethod = authenticationMethod
             self.configuration = configuration
             self.decoder = decoder
             self.dispatchQueue = dispatchQueue
+            self.multipathServiceType = multipathServiceType
             self.timeout = Timeout()
         }
     }
@@ -85,6 +103,7 @@ internal extension Atom.ServiceConfiguration {
 
         sessionConfiguration.timeoutIntervalForRequest = timeout.request
         sessionConfiguration.timeoutIntervalForResource = timeout.resource
+        sessionConfiguration.multipathServiceType = multipathServiceType
 
         return sessionConfiguration
     }

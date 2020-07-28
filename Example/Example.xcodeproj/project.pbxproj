@@ -45,6 +45,7 @@
 		1CC3288420D9BE5F0099644D /* Joke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Joke.swift; sourceTree = "<group>"; };
 		1CC3288820D9BEC70099644D /* Joke+Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Joke+Endpoint.swift"; sourceTree = "<group>"; };
 		1CC3288B20D9C4A80099644D /* Atom.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Atom.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C79112E24D0979E00DC6E00 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +80,7 @@
 		1C48198D20D034E200CB6F31 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				4C79112E24D0979E00DC6E00 /* Example.entitlements */,
 				1C4819A920D0356100CB6F31 /* Controllers */,
 				1CC3288620D9BEA50099644D /* Extensions */,
 				1CC3288020D9BE1A0099644D /* Global */,
@@ -377,6 +379,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H562758AXX;
 				INFOPLIST_FILE = Example/Info.plist;
@@ -395,6 +398,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H562758AXX;
 				INFOPLIST_FILE = Example/Info.plist;
