@@ -31,9 +31,6 @@ public extension Atom {
         /// The queue to dispatch `Result` object on.
         internal let dispatchQueue: DispatchQueue
 
-        /// The service type that specifies the Multipath TCP connection policy for transmitting data over Wi-Fi and cellular interfaces.
-        internal let multipathServiceType: MultipathServiceType
-
         /// The standardized timeout interval for request and resource.
         internal let timeout: Atom.ServiceConfiguration.Timeout
 
@@ -64,7 +61,11 @@ public extension Atom {
         ///  - `.handover`    - A Multipath TCP service that provides seamless handover between Wi-Fi and cellular in order to preserve the connection.
         ///  - `.interactive` - A service whereby Multipath TCP attempts to use the lowest-latency interface.
         ///  - `.aggregate`   - A service that aggregates the capacities of other Multipath options in an attempt to increase throughput and minimize latency.
+        #if os(iOS)
         public typealias MultipathServiceType = URLSessionConfiguration.MultipathServiceType
+
+        /// The service type that specifies the Multipath TCP connection policy for transmitting data over Wi-Fi and cellular interfaces.
+        internal var multipathServiceType: MultipathServiceType = .none
 
         /// Creates a `ServiceConfiguration` instance given the provided parameter(s).
         ///
@@ -82,6 +83,24 @@ public extension Atom {
             self.multipathServiceType = multipathServiceType
             self.timeout = Timeout()
         }
+
+        #else
+
+        /// Creates a `ServiceConfiguration` instance given the provided parameter(s).
+        ///
+        /// - Parameters:
+        ///   - authenticationMethod: The authentication method indicating how authorization header will be handled in Atom.
+        ///   - configuration:        The `Atom.ServiceConfiguration.Configuration` - default value is `.ephemeral`.
+        ///   - decoder:              The `JSONDecoder` for decoding data into models.
+        ///   - dispatchQueue:        The queue to dispatch `Result` object on.
+        public init(authenticationMethod: AuthenticationMethod = .none, configuration: Configuration = .ephemeral, decoder: JSONDecoder = JSONDecoder(), dispatchQueue: DispatchQueue = .main) {
+            self.authenticationMethod = authenticationMethod
+            self.configuration = configuration
+            self.decoder = decoder
+            self.dispatchQueue = dispatchQueue
+            self.timeout = Timeout()
+        }
+        #endif
     }
 }
 
@@ -103,7 +122,10 @@ internal extension Atom.ServiceConfiguration {
 
         sessionConfiguration.timeoutIntervalForRequest = timeout.request
         sessionConfiguration.timeoutIntervalForResource = timeout.resource
+
+        #if os(iOS)
         sessionConfiguration.multipathServiceType = multipathServiceType
+        #endif
 
         return sessionConfiguration
     }

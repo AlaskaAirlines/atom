@@ -13,7 +13,7 @@ let package = Package(
     name: "Atom",
     platforms: [
         .iOS(.v11),
-        .macOS(.v10_12)
+        .macOS(.v10_14)
     ],
     products: [
         .library(
