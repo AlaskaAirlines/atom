@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ internal class BaseURLSchemeTests: BaseCase {
         let https = "https://"
 
         // Then
-        XCTAssertEqual(Atom.BaseURL.Scheme.http.stringValue, http)
-        XCTAssertEqual(Atom.BaseURL.Scheme.https.stringValue, https)
+        XCTAssertEqual(BaseURL.Scheme.http.stringValue, http)
+        XCTAssertEqual(BaseURL.Scheme.https.stringValue, https)
     }
 }

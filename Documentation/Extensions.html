@@ -8,13 +8,21 @@
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Section/Extensions" class="dashAnchor"></a>
     <a title="Extensions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Atom Docs</a> (99% documented)</p>
+        <p><a href="index.html">Atom Docs</a> (98% documented)</p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -34,40 +42,13 @@
                 <a href="Classes/Atom.html">Atom</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Atom/AuthenticationMethod.html">– AuthenticationMethod</a>
+                <a href="Classes/Service.html">Service</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Atom/AuthorizationEndpoint.html">– AuthorizationEndpoint</a>
+                <a href="Classes/ServiceConfiguration.html">ServiceConfiguration</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Atom/BaseURL.html">– BaseURL</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/BasicCredential.html">– BasicCredential</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/ClientCredential.html">– ClientCredential</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/HeaderItem.html">– HeaderItem</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/Method.html">– Method</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/Response.html">– Response</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/TokenCredential.html">– TokenCredential</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/URLPath.html">– URLPath</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/Service.html">– Service</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/ServiceConfiguration.html">– ServiceConfiguration</a>
+                <a href="Classes/ServiceConfiguration/Configuration.html">– Configuration</a>
               </li>
             </ul>
           </li>
@@ -78,6 +59,12 @@
                 <a href="Enums/AtomError.html">AtomError</a>
               </li>
               <li class="nav-group-task">
+                <a href="Enums/AuthenticationMethod.html">AuthenticationMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums/RequestableError.html">RequestableError</a>
               </li>
             </ul>
@@ -86,10 +73,10 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Extensions/Bool.html">Bool</a>
+                <a href="Extensions/Array.html">Array</a>
               </li>
               <li class="nav-group-task">
-                <a href="Extensions/Optional.html">Optional</a>
+                <a href="Extensions.html#/s:10Foundation4DataV">Data</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/URLRequest.html">URLRequest</a>
@@ -121,7 +108,48 @@
                 <a href="Protocols/Requestable.html">Requestable</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/RequestableItem.html">RequestableItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/TokenCredentialWritable.html">TokenCredentialWritable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/AtomResponse.html">AtomResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AuthorizationEndpoint.html">AuthorizationEndpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/BaseURL.html">BaseURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/BaseURL/Scheme.html">– Scheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/BasicCredential.html">BasicCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientCredential.html">ClientCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientCredential/GrantType.html">– GrantType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/HeaderItem.html">HeaderItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/QueryItem.html">QueryItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TokenCredential.html">TokenCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/URLPath.html">URLPath</a>
               </li>
             </ul>
           </li>
@@ -140,9 +168,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sb"></a>
-                    <a name="//apple_ref/swift/Extension/Bool" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sb">Bool</a>
+                    <a name="/s:Sa"></a>
+                    <a name="//apple_ref/swift/Extension/Array" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sa">Array</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -150,31 +178,30 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
-                        <a href="Extensions/Bool.html" class="slightly-smaller">See more</a>
+                        <p>Adds the ability to specify an array as the expected decoded type.</p>
+
+<p>Each element must conform to <code><a href="Protocols.html#/s:4Atom5ModelP">Model</a></code> protocol.</p>
+
+                        <a href="Extensions/Array.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@frozen</span>
-<span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Array</span><span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:4Atom5ModelP">Model</a></span> <span class="k">where</span> <span class="kt">Element</span><span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:4Atom5ModelP">Model</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Array</span><span class="p">:</span> <span class="kt">ExpressibleByDictionaryLiteral</span> <span class="k">where</span> <span class="kt">Element</span><span class="p">:</span> <span class="kt"><a href="Protocols/RequestableItem.html">RequestableItem</a></span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:Sq"></a>
-                    <a name="//apple_ref/swift/Extension/Optional" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sq">Optional</a>
+                    <a name="/s:10Foundation4DataV"></a>
+                    <a name="//apple_ref/swift/Extension/Data" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10Foundation4DataV">Data</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -182,15 +209,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
-                        <a href="Extensions/Optional.html" class="slightly-smaller">See more</a>
+                        <p>Conforming <code>Data</code> type to <code><a href="Protocols.html#/s:4Atom5ModelP">Model</a></code> protocol allows it to be used where <code><a href="Protocols.html#/s:4Atom5ModelP">Model</a></code> is expected.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@frozen</span>
-<span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Optional</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Data</span><span class="p">:</span> <span class="kt"><a href="Protocols.html#/s:4Atom5ModelP">Model</a></span></code></pre>
 
                         </div>
                       </div>
@@ -203,9 +229,11 @@
               <div class="task-name-container">
                 <a name="/Debug%20Description"></a>
                 <a name="//apple_ref/swift/Section/Debug Description" class="dashAnchor"></a>
-                <a href="#/Debug%20Description">
-                  <h3 class="section-name">Debug Description</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Debug%20Description"></a>
+                  <h3 class="section-name"><p>Debug Description</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -235,10 +263,6 @@
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -266,10 +290,6 @@
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -297,10 +317,6 @@
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -333,8 +349,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-03-18)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-12-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

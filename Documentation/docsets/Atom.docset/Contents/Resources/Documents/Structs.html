@@ -8,13 +8,21 @@
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
     <a title="Structures  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Atom Docs</a> (99% documented)</p>
+        <p><a href="index.html">Atom Docs</a> (98% documented)</p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -28,10 +36,33 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/Atom.html">Atom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Service.html">Service</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ServiceConfiguration.html">ServiceConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ServiceConfiguration/Configuration.html">– Configuration</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Enums.html">Enumerations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Enums/AtomError.html">AtomError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/AuthenticationMethod.html">AuthenticationMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/HTTPMethod.html">HTTPMethod</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/RequestableError.html">RequestableError</a>
@@ -42,10 +73,22 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Extensions/Optional.html">Optional</a>
+                <a href="Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions.html#/s:10Foundation4DataV">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLRequest.html">URLRequest</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/URLResponse.html">URLResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLSessionTask.html">URLSessionTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/URLSessionTaskMetrics.html">URLSessionTaskMetrics</a>
               </li>
             </ul>
           </li>
@@ -65,6 +108,9 @@
                 <a href="Protocols/Requestable.html">Requestable</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/RequestableItem.html">RequestableItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/TokenCredentialWritable.html">TokenCredentialWritable</a>
               </li>
             </ul>
@@ -73,43 +119,37 @@
             <a href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Structs/Atom.html">Atom</a>
+                <a href="Structs/AtomResponse.html">AtomResponse</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Atom/AuthenticationMethod.html">– AuthenticationMethod</a>
+                <a href="Structs/AuthorizationEndpoint.html">AuthorizationEndpoint</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Atom/AuthorizationEndpoint.html">– AuthorizationEndpoint</a>
+                <a href="Structs/BaseURL.html">BaseURL</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Atom/BaseURL.html">– BaseURL</a>
+                <a href="Structs/BaseURL/Scheme.html">– Scheme</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Atom/BasicCredential.html">– BasicCredential</a>
+                <a href="Structs/BasicCredential.html">BasicCredential</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Atom/ClientCredential.html">– ClientCredential</a>
+                <a href="Structs/ClientCredential.html">ClientCredential</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Atom/HeaderItem.html">– HeaderItem</a>
+                <a href="Structs/ClientCredential/GrantType.html">– GrantType</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Atom/Method.html">– Method</a>
+                <a href="Structs/HeaderItem.html">HeaderItem</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Atom/Response.html">– Response</a>
+                <a href="Structs/QueryItem.html">QueryItem</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Atom/TokenCredential.html">– TokenCredential</a>
+                <a href="Structs/TokenCredential.html">TokenCredential</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Atom/URLPath.html">– URLPath</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/Service.html">– Service</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Atom/ServiceConfiguration.html">– ServiceConfiguration</a>
+                <a href="Structs/URLPath.html">URLPath</a>
               </li>
             </ul>
           </li>
@@ -128,9 +168,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:4AtomAAV"></a>
-                    <a name="//apple_ref/swift/Struct/Atom" class="dashAnchor"></a>
-                    <a class="token" href="#/s:4AtomAAV">Atom</a>
+                    <a name="/s:4Atom0A8ResponseV"></a>
+                    <a name="//apple_ref/swift/Struct/AtomResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom0A8ResponseV">AtomResponse</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -138,15 +178,243 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The lightweight &amp; delightful networking library.</p>
+                        <p>The metadata associated with the response to a URL load request, independent of protocol and URL scheme.</p>
 
-                        <a href="Structs/Atom.html" class="slightly-smaller">See more</a>
+                        <a href="Structs/AtomResponse.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Atom</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AtomResponse</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom21AuthorizationEndpointV"></a>
+                    <a name="//apple_ref/swift/Struct/AuthorizationEndpoint" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom21AuthorizationEndpointV">AuthorizationEndpoint</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Model object representing the location of the authorization server.</p>
+
+                        <a href="Structs/AuthorizationEndpoint.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">AuthorizationEndpoint</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom7BaseURLV"></a>
+                    <a name="//apple_ref/swift/Struct/BaseURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom7BaseURLV">BaseURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Model object representing base URL composed from URL scheme and host.</p>
+
+                        <a href="Structs/BaseURL.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BaseURL</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom15BasicCredentialV"></a>
+                    <a name="//apple_ref/swift/Struct/BasicCredential" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom15BasicCredentialV">BasicCredential</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>BasicCredential</code> type declares an object used by Atom in network requests that require basic authentication. Before
+basic authentication is applied as Authorization header value, username and password will be combined into a single
+string using <code>:</code> and base 64 encoded.</p>
+
+                        <a href="Structs/BasicCredential.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BasicCredential</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom16ClientCredentialV"></a>
+                    <a name="//apple_ref/swift/Struct/ClientCredential" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom16ClientCredentialV">ClientCredential</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>ClientCredential</code> type declares an object used by Atom for automated refreshing of the access token.
+See <a href="https://tools.ietf.org/html/RFC6749">https://tools.ietf.org/html/RFC6749</a></p>
+
+                        <a href="Structs/ClientCredential.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ClientCredential</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom10HeaderItemV"></a>
+                    <a name="//apple_ref/swift/Struct/HeaderItem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom10HeaderItemV">HeaderItem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A single name-value pair from the header portion of a request.</p>
+
+                        <a href="Structs/HeaderItem.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">HeaderItem</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RequestableItem.html">RequestableItem</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom9QueryItemV"></a>
+                    <a name="//apple_ref/swift/Struct/QueryItem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom9QueryItemV">QueryItem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A single name-value pair from the query portion of a URL.</p>
+
+                        <a href="Structs/QueryItem.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">QueryItem</span> <span class="p">:</span> <span class="kt"><a href="Protocols/RequestableItem.html">RequestableItem</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom15TokenCredentialV"></a>
+                    <a name="//apple_ref/swift/Struct/TokenCredential" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom15TokenCredentialV">TokenCredential</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>TokenCredential</code> type declares an object used by Atom in network requests that require bearer authentication.</p>
+
+                        <a href="Structs/TokenCredential.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">TokenCredential</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TokenCredential</span><span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom7URLPathV"></a>
+                    <a name="//apple_ref/swift/Struct/URLPath" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom7URLPathV">URLPath</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Model object representing URL path.</p>
+
+                        <a href="Structs/URLPath.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">URLPath</span></code></pre>
 
                         </div>
                       </div>
@@ -158,8 +426,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-01-24)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-12-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,9 +23,9 @@ internal extension URLComponents {
     ///   - baseURLString: The `Requestable` base URL string value.
     ///   - path:          The `Requestable` path string value.
     ///   - queryItems:    The `Requestable` queryItems.
-    init?(_ baseURLString: String, path: String, queryItems: [Atom.QueryItem]?) {
+    init?(_ baseURLString: String, path: String, queryItems: [QueryItem]?) {
         self.init(string: baseURLString)
         self.path = path
-        self.queryItems = queryItems
+        self.queryItems = queryItems?.compactMap { URLQueryItem(name: $0.name, value: $0.value) }
     }
 }

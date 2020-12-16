@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -105,7 +105,7 @@ internal class URLRequestTests: BaseCase {
 
         // Then
         XCTAssertNil(requestableError)
-        XCTAssertEqual(request?.httpMethod, Atom.Method.get.stringValue)
+        XCTAssertEqual(request?.httpMethod, HTTPMethod.get.stringValue)
     }
 }
 
@@ -113,7 +113,7 @@ internal class URLRequestTests: BaseCase {
 
 private extension URLRequestTests {
     /// Test header values.
-    private static let headers = [Atom.HeaderItem(name: "name", value: "value")]
+    private static let headers = [HeaderItem(name: "name", value: "value")]
 
     /// Test body data.
     private static let body = Data()
@@ -128,9 +128,9 @@ private extension URLRequestTests {
         case validHTTPBody
         case validMethod
 
-        var headerItems: [Atom.HeaderItem]? { URLRequestTests.headers }
+        var headerItems: [HeaderItem]? { URLRequestTests.headers }
 
-        var method: Atom.Method {
+        var method: HTTPMethod {
             switch self {
             case .validHTTPBody:
                 return .post(URLRequestTests.body)
@@ -139,21 +139,21 @@ private extension URLRequestTests {
             }
         }
 
-        func baseURL() throws -> Atom.BaseURL {
+        func baseURL() throws -> BaseURL {
             switch self {
             case .invalidBaseURL:
-                return try Atom.BaseURL(host: "/alaskaair/")
+                return try BaseURL(host: "/alaskaair/")
             default:
-                return try Atom.BaseURL(host: "api.alaskaair.net")
+                return try BaseURL(host: "api.alaskaair.net")
             }
         }
 
-        func path() throws -> Atom.URLPath {
+        func path() throws -> URLPath {
             switch self {
             case .invalidURLPath:
-                return try Atom.URLPath("path")
+                return try URLPath("path")
             default:
-                return try Atom.URLPath("/path/to/resource")
+                return try URLPath("/path/to/resource")
             }
         }
     }
