@@ -1,9 +1,16 @@
 {
   "warnings": [
     {
-      "file": "/Users/michael/Developer/Alaska/Atom/Framework/Atom/Models/Atom+Response.swift",
-      "line": 22,
-      "symbol": "Atom.Response.HeaderFields",
+      "file": "/Users/michael/Developer/Alaska/Atom/Framework/Atom/Models/AtomResponse.swift",
+      "line": 21,
+      "symbol": "AtomResponse.HeaderFields",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/michael/Developer/Alaska/Atom/Framework/Atom/Service/ServiceConfiguration.swift",
+      "line": 64,
+      "symbol": "ServiceConfiguration.MultipathServiceType",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     }

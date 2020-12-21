@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 
 import Foundation
 
-public extension Optional {
+internal extension Optional {
     /// Unwraps an optional value. Terminates the process if the value is `nil`.
     ///
     /// - Warning:

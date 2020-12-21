@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,9 +35,9 @@ public extension URLResponse {
 
 // MARK: Debug Description
 
-extension URLResponse {
+public extension URLResponse {
     /// Returns a textual representation of this instance, suitable for debugging.
-    override public var debugDescription: String {
+    override var debugDescription: String {
         guard let response = self as? HTTPURLResponse else { return description }
 
         return """

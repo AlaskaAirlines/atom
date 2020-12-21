@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 @testable import Atom
 import XCTest
 
-internal class MethodTests: BaseCase {
+internal class HTTPMethodTests: BaseCase {
     internal func testMethodCaseReturnsExpectedStringValue() {
         // Give, When
         let delete = "DELETE"
@@ -27,10 +27,10 @@ internal class MethodTests: BaseCase {
         let put = "PUT"
 
         // Then
-        XCTAssertEqual(Atom.Method.delete.stringValue, delete)
-        XCTAssertEqual(Atom.Method.get.stringValue, get)
-        XCTAssertEqual(Atom.Method.patch(Data()).stringValue, patch)
-        XCTAssertEqual(Atom.Method.post(Data()).stringValue, post)
-        XCTAssertEqual(Atom.Method.put(Data()).stringValue, put)
+        XCTAssertEqual(HTTPMethod.delete.stringValue, delete)
+        XCTAssertEqual(HTTPMethod.get.stringValue, get)
+        XCTAssertEqual(HTTPMethod.patch(Data()).stringValue, patch)
+        XCTAssertEqual(HTTPMethod.post(Data()).stringValue, post)
+        XCTAssertEqual(HTTPMethod.put(Data()).stringValue, put)
     }
 }

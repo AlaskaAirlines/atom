@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ internal class BaseURLTests: BaseCase {
     internal func testBaseURLInitializationFailure() {
         // Given
         let host = ".api.alaskaair.net"
-        let atomBaseURL = try? Atom.BaseURL(host: host)
+        let atomBaseURL = try? BaseURL(host: host)
 
         // Then
         XCTAssertNil(atomBaseURL)
@@ -31,12 +31,12 @@ internal class BaseURLTests: BaseCase {
         // Given
         let host = "api.alaskaair.net"
         let baseURL = "https://api.alaskaair.net"
-        var atomBaseURL: Atom.BaseURL?
+        var atomBaseURL: BaseURL?
         var requestableError: RequestableError?
 
         // When
         do {
-            atomBaseURL = try Atom.BaseURL(host: host)
+            atomBaseURL = try BaseURL(host: host)
         } catch let error as RequestableError {
             requestableError = error
         } catch { XCTFail("Unexpected error thrown.") }

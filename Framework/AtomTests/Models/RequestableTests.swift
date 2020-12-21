@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ internal class RequestableTests: BaseCase {
 
         // Then
         XCTAssertEqual(endpoint.method, .get)
-        XCTAssertEqual(try? endpoint.path().stringValue, Atom.URLPath.default.stringValue)
+        XCTAssertEqual(try? endpoint.path().stringValue, URLPath.default.stringValue)
         XCTAssertNil(endpoint.headerItems)
         XCTAssertNil(endpoint.queryItems)
     }
@@ -34,8 +34,8 @@ internal class RequestableTests: BaseCase {
 
 private extension RequestableTests {
     private struct Endpoint: Requestable {
-        func baseURL() throws -> Atom.BaseURL {
-            try Atom.BaseURL(host: "api.alaskaair.com")
+        func baseURL() throws -> BaseURL {
+            try BaseURL(host: "api.alaskaair.com")
         }
     }
 }

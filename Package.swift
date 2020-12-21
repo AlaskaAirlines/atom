@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.3
 //
 //  Package.swift
 //  Atom
@@ -23,7 +23,8 @@ let package = Package(
     targets: [
         .target(
             name: "Atom",
-            path: "Framework/Atom")
+            path: "Framework/Atom",
+            exclude:["Info.plist"])
     ],
     swiftLanguageVersions: [.v5]
 )

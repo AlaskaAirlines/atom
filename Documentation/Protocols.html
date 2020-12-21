@@ -8,13 +8,21 @@
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
     
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
   </head>
   <body>
     <a name="//apple_ref/swift/Section/Protocols" class="dashAnchor"></a>
     <a title="Protocols  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Atom Docs</a> (99% documented)</p>
+        <p><a href="index.html">Atom Docs</a> (98% documented)</p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -34,40 +42,13 @@
                 <a href="Classes/Atom.html">Atom</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Atom/AuthenticationMethod.html">– AuthenticationMethod</a>
+                <a href="Classes/Service.html">Service</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Atom/AuthorizationEndpoint.html">– AuthorizationEndpoint</a>
+                <a href="Classes/ServiceConfiguration.html">ServiceConfiguration</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Atom/BaseURL.html">– BaseURL</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/BasicCredential.html">– BasicCredential</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/ClientCredential.html">– ClientCredential</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/HeaderItem.html">– HeaderItem</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/Method.html">– Method</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/Response.html">– Response</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/TokenCredential.html">– TokenCredential</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/URLPath.html">– URLPath</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/Service.html">– Service</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/Atom/ServiceConfiguration.html">– ServiceConfiguration</a>
+                <a href="Classes/ServiceConfiguration/Configuration.html">– Configuration</a>
               </li>
             </ul>
           </li>
@@ -78,6 +59,12 @@
                 <a href="Enums/AtomError.html">AtomError</a>
               </li>
               <li class="nav-group-task">
+                <a href="Enums/AuthenticationMethod.html">AuthenticationMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums/RequestableError.html">RequestableError</a>
               </li>
             </ul>
@@ -86,10 +73,10 @@
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Extensions/Bool.html">Bool</a>
+                <a href="Extensions/Array.html">Array</a>
               </li>
               <li class="nav-group-task">
-                <a href="Extensions/Optional.html">Optional</a>
+                <a href="Extensions.html#/s:10Foundation4DataV">Data</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/URLRequest.html">URLRequest</a>
@@ -121,7 +108,48 @@
                 <a href="Protocols/Requestable.html">Requestable</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/RequestableItem.html">RequestableItem</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/TokenCredentialWritable.html">TokenCredentialWritable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/AtomResponse.html">AtomResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/AuthorizationEndpoint.html">AuthorizationEndpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/BaseURL.html">BaseURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/BaseURL/Scheme.html">– Scheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/BasicCredential.html">BasicCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientCredential.html">ClientCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ClientCredential/GrantType.html">– GrantType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/HeaderItem.html">HeaderItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/QueryItem.html">QueryItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/TokenCredential.html">TokenCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/URLPath.html">URLPath</a>
               </li>
             </ul>
           </li>
@@ -135,107 +163,6 @@
 
           </section>
           <section class="section task-group-section">
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:4Atom26BasicCredentialConvertibleP"></a>
-                    <a name="//apple_ref/swift/Protocol/BasicCredentialConvertible" class="dashAnchor"></a>
-                    <a class="token" href="#/s:4Atom26BasicCredentialConvertibleP">BasicCredentialConvertible</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The <code>BasicCredentialConvertible</code> protocol declares an interface used for converting conforming type to <code><a href="Classes/Atom/BasicCredential.html">Atom.BasicCredential</a></code>.</p>
-
-<p>Atom can be configured to automatically apply authorization header to any <code><a href="Protocols/Requestable.html">Requestable</a></code> instance. Once properly configured, Atom will read
-credentials from the storage specified by the client and apply them to <code><a href="Protocols/Requestable.html">Requestable</a></code> instance if <code>requiresAuthentication</code> property
-is set to <code>true</code>. Values will be set as <code>Authorization: Basic base64-encoded-credential</code> header value.</p>
-
-<p>For more information see <code>Atom.Configuration</code> documentation.</p>
-
-                        <a href="Protocols/BasicCredentialConvertible.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">BasicCredentialConvertible</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:4Atom27ClientCredentialConvertibleP"></a>
-                    <a name="//apple_ref/swift/Protocol/ClientCredentialConvertible" class="dashAnchor"></a>
-                    <a class="token" href="#/s:4Atom27ClientCredentialConvertibleP">ClientCredentialConvertible</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The <code>ClientCredentialConvertible</code> protocol declares an interface used for converting conforming type to <code><a href="Classes/Atom/ClientCredential.html">Atom.ClientCredential</a></code>.</p>
-
-                        <a href="Protocols/ClientCredentialConvertible.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ClientCredentialConvertible</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:4Atom5ModelP"></a>
-                    <a name="//apple_ref/swift/Protocol/Model" class="dashAnchor"></a>
-                    <a class="token" href="#/s:4Atom5ModelP">Model</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The <code>Model</code> protocol declares an interface used as a generic constraint on <code><a href="Classes/Atom/Service.html">Atom.Service</a></code> methods.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Model</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
             <div class="task-group">
               <ul>
                 <li class="item">
@@ -266,10 +193,123 @@ is set to <code>true</code>. Values will be set as <code>Authorization: Basic ba
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom26BasicCredentialConvertibleP"></a>
+                    <a name="//apple_ref/swift/Protocol/BasicCredentialConvertible" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom26BasicCredentialConvertibleP">BasicCredentialConvertible</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>BasicCredentialConvertible</code> protocol declares an interface used for converting conforming type to <code><a href="Structs/BasicCredential.html">BasicCredential</a></code>.</p>
+
+<p>Atom can be configured to automatically apply authorization header to any <code><a href="Protocols/Requestable.html">Requestable</a></code> instance. Once properly configured, Atom will read
+credentials from the storage specified by the client and apply them to <code><a href="Protocols/Requestable.html">Requestable</a></code> instance if <code>requiresAuthentication</code> property
+is set to <code>true</code>. Values will be set as <code>Authorization: Basic base64-encoded-credential</code> header value.</p>
+
+<p>For more information see <code>Configuration</code> documentation.</p>
+
+                        <a href="Protocols/BasicCredentialConvertible.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">BasicCredentialConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom27ClientCredentialConvertibleP"></a>
+                    <a name="//apple_ref/swift/Protocol/ClientCredentialConvertible" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom27ClientCredentialConvertibleP">ClientCredentialConvertible</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>ClientCredentialConvertible</code> protocol declares an interface used for converting conforming type to <code><a href="Structs/ClientCredential.html">ClientCredential</a></code>.</p>
+
+                        <a href="Protocols/ClientCredentialConvertible.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ClientCredentialConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom5ModelP"></a>
+                    <a name="//apple_ref/swift/Protocol/Model" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom5ModelP">Model</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>Model</code> protocol declares an interface used as a generic constraint on <code><a href="Classes/Service.html">Service</a></code> methods.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Model</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">Encodable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:4Atom15RequestableItemP"></a>
+                    <a name="//apple_ref/swift/Protocol/RequestableItem" class="dashAnchor"></a>
+                    <a class="token" href="#/s:4Atom15RequestableItemP">RequestableItem</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>RequestableItem</code> protocol declares an interface used for specifying HTTP header values &amp; request queries.</p>
+
+                        <a href="Protocols/RequestableItem.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">RequestableItem</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -283,7 +323,7 @@ is set to <code>true</code>. Values will be set as <code>Authorization: Basic ba
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code>TokenCredentialWritable</code> protocol declares an interface used for reading from / writing to <code><a href="Classes/Atom/TokenCredential.html">Atom.TokenCredential</a></code>.</p>
+                        <p>The <code>TokenCredentialWritable</code> protocol declares an interface used for reading from / writing to <code><a href="Structs/TokenCredential.html">TokenCredential</a></code>.</p>
 
 <p>Atom can be configured to automatically apply authorization header to any <code><a href="Protocols/Requestable.html">Requestable</a></code> instance. Once properly configured, Atom will read
 credentials from the storage specified by the client and apply them to <code><a href="Protocols/Requestable.html">Requestable</a></code> instance if <code>requiresAuthentication</code> property
@@ -291,14 +331,14 @@ is set to <code>true</code>. Values will be set as <code>Authorization: Bearer t
 
 <p>Proper configuration requires that the client conform and implement <code>TokenCredentialWritable</code> protocol where the conforming type is a class.</p>
 <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">SSOCredential</span><span class="p">:</span> <span class="kt">TokenCredentialWritable</span> <span class="p">{</span>
-    <span class="k">var</span> <span class="nv">tokenCredential</span><span class="p">:</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">TokenCredential</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">tokenCredential</span><span class="p">:</span> <span class="kt">TokenCredential</span> <span class="p">{</span>
         <span class="k">get</span> <span class="p">{</span> <span class="n">keychain</span><span class="o">.</span><span class="nf">value</span><span class="p">()</span> <span class="p">}</span>
         <span class="k">set</span> <span class="p">{</span> <span class="n">keychain</span><span class="o">.</span><span class="nf">save</span><span class="p">(</span><span class="n">newValue</span><span class="p">)</span> <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre>
 
-<p>For more information see <code>Atom.Configuration</code> documentation.</p>
+<p>For more information see <code>Configuration</code> documentation.</p>
 
                         <a href="Protocols/TokenCredentialWritable.html" class="slightly-smaller">See more</a>
                       </div>
@@ -318,8 +358,8 @@ is set to <code>true</code>. Values will be set as <code>Authorization: Bearer t
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-03-18)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.11.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-12-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

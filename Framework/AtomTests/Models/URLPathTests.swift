@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ internal class URLPathTests: BaseCase {
     internal func testURLPathInitializationFailure() {
         // Given, When
         let path = "path"
-        let atomPath = try? Atom.URLPath(path)
+        let atomPath = try? URLPath(path)
 
         // Then
         XCTAssertNil(atomPath)
@@ -30,12 +30,12 @@ internal class URLPathTests: BaseCase {
     internal func testURLPathInitializationSuccess() {
         // Given
         let path = "/path"
-        var atomPath: Atom.URLPath?
+        var atomPath: URLPath?
         var requestableError: RequestableError?
 
         // When
         do {
-            atomPath = try Atom.URLPath(path)
+            atomPath = try URLPath(path)
         } catch let error as RequestableError {
             requestableError = error
         } catch { XCTFail("Unexpected error thrown.") }

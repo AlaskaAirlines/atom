@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -32,8 +32,8 @@ public enum AtomError: Error {
     /// An optional response `data` will be set for further processing of the `body`. In the
     /// context of ACE Group, `data` will contain the error message or the model object.
     ///
-    /// For more information, see `Atom.Response`.
-    case response(Atom.Response)
+    /// For more information, see `AtomResponse`.
+    case response(AtomResponse)
 
     /// URLSession failed with error.
     case session(Error)

@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,10 +21,22 @@ import Foundation
 /// Each element must conform to `Model` protocol.
 extension Array: Model where Element: Model { }
 
+// MARK: ExpressibleByDictionaryLiteral
+
+extension Array: ExpressibleByDictionaryLiteral where Element: RequestableItem {
+    public init(dictionaryLiteral elements: (String, String)...) {
+        self.init()
+
+        for element in elements {
+            self.append(.init(name: element.0, value: element.1))
+        }
+    }
+}
+
 // MARK: Internal
 
-internal extension Array where Element == Atom.HeaderItem {
-    /// Returns an array of `Atom.HeaderItem` as a dictionary.
+internal extension Array where Element: RequestableItem {
+    /// Returns an array of `HeaderItem` as a dictionary.
     var dictionary: [String: String] {
         return reduce([:]) {
             var result = $0

@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2019 Alaska Airlines
+// Copyright (c) 2020 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ import Foundation
 
 /// The lightweight & delightful networking library.
 public final class Atom {
-    /// The `Atom.Service` instance.
-    private let service: Atom.Service
+    /// The `Service` instance.
+    private let service: Service
 
     /// A `Bool` indicating whether or not all service requests should be logged to the console.
     ///
@@ -32,16 +32,16 @@ public final class Atom {
     ///
     /// - Categories: Network, Authentication.
     /// - Subsystems: Your App's Bundle Identifier.
-    public var log: Bool = .off {
+    public var log: Bool = false {
         didSet { consoleLog = log }
     }
 
     /// Creates a `Atom` instance given the provided parameter(s).
     ///
     /// - Parameters:
-    ///   - serviceConfiguration: The service configuration data used for initializing `Atom.Service` instance.
-    public init(serviceConfiguration: Atom.ServiceConfiguration = Atom.ServiceConfiguration()) {
-        self.service = Atom.Service(serviceConfiguration: serviceConfiguration)
+    ///   - serviceConfiguration: The service configuration data used for initializing `Service` instance.
+    public init(serviceConfiguration: ServiceConfiguration = ServiceConfiguration()) {
+        self.service = Service(serviceConfiguration: serviceConfiguration)
     }
 }
 
@@ -56,21 +56,21 @@ public extension Atom {
         service.cancelAllSessionTasks()
     }
 
-    /// Prepares `Atom.Service` for a network call.
+    /// Prepares `Service` for a network call.
     ///
-    /// Calling `load()` method will not initiate a network call until
-    /// one of the available methods on `Atom.Service` is called first.
+    /// Calling `enqueue(_:)` method will not initiate a network call until
+    /// one of the available methods on `Service` is called first.
     ///
     /// - Note:
-    ///   Calling `load()` method multiple times without executing a network call will update
-    ///   previously set `requestable` property on `Atom.Service` with new value. `Atom` framework
+    ///   Calling `enqueue(_:)` method multiple times without executing a network call will update
+    ///   previously set `requestable` property on `Service` with new value. `Atom` framework
     ///   does not support queue based flow.
     ///
     /// - Parameters:
     ///   - requestable: The requestable item containing required data for a network call.
     ///
-    /// - Returns: Updated `Atom.Service` instance initialized using `Atom.ServiceConfiguration`.
-    func load(_ requestable: Requestable) -> Atom.Service {
+    /// - Returns: Updated `Service` instance initialized using `ServiceConfiguration`.
+    func enqueue(_ requestable: Requestable) -> Service {
         service.update(with: requestable)
     }
 }

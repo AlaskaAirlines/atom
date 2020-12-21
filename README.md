@@ -8,6 +8,8 @@ Atom is a wrapper library built around a subset of features offered by `URLSessi
 ## Features
 - [x] Simple to setup, easy to use & efficient
 - [x] Supports any endpoint
+- [x] Supports Combine publishers
+- [x] Supports Multipath TCP configuration
 - [x] Handles object decoding from data returned by the service
 - [x] Handles token refresh
 - [x] Handles and applies authorization headers on behalf of the client
@@ -17,21 +19,12 @@ Atom is a wrapper library built around a subset of features offered by `URLSessi
 
 
 ## Requirements
-* iOS 11.0+
-* Xcode 11.0+
+* iOS 12.0+
+* Xcode 12.0+
 * Swift 5.0+
 
 
 ## Installation
-
-### Carthage
-[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks. To integrate Atom into your Xcode project using Carthage, specify it in your `Cartfile`:
-
-```
-git "https://github.com/AlaskaAirlines/atom" ~> 1.0.0
-```
-
-For more information on getting started with Carthage, visit the [repo](https://github.com/Carthage/Carthage).
 
 ### Swift Package Manager
 
@@ -39,6 +32,11 @@ The [Swift Package Manager](https://swift.org/package-manager/) is a tool for au
 
 Once you have your Swift package set up, adding Atom as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
+If you are using Xcode, adding Atom as a dependency is even easier. First, select your application, then your application project. Once you see **Swift Packages** tab at the top of the Project Editor, click on it. Click `+` button and add the following URL:
+
+`https://github.com/alaskaairlines/atom/`
+
+At this point you can setup your project to either use a branch or tagged version of the package.
 
 ## Usage
 Getting started is easy. First, create an instance of Atom.
@@ -49,7 +47,7 @@ let atom = Atom()
 
 In the above example, default configuration will be used. Default configuration will setup `URLSession`to use ephemeral configuration as well as ensure that the data returned by the service is available on the main thread.
 
-Any network request needs to conform and implement `Requestable` protocol. The `Requestable ` protocol provides default implementation for all of its properties - except for the `func baseURL() throws -> Atom.BaseURL`. See [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html) for more information.
+Any endpoint needs to conform and implement `Requestable` protocol. The `Requestable ` protocol provides default implementation for all of its properties - except for the `func baseURL() throws -> BaseURL`. See [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html) for more information.
 
 ```swift
 extension Seatmap {
@@ -66,9 +64,11 @@ extension Seatmap {
 Atom offers a handful of methods with support for fully decoded model objects, raw data,  or status indicating success / failure of a request.
 
 ```swift
+// Completion based.
+
 typealias Endpoint = Seatmap.Endpoint
 
-service.load(Endpoint.refresh).execute(expecting: Seatmap.self) { [weak self] result in
+atom.enqueue(Endpoint.refresh).resume(expecting: Seatmap.self) { result in
     switch result {
         case .failure(let error):
         // Handle error.
@@ -77,9 +77,21 @@ service.load(Endpoint.refresh).execute(expecting: Seatmap.self) { [weak self] re
         // Handle seatmap model.
     }
 }
+
+// Publisher based.
+
+atom
+    .enqueue(Endpoint.refresh)
+    .resume(expecting: Seatmap.self)
+    .sink { completion in
+    	// Handle `AtomError`.
+    } receiveValue: { seatmap in
+	// Handle decoded `Seatmap` instance.
+    }
+    .store(in: &cancelables)
 ```
 
-The above example demonstrates how to use `execute()` method to get a fully decoded `Seatmap` model object.
+The above example demonstrates how to use `resume(expecting:)` function to get a fully decoded `Seatmap` model object.
 
 For more information, please see [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html).
 
@@ -87,7 +99,7 @@ For more information, please see [documentation](https://htmlpreview.github.com/
 
 Atom can be configured to apply authorization headers on behalf of the client. 
 
-Atom supports `Basic` and `Bearer` authentication methods. When configured properly, Atom will perform automatic token refresh on behalf of the client if it determines that the access token being used has expired. Any in-flight calls will be enqueued and executed once a new token is obtained. 
+Atom supports `Basic` and `Bearer` authentication methods. When configured properly, Atom will perform automatic token refresh on behalf of the client if it determines that the access token being used has expired. Any in-flight calls will be enqueued and resumed once a new token is obtained. 
 
 If the token refresh call fails, all enqueued network calls will be executed at once with completions set to `AtomError` failure.
 
