@@ -54,8 +54,8 @@ extension Seatmap {
     enum Endpoint: Requestable {
         case refresh
 
-        func baseURL() throws -> Atom.BaseURL {
-            try Atom.BaseURL(host: "api.alaskaair.net")
+        func baseURL() throws -> BaseURL {
+            try BaseURL(host: "api.alaskaair.net")
         }
     }
 }
@@ -109,9 +109,9 @@ You can configure Atom to apply `Basic` authorization header like this:
 
 ```swift
 let atom: Atom = {
-    let credential = Atom.BasicCredential(password: "password", username: "username")
-    let basic = Atom.AuthenticationMethod.basic(credential)
-    let configuration = Atom.ServiceConfiguration(authenticationMethod: basic)
+    let credential = BasicCredential(password: "password", username: "username")
+    let basic = AuthenticationMethod.basic(credential)
+    let configuration = ServiceConfiguration(authenticationMethod: basic)
 
     return Atom(serviceConfiguration: configuration)
 }()
@@ -138,14 +138,14 @@ final class CredentialManager {
 }
 
 extension CredentialManager: BasicCredentialConvertible {
-    var basicCredential: Atom.BasicCredential {
+    var basicCredential: BasicCredential {
         .init(password: password, username: username)
     }
 }
 
 let atom: Atom = {
-    let basic = Atom.AuthenticationMethod.basic(CredentialManager.shared.basicCredential)
-    let configuration = Atom.ServiceConfiguration(authenticationMethod: basic)
+    let basic = AuthenticationMethod.basic(CredentialManager.shared.basicCredential)
+    let configuration = ServiceConfiguration(authenticationMethod: basic)
 
     return Atom(serviceConfiguration: configuration)
 }()
@@ -159,7 +159,7 @@ You can configure Atom to apply `Bearer ` authorization header. Here is an examp
 
 ```swift
 class TokenManager: TokenCredentialWritable {
-    var tokenCredential: Atom.TokenCredential {
+    var tokenCredential: TokenCredential {
     	// Read values from the keychain.
         get { keychain.tokenCredential() }
         
@@ -169,12 +169,12 @@ class TokenManager: TokenCredentialWritable {
 }
 
 let atom: Atom = {
-    let endpoint = Atom.AuthorizationEndpoint(host: "api.alaskaair.net", path: "/oauth2")
-    let clientCredential = Atom.ClientCredential(id: "client-id", secret: "client-secret")
+    let endpoint = AuthorizationEndpoint(host: "api.alaskaair.net", path: "/oauth2")
+    let clientCredential = ClientCredential(id: "client-id", secret: "client-secret")
     let tokenManager = TokenManager()
 
-    let bearer = Atom.AuthenticationMethod.bearer(endpoint, clientCredential, tokenManager)
-    let configuration = Atom.ServiceConfiguration(authenticationMethod: bearer)
+    let bearer = AuthenticationMethod.bearer(endpoint, clientCredential, tokenManager)
+    let configuration = ServiceConfiguration(authenticationMethod: bearer)
 
     return Atom(serviceConfiguration: configuration)
 }()

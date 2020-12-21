@@ -209,8 +209,8 @@
     <span class="kd">enum</span> <span class="kt">Endpoint</span><span class="p">:</span> <span class="kt">Requestable</span> <span class="p">{</span>
         <span class="k">case</span> <span class="n">refresh</span>
 
-        <span class="kd">func</span> <span class="nf">baseURL</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">BaseURL</span> <span class="p">{</span>
-            <span class="k">try</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">BaseURL</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="s">"api.alaskaair.net"</span><span class="p">)</span>
+        <span class="kd">func</span> <span class="nf">baseURL</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">BaseURL</span> <span class="p">{</span>
+            <span class="k">try</span> <span class="kt">BaseURL</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="s">"api.alaskaair.net"</span><span class="p">)</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -258,9 +258,9 @@
 
 <p>You can configure Atom to apply <code>Basic</code> authorization header like this:</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">atom</span><span class="p">:</span> <span class="kt">Atom</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="nv">credential</span> <span class="o">=</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">BasicCredential</span><span class="p">(</span><span class="nv">password</span><span class="p">:</span> <span class="s">"password"</span><span class="p">,</span> <span class="nv">username</span><span class="p">:</span> <span class="s">"username"</span><span class="p">)</span>
-    <span class="k">let</span> <span class="nv">basic</span> <span class="o">=</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">AuthenticationMethod</span><span class="o">.</span><span class="nf">basic</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
-    <span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">ServiceConfiguration</span><span class="p">(</span><span class="nv">authenticationMethod</span><span class="p">:</span> <span class="n">basic</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">credential</span> <span class="o">=</span> <span class="kt">BasicCredential</span><span class="p">(</span><span class="nv">password</span><span class="p">:</span> <span class="s">"password"</span><span class="p">,</span> <span class="nv">username</span><span class="p">:</span> <span class="s">"username"</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">basic</span> <span class="o">=</span> <span class="kt">AuthenticationMethod</span><span class="o">.</span><span class="nf">basic</span><span class="p">(</span><span class="n">credential</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">ServiceConfiguration</span><span class="p">(</span><span class="nv">authenticationMethod</span><span class="p">:</span> <span class="n">basic</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="kt">Atom</span><span class="p">(</span><span class="nv">serviceConfiguration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
 <span class="p">}()</span>
@@ -285,14 +285,14 @@
 <span class="p">}</span>
 
 <span class="kd">extension</span> <span class="kt">CredentialManager</span><span class="p">:</span> <span class="kt">BasicCredentialConvertible</span> <span class="p">{</span>
-    <span class="k">var</span> <span class="nv">basicCredential</span><span class="p">:</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">BasicCredential</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">basicCredential</span><span class="p">:</span> <span class="kt">BasicCredential</span> <span class="p">{</span>
         <span class="o">.</span><span class="nf">init</span><span class="p">(</span><span class="nv">password</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span> <span class="nv">username</span><span class="p">:</span> <span class="n">username</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="k">let</span> <span class="nv">atom</span><span class="p">:</span> <span class="kt">Atom</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="nv">basic</span> <span class="o">=</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">AuthenticationMethod</span><span class="o">.</span><span class="nf">basic</span><span class="p">(</span><span class="kt">CredentialManager</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">basicCredential</span><span class="p">)</span>
-    <span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">ServiceConfiguration</span><span class="p">(</span><span class="nv">authenticationMethod</span><span class="p">:</span> <span class="n">basic</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">basic</span> <span class="o">=</span> <span class="kt">AuthenticationMethod</span><span class="o">.</span><span class="nf">basic</span><span class="p">(</span><span class="kt">CredentialManager</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="n">basicCredential</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">ServiceConfiguration</span><span class="p">(</span><span class="nv">authenticationMethod</span><span class="p">:</span> <span class="n">basic</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="kt">Atom</span><span class="p">(</span><span class="nv">serviceConfiguration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
 <span class="p">}()</span>
@@ -304,7 +304,7 @@
 
 <p>You can configure Atom to apply <code>Bearer</code> authorization header. Here is an example:</p>
 <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">TokenManager</span><span class="p">:</span> <span class="kt">TokenCredentialWritable</span> <span class="p">{</span>
-    <span class="k">var</span> <span class="nv">tokenCredential</span><span class="p">:</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">TokenCredential</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">tokenCredential</span><span class="p">:</span> <span class="kt">TokenCredential</span> <span class="p">{</span>
         <span class="c1">// Read values from the keychain.</span>
         <span class="k">get</span> <span class="p">{</span> <span class="n">keychain</span><span class="o">.</span><span class="nf">tokenCredential</span><span class="p">()</span> <span class="p">}</span>
 
@@ -314,12 +314,12 @@
 <span class="p">}</span>
 
 <span class="k">let</span> <span class="nv">atom</span><span class="p">:</span> <span class="kt">Atom</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="k">let</span> <span class="nv">endpoint</span> <span class="o">=</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">AuthorizationEndpoint</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="s">"api.alaskaair.net"</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"/oauth2"</span><span class="p">)</span>
-    <span class="k">let</span> <span class="nv">clientCredential</span> <span class="o">=</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">ClientCredential</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="s">"client-id"</span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="s">"client-secret"</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">endpoint</span> <span class="o">=</span> <span class="kt">AuthorizationEndpoint</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="s">"api.alaskaair.net"</span><span class="p">,</span> <span class="nv">path</span><span class="p">:</span> <span class="s">"/oauth2"</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">clientCredential</span> <span class="o">=</span> <span class="kt">ClientCredential</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="s">"client-id"</span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="s">"client-secret"</span><span class="p">)</span>
     <span class="k">let</span> <span class="nv">tokenManager</span> <span class="o">=</span> <span class="kt">TokenManager</span><span class="p">()</span>
 
-    <span class="k">let</span> <span class="nv">bearer</span> <span class="o">=</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">AuthenticationMethod</span><span class="o">.</span><span class="nf">bearer</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">clientCredential</span><span class="p">,</span> <span class="n">tokenManager</span><span class="p">)</span>
-    <span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">Atom</span><span class="o">.</span><span class="kt">ServiceConfiguration</span><span class="p">(</span><span class="nv">authenticationMethod</span><span class="p">:</span> <span class="n">bearer</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">bearer</span> <span class="o">=</span> <span class="kt">AuthenticationMethod</span><span class="o">.</span><span class="nf">bearer</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">clientCredential</span><span class="p">,</span> <span class="n">tokenManager</span><span class="p">)</span>
+    <span class="k">let</span> <span class="nv">configuration</span> <span class="o">=</span> <span class="kt">ServiceConfiguration</span><span class="p">(</span><span class="nv">authenticationMethod</span><span class="p">:</span> <span class="n">bearer</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="kt">Atom</span><span class="p">(</span><span class="nv">serviceConfiguration</span><span class="p">:</span> <span class="n">configuration</span><span class="p">)</span>
 <span class="p">}()</span>
@@ -362,7 +362,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-12-17)</p>
+          <p>&copy; 2020 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2020-12-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
