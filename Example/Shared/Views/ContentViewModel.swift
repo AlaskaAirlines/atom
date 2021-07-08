@@ -18,16 +18,17 @@ import Atom
 import Combine
 import Foundation
 
+@MainActor
 final class ContentViewModel: ObservableObject {
     /// The joke to display on successful fetch.
     @Published var joke: Joke = .default
 
     /// Fetches a random joke.
-    func random() {
-        atom
-            .enqueue(Joke.Endpoint.random)
-            .resume(expecting: Joke.self)
-            .replaceError(with: .default)
-            .assign(to: &$joke)
+    func random() async throws {
+        do {
+            joke = try await atom
+                .enqueue(Joke.Endpoint.random)
+                .resume(expecting: Joke.self)
+        } catch { joke = .default }
     }
 }

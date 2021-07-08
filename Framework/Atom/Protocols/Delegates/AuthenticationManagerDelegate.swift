@@ -17,7 +17,7 @@
 import Foundation
 
 /// The `AuthenticationManagerDelegate` protocol provides an interface for responding to `AuthenticationManager` events.
-internal protocol AuthenticationManagerDelegate: class {
+internal protocol AuthenticationManagerDelegate: AnyObject {
     /// Notifies the delegate when the `AuthenticationManager` successfully refreshed the access token.
     func authenticationManagerDidRefreshAccessToken()
 
