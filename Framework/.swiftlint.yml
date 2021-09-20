@@ -6,7 +6,6 @@ disabled_rules:
 - nesting
 - pattern_matching_keywords
 - private_over_fileprivate
-- private_unit_testing
 - identifier_name
 - vertical_whitespace
 - trailing_whitespace
@@ -29,7 +28,6 @@ opt_in_rules:
 - legacy_random
 - let_var_whitespace
 - literal_expression_end_indentation
-- missing_empty_line
 - modifier_order
 - object_literal
 - operator_usage_whitespace
@@ -43,7 +41,6 @@ opt_in_rules:
 - trailing_closure
 - unneeded_parentheses_in_closure_argument
 - untyped_error_in_catch
-- unused_private_declaration
 - unused_import
 - vertical_parameter_alignment_on_call
 - yoda_condition

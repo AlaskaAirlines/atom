@@ -1,6 +1,6 @@
 // Atom
 //
-// Copyright (c) 2020 Alaska Airlines
+// Copyright (c) 2021 Alaska Airlines
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,10 +14,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Combine
 import Foundation
 
-@available(iOS 13.0, macOS 10.15, *)
+@available(iOS 15.0, macOS 12.0, *)
 public extension Service {
     /// Creates and resumes `URLRequest` initialized from `Requestable`.
     ///
@@ -29,30 +28,26 @@ public extension Service {
     ///
     /// A typical usage pattern for this method could look like this:
     ///
-    /// ````
-    /// atom
+    /// ```
+    /// let user = try await atom
     ///     .enqueue(endpoint)
     ///     .resume(expecting: User.self)
-    ///     .sink { completion in
-    ///         // Handle `AtomError`.
-    ///     } receiveValue: { user in
-    ///         // Handle decoded `User` instance.
-    ///     }
-    ///     .store(in: &cancelables)
-    /// ````
+    /// ```
     ///
     /// In the above example, data will be decoded into a `User` instance.
     ///
     /// - Parameters:
     ///   - type: The type to decode.
     ///
-    /// - Returns: `AnyPublisher` where `Output` is the decoded `Model` and `Failure` is `AtomError`.
-    func resume<T>(expecting type: T.Type) -> AnyPublisher<T, AtomError> where T: Model {
-        Future { promise in
+    /// - Throws: `AtomError` instance if an error occurred.
+    ///
+    /// - Returns: Decoded `Model` instance.
+    func resume<T>(expecting type: T.Type) async throws -> T where T: Model {
+        try await withCheckedThrowingContinuation { continuation in
             self.resume(expecting: type) {
-                promise($0)
+                continuation.resume(with: $0)
             }
-        }.eraseToAnyPublisher()
+        }
     }
 
     /// Creates and resumes `URLRequest` initialized from `Requestable`.
@@ -63,26 +58,22 @@ public extension Service {
     /// `Atom` framework uses a convenience computed variable on `AtomResponse` - `isSuccessful`
     /// to determine success or a failure of a response based on a status code returned by the service.
     ///
-    /// A typical usage pattern for this method after getting a `result` could look like this:
-    /// 
-    /// ````
-    /// atom
+    /// A typical usage pattern for this method could look like this:
+    ///
+    /// ```
+    /// let response = try await atom
     ///     .enqueue(endpoint)
     ///     .resume()
-    ///     .sink {
-    ///         // Handle `AtomError`.
-    ///     } receiveValue: {
-    ///         // Handle `AtomResponse`.
-    ///     }
-    ///     .store(in: &cancelables)
-    /// ````
+    /// ```
     ///
-    /// - Returns: `AnyPublisher` where `Output` is the `AtomResponse` and `Failure` is `AtomError`.
-    func resume() -> AnyPublisher<AtomResponse, AtomError> {
-        Future { promise in
+    /// - Throws: `AtomError` instance if an error occurred.
+    ///
+    /// - Returns: `AtomResponse` instance.
+    func resume() async throws -> AtomResponse {
+        try await withCheckedThrowingContinuation { continuation in
             self.resume {
-                promise($0)
+                continuation.resume(with: $0)
             }
-        }.eraseToAnyPublisher()
+        }
     }
 }

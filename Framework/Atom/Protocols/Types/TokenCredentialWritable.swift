@@ -34,7 +34,7 @@ import Foundation
 /// ```
 ///
 /// For more information see `Configuration` documentation.
-public protocol TokenCredentialWritable: class {
+public protocol TokenCredentialWritable: AnyObject {
     /// Returns conforming type as `TokenCredential`.
     var tokenCredential: TokenCredential { get set }
 }

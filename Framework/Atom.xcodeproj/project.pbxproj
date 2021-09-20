@@ -76,6 +76,7 @@
 		4C92FD19224E6A6100D16767 /* Result+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C92FD18224E6A6100D16767 /* Result+Additions.swift */; };
 		4C96B7142360B6CB0021EDB8 /* Response+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96B7132360B6CB0021EDB8 /* Response+Additions.swift */; };
 		4C973FD3237372EC006B2736 /* AuthenticationMethod+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C973FD2237372EC006B2736 /* AuthenticationMethod+Additions.swift */; };
+		4C98D6EB2696A5720074AC83 /* Service+AsyncAwait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C98D6EA2696A5720074AC83 /* Service+AsyncAwait.swift */; };
 		4CA6564D242189E000E35D9F /* URLSessionTaskMetrics+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA6564C242189E000E35D9F /* URLSessionTaskMetrics+Additions.swift */; };
 		4CAB5A69242012E900E4FB97 /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB5A68242012E900E4FB97 /* Interceptor.swift */; };
 		4CAB5A6C2420217E00E4FB97 /* OSLog+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAB5A6B2420217E00E4FB97 /* OSLog+Additions.swift */; };
@@ -165,6 +166,7 @@
 		4C92FD18224E6A6100D16767 /* Result+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Additions.swift"; sourceTree = "<group>"; };
 		4C96B7132360B6CB0021EDB8 /* Response+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Additions.swift"; sourceTree = "<group>"; };
 		4C973FD2237372EC006B2736 /* AuthenticationMethod+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationMethod+Additions.swift"; sourceTree = "<group>"; };
+		4C98D6EA2696A5720074AC83 /* Service+AsyncAwait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Service+AsyncAwait.swift"; sourceTree = "<group>"; };
 		4CA6564C242189E000E35D9F /* URLSessionTaskMetrics+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSessionTaskMetrics+Additions.swift"; sourceTree = "<group>"; };
 		4CAB5A68242012E900E4FB97 /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
 		4CAB5A6B2420217E00E4FB97 /* OSLog+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OSLog+Additions.swift"; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				1CC3281D20D844610099644D /* Service.swift */,
+				4C98D6EA2696A5720074AC83 /* Service+AsyncAwait.swift */,
 				4C4E42C3258AC311009AF14F /* Service+Combine.swift */,
 				1CC3280B20D813E70099644D /* ServiceConfiguration.swift */,
 				4C31600C221DE0BE00E853F5 /* ServiceConfiguration+Timeout.swift */,
@@ -595,7 +598,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -628,6 +631,7 @@
 				4C7B86002372361F00FA85FC /* AuthorizationEndpoint.swift in Sources */,
 				1C241795216687100032A994 /* RequestableError.swift in Sources */,
 				1CC3287B20D9990F0099644D /* URLRequest+Additions.swift in Sources */,
+				4C98D6EB2696A5720074AC83 /* Service+AsyncAwait.swift in Sources */,
 				4C316011221E0C8300E853F5 /* AtomResponse.swift in Sources */,
 				4C316027221F0E5400E853F5 /* Data+Additions.swift in Sources */,
 				4C6A0D3923DBC28300A64975 /* Atom+Notifications.swift in Sources */,

@@ -24,7 +24,6 @@ struct ContentView: View {
     var body: some View {
         content
             .edgesIgnoringSafeArea(.all)
-            .onAppear { model.random() }
     }
 
     // MARK: Content
@@ -43,7 +42,9 @@ struct ContentView: View {
 
                 Spacer()
 
-                Button(action: { model.random() }) {
+                Button {
+                    Task { try? await model.random() }
+                } label: {
                     Text("REFRESH")
                         .fontWeight(.bold)
                         .foregroundColor(.yellow)
