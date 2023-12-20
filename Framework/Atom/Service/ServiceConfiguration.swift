@@ -74,13 +74,15 @@ public final class ServiceConfiguration {
     ///   - decoder:              The `JSONDecoder` for decoding data into models.
     ///   - dispatchQueue:        The queue to dispatch `Result` object on.
     ///   - multipathServiceType: The service type that specifies the Multipath TCP connection policy for transmitting data over Wi-Fi and cellular interfaces.
-    public init(authenticationMethod: AuthenticationMethod = .none, configuration: Configuration = .ephemeral, decoder: JSONDecoder = JSONDecoder(), dispatchQueue: DispatchQueue = .main, multipathServiceType: MultipathServiceType = .none) {
+    ///   - timeout:              Timeout interval needed for URLSessionConfiguration.
+
+    public init(authenticationMethod: AuthenticationMethod = .none, configuration: Configuration = .ephemeral, decoder: JSONDecoder = JSONDecoder(), dispatchQueue: DispatchQueue = .main, multipathServiceType: MultipathServiceType = .none, timeout: Timeout = Timeout()) {
         self.authenticationMethod = authenticationMethod
         self.configuration = configuration
         self.decoder = decoder
         self.dispatchQueue = dispatchQueue
         self.multipathServiceType = multipathServiceType
-        self.timeout = Timeout()
+        self.timeout = timeout
     }
 
     #else
@@ -92,12 +94,13 @@ public final class ServiceConfiguration {
     ///   - configuration:        The `ServiceConfiguration.Configuration` - default value is `.ephemeral`.
     ///   - decoder:              The `JSONDecoder` for decoding data into models.
     ///   - dispatchQueue:        The queue to dispatch `Result` object on.
-    public init(authenticationMethod: AuthenticationMethod = .none, configuration: Configuration = .ephemeral, decoder: JSONDecoder = JSONDecoder(), dispatchQueue: DispatchQueue = .main) {
+    ///   - timeout:              Timeout interval needed for URLSessionConfiguration.
+    public init(authenticationMethod: AuthenticationMethod = .none, configuration: Configuration = .ephemeral, decoder: JSONDecoder = JSONDecoder(), dispatchQueue: DispatchQueue = .main, timeout: Timeout = Timeout()) {
         self.authenticationMethod = authenticationMethod
         self.configuration = configuration
         self.decoder = decoder
         self.dispatchQueue = dispatchQueue
-        self.timeout = Timeout()
+        self.timeout = timeout
     }
     #endif
 }
