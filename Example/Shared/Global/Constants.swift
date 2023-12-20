@@ -19,7 +19,8 @@ import Foundation
 
 /// Global instance of Atom networking library.
 let atom: Atom = {
-    let configuration = ServiceConfiguration(multipathServiceType: .handover, timeout: ServiceConfiguration.Timeout(request: 60, resource: 60))
+    let timeout = ServiceConfiguration.Timeout(request: 60, resource: 60)
+    let configuration = ServiceConfiguration(multipathServiceType: .handover, timeout: timeout)
     let atom = Atom(serviceConfiguration: configuration)
     atom.log = true
 
