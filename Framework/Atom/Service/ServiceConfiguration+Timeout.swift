@@ -27,7 +27,7 @@ public extension ServiceConfiguration {
         
         /// Object to set `URLSessionConfiguration` timeouts
         /// - Parameters:
-        ///   - request: Double - The timeout interval to use when waiting for additional data.
+        ///   - request:  Double - The timeout interval to use when waiting for additional data.
         ///   - resource: Double - The maximum amount of time that a resource request should be allowed to take.
         public init(request: Double = 30.0, resource: Double = 30.0) {
             self.request = request
