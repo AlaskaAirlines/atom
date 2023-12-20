@@ -24,7 +24,6 @@ public extension ServiceConfiguration {
 
         /// The maximum amount of time that a resource request should be allowed to take.
         internal var resource: Double
-
         
         /// Object to set `URLSessionConfiguration` timeouts
         /// - Parameters:
