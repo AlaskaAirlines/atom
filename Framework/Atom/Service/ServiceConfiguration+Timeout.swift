@@ -16,13 +16,22 @@
 
 import Foundation
 
-internal extension ServiceConfiguration {
+public extension ServiceConfiguration {
     /// Model object representing `URLSessionConfiguration` timeout intervals.
     struct Timeout {
         /// The timeout interval to use when waiting for additional data.
-        internal let request = 30.0
+        internal var request: Double
 
         /// The maximum amount of time that a resource request should be allowed to take.
-        internal let resource = 30.0
+        internal var resource: Double
+        
+        /// Object to set `URLSessionConfiguration` timeouts
+        /// - Parameters:
+        ///   - request:  Double - The timeout interval to use when waiting for additional data.
+        ///   - resource: Double - The maximum amount of time that a resource request should be allowed to take.
+        public init(request: Double = 30.0, resource: Double = 30.0) {
+            self.request = request
+            self.resource = resource
+        }
     }
 }

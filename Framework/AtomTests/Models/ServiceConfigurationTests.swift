@@ -26,4 +26,15 @@ internal class ServiceConfigurationTests: BaseCase {
         XCTAssertEqual(serviceConfiguration.dispatchQueue, .main)
         XCTAssertEqual(serviceConfiguration.configuration, .ephemeral)
     }
+
+    internal func testServiceConfigurationInitializationWithTimeout() {
+        // Given, When
+        let timeout = ServiceConfiguration.Timeout(request: 60, resource: 60)
+        let serviceConfiguration = ServiceConfiguration(timeout: timeout)
+
+        // Then
+        XCTAssertEqual(serviceConfiguration.timeout.request, 60)
+        XCTAssertEqual(serviceConfiguration.timeout.resource, 60)
+    }
+
 }
