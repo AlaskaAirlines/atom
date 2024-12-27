@@ -19,9 +19,9 @@ Atom is a wrapper library built around a subset of features offered by `URLSessi
 
 
 ## Requirements
-* iOS 12.0+
-* Xcode 12.0+
-* Swift 5.0+
+* iOS 15.0+
+* Xcode 16.0+
+* Swift 6.0+
 
 
 ## Installation
@@ -45,16 +45,20 @@ Getting started is easy. First, create an instance of Atom.
 let atom = Atom()
 ```
 
-In the above example, default configuration will be used. Default configuration will setup `URLSession`to use ephemeral configuration as well as ensure that the data returned by the service is available on the main thread.
+In the above example, the default configuration will be used. This configuration sets up URLSession to use an ephemeral session and ensures that the data returned by the service is available on the main thread when calling completion-based APIs.
 
-Any endpoint needs to conform and implement `Requestable` protocol. The `Requestable ` protocol provides default implementation for all of its properties - except for the `func baseURL() throws -> BaseURL`. See [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html) for more information.
+When using async/await APIs, Atom will return results on the same thread where `URLSession` returns data. You are empowered to use custom actors or apply the `@MainActor` attribute to a function or an entire type (e.g., `ViewModel`) to ensure operations run on the main thread.
+
+When using the Combine extension, Atom will return results on the same thread where `URLSession` returns data, similar to when calling async/await APIs. To ensure results are returned on the main thread, you can use `.receive(on: DispatchQueue.main)`.
+
+Any endpoint needs to conform and implement `Requestable` protocol. The `Requestable ` protocol provides default implementation for all of its properties - except for the `func baseURL() throws(AtomError) -> BaseURL`. See [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html) for more information.
 
 ```swift
 extension Seatmap {
     enum Endpoint: Requestable {
         case refresh
 
-        func baseURL() throws -> BaseURL {
+        func baseURL() throws(AtomError) -> BaseURL {
             try BaseURL(host: "api.alaskaair.net")
         }
     }
@@ -64,9 +68,13 @@ extension Seatmap {
 Atom offers a handful of methods with support for fully decoded model objects, raw data,  or status indicating success / failure of a request.
 
 ```swift
-// Completion based.
-
 typealias Endpoint = Seatmap.Endpoint
+
+// Using async/await.
+
+let seatmap = try await atom.enqueue(Endpoint.refresh).resume(expecting: Seatmap.self)
+
+// Using completions.
 
 atom.enqueue(Endpoint.refresh).resume(expecting: Seatmap.self) { result in
     switch result {
@@ -78,7 +86,7 @@ atom.enqueue(Endpoint.refresh).resume(expecting: Seatmap.self) { result in
     }
 }
 
-// Publisher based.
+// Using publishers.
 
 atom
     .enqueue(Endpoint.refresh)
@@ -97,11 +105,9 @@ For more information, please see [documentation](https://htmlpreview.github.com/
 
 ### Authentication
 
-Atom can be configured to apply authorization headers on behalf of the client. 
+Atom can be configured to apply authorization headers on behalf of the client. It supports both `Basic` and `Bearer` authentication methods. When properly configured, Atom will automatically refresh tokens for the client if it determines that the access token has expired.
 
-Atom supports `Basic` and `Bearer` authentication methods. When configured properly, Atom will perform automatic token refresh on behalf of the client if it determines that the access token being used has expired. Any in-flight calls will be enqueued and resumed once a new token is obtained. 
-
-If the token refresh call fails, all enqueued network calls will be executed at once with completions set to `AtomError` failure.
+However, if the token refresh attempt fails, all subsequent network calls will fail.
 
 ### Basic
 
@@ -121,7 +127,7 @@ let atom: Atom = {
 An existing implementation can be extended by conforming and implementing `BasicCredentialConvertible` protocol. A hypothetical configuration can look something like this:
 
 ```swift
-final class CredentialManager {
+actor CredentialManager {
     private(set) var username = String()
     private(set) var password = String()
 
@@ -158,7 +164,7 @@ Once configured, Atom will combine username and password into a single string `u
 You can configure Atom to apply `Bearer ` authorization header. Here is an example:
 
 ```swift
-class TokenManager: TokenCredentialWritable {
+actor TokenManager: TokenCredentialWritable {
     var tokenCredential: TokenCredential {
     	// Read values from the keychain.
         get { keychain.tokenCredential() }
@@ -188,7 +194,9 @@ The setup is hopefully easy to understand. Atom requires a few pieces of informa
 
 Once configured, Atom will apply authorization header to a request as `Authorization: Bearer ...` header key-value.
 
-Please note, Atom will only decode token credential from a JSON objecting returned in this form:
+**NOTE:** Please ensure that any type conforming to `TokenCredentialWritable` writes and reads keychain values in a thread-safe manner. The successful token refresh depends on being able to read the new token credential value after it has been saved to the keychain following a refresh.
+
+Also, Atom will only decode token credential from a JSON objecting returned in this form:
 
 ```json
 {

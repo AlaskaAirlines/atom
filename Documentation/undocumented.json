@@ -1,19 +1,6 @@
 {
   "warnings": [
-    {
-      "file": "/Users/michael/Developer/Alaska/Atom/Framework/Atom/Models/AtomResponse.swift",
-      "line": 21,
-      "symbol": "AtomResponse.HeaderFields",
-      "symbol_kind": "source.lang.swift.decl.typealias",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/michael/Developer/Alaska/Atom/Framework/Atom/Service/ServiceConfiguration.swift",
-      "line": 64,
-      "symbol": "ServiceConfiguration.MultipathServiceType",
-      "symbol_kind": "source.lang.swift.decl.typealias",
-      "warning": "undocumented"
-    }
+
   ],
-  "source_directory": "/Users/michael/Developer/Alaska/Atom/Framework"
+  "source_directory": "/Users/Michael.Babiy@alaskaair.com/Developer/Packages/Atom/Framework"
 }
