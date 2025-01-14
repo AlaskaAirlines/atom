@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ServiceTimeout Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/ServiceTimeout" class="dashAnchor"></a>
+    <a title="ServiceTimeout Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">AtomNetworking Docs</a> (100% documented)</p>
+        <div class="header-right">
+          <form role="search" action="../search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </div>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">AtomNetworking</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        <a href="../Structs.html">Structures</a>
+        <img id="carat" src="../img/carat.png" alt=""/>
+        ServiceTimeout Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Actors.html">Actors</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Actors/Atom.html">Atom</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Actors/Service.html">Service</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/AtomError.html">AtomError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/AuthenticationMethod.html">AuthenticationMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/BaseURLScheme.html">BaseURLScheme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/GrantType.html">GrantType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/HTTPMethod.html">HTTPMethod</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RequestableError.html">RequestableError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/SessionConfiguration.html">SessionConfiguration</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Array.html">Array</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:10Foundation4DataV">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLResponse.html">URLResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLSessionTask.html">URLSessionTask</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URLSessionTaskMetrics.html">URLSessionTaskMetrics</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/BasicCredentialConvertible.html">BasicCredentialConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ClientCredentialConvertible.html">ClientCredentialConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Requestable.html">Requestable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RequestableItem.html">RequestableItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TokenCredentialWritable.html">TokenCredentialWritable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/AtomResponse.html">AtomResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/AuthorizationEndpoint.html">AuthorizationEndpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BaseURL.html">BaseURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/BasicCredential.html">BasicCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ClientCredential.html">ClientCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/HeaderItem.html">HeaderItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/QueryItem.html">QueryItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ServiceConfiguration.html">ServiceConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ServiceTimeout.html">ServiceTimeout</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TokenCredential.html">TokenCredential</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/URLPath.html">URLPath</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ServiceTimeout</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ServiceTimeout</span> <span class="p">:</span> <span class="kt">Sendable</span></code></pre>
+
+                </div>
+              </div>
+            <p>Model object representing <code>URLSessionConfiguration</code> timeout intervals.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AtomNetworking14ServiceTimeoutV7request8resourceACSd_Sdtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(request:resource:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AtomNetworking14ServiceTimeoutV7request8resourceACSd_Sdtcfc">init(request:<wbr>resource:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <code>ServiceTimeout</code> instance given the provided parameter(s).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">30.0</span><span class="p">,</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">30.0</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>request</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The timeout interval to use when waiting for additional data.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resource</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The maximum amount of time that a resource request should be allowed to take.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-01-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</html>
