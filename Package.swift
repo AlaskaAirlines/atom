@@ -33,7 +33,6 @@ let package = Package(
             name: "AtomNetworking",
             path: "Framework/AtomNetworking",
             swiftSettings: [
-                .unsafeFlags(["-enable-library-evolution", "-O"]),
                 .swiftLanguageMode(.v6)
             ]
         )
