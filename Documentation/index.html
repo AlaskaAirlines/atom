@@ -204,8 +204,6 @@
 
 <p>When using async/await APIs, Atom will return results on the same thread where <code>URLSession</code> returns data. You are empowered to use custom actors or apply the <code>@MainActor</code> attribute to a function or an entire type (e.g., <code>ViewModel</code>) to ensure operations run on the main thread.</p>
 
-<p>When using the Combine extension, Atom will return results on the same thread where <code>URLSession</code> returns data, similar to when calling async/await APIs. To ensure results are returned on the main thread, you can use <code>.receive(on: DispatchQueue.main)</code>.</p>
-
 <p>Any endpoint needs to conform and implement <code><a href="Protocols/Requestable.html">Requestable</a></code> protocol. The <code><a href="Protocols/Requestable.html">Requestable</a></code> protocol provides default implementation for all of its properties - except for the <code>func baseURL() throws(AtomError) -&gt; BaseURL</code>. See <a href="https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html">documentation</a> for more information.</p>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Seatmap</span> <span class="p">{</span>
     <span class="kd">enum</span> <span class="kt">Endpoint</span><span class="p">:</span> <span class="kt">Requestable</span> <span class="p">{</span>
@@ -221,33 +219,8 @@
 <p>Atom offers a handful of methods with support for fully decoded model objects, raw data,  or status indicating success / failure of a request.</p>
 <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">Endpoint</span> <span class="o">=</span> <span class="kt">Seatmap</span><span class="o">.</span><span class="kt">Endpoint</span>
 
-<span class="c1">// Using async/await.</span>
-
 <span class="k">let</span> <span class="nv">seatmap</span> <span class="o">=</span> <span class="k">try</span> <span class="k">await</span> <span class="n">atom</span><span class="o">.</span><span class="nf">enqueue</span><span class="p">(</span><span class="kt">Endpoint</span><span class="o">.</span><span class="n">refresh</span><span class="p">)</span><span class="o">.</span><span class="nf">resume</span><span class="p">(</span><span class="nv">expecting</span><span class="p">:</span> <span class="kt">Seatmap</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
 
-<span class="c1">// Using completions.</span>
-
-<span class="n">atom</span><span class="o">.</span><span class="nf">enqueue</span><span class="p">(</span><span class="kt">Endpoint</span><span class="o">.</span><span class="n">refresh</span><span class="p">)</span><span class="o">.</span><span class="nf">resume</span><span class="p">(</span><span class="nv">expecting</span><span class="p">:</span> <span class="kt">Seatmap</span><span class="o">.</span><span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
-    <span class="k">switch</span> <span class="n">result</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="o">.</span><span class="nf">failure</span><span class="p">(</span><span class="k">let</span> <span class="nv">error</span><span class="p">):</span>
-        <span class="c1">// Handle error.</span>
-
-        <span class="k">case</span> <span class="o">.</span><span class="nf">success</span><span class="p">(</span><span class="k">let</span> <span class="nv">seatmap</span><span class="p">):</span>
-        <span class="c1">// Handle seatmap model.</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="c1">// Using publishers.</span>
-
-<span class="n">atom</span>
-    <span class="o">.</span><span class="nf">enqueue</span><span class="p">(</span><span class="kt">Endpoint</span><span class="o">.</span><span class="n">refresh</span><span class="p">)</span>
-    <span class="o">.</span><span class="nf">resume</span><span class="p">(</span><span class="nv">expecting</span><span class="p">:</span> <span class="kt">Seatmap</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">sink</span> <span class="p">{</span> <span class="n">completion</span> <span class="k">in</span>
-        <span class="c1">// Handle `AtomError`.</span>
-    <span class="p">}</span> <span class="nv">receiveValue</span><span class="p">:</span> <span class="p">{</span> <span class="n">seatmap</span> <span class="k">in</span>
-    <span class="c1">// Handle decoded `Seatmap` instance.</span>
-    <span class="p">}</span>
-    <span class="o">.</span><span class="nf">store</span><span class="p">(</span><span class="nv">in</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">cancelables</span><span class="p">)</span>
 </code></pre>
 
 <p>The above example demonstrates how to use <code>resume(expecting:)</code> function to get a fully decoded <code>Seatmap</code> model object.</p>
@@ -277,7 +250,7 @@
     <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">password</span> <span class="o">=</span> <span class="kt">String</span><span class="p">()</span>
 
     <span class="kd">static</span> <span class="k">let</span> <span class="nv">shared</span> <span class="o">=</span> <span class="kt">CredentialManager</span><span class="p">()</span>
-    <span class="kd">private</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+    <span class="kd">private</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{}</span>
 
     <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="n">username</span> <span class="nv">aUsername</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">username</span> <span class="o">=</span> <span class="n">aUsername</span>
@@ -368,7 +341,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-01-13)</p>
+          <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-01-21)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

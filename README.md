@@ -49,7 +49,6 @@ In the above example, the default configuration will be used. This configuration
 
 When using async/await APIs, Atom will return results on the same thread where `URLSession` returns data. You are empowered to use custom actors or apply the `@MainActor` attribute to a function or an entire type (e.g., `ViewModel`) to ensure operations run on the main thread.
 
-When using the Combine extension, Atom will return results on the same thread where `URLSession` returns data, similar to when calling async/await APIs. To ensure results are returned on the main thread, you can use `.receive(on: DispatchQueue.main)`.
 
 Any endpoint needs to conform and implement `Requestable` protocol. The `Requestable ` protocol provides default implementation for all of its properties - except for the `func baseURL() throws(AtomError) -> BaseURL`. See [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html) for more information.
 
@@ -70,33 +69,8 @@ Atom offers a handful of methods with support for fully decoded model objects, r
 ```swift
 typealias Endpoint = Seatmap.Endpoint
 
-// Using async/await.
-
 let seatmap = try await atom.enqueue(Endpoint.refresh).resume(expecting: Seatmap.self)
 
-// Using completions.
-
-atom.enqueue(Endpoint.refresh).resume(expecting: Seatmap.self) { result in
-    switch result {
-        case .failure(let error):
-        // Handle error.
-
-        case .success(let seatmap):
-        // Handle seatmap model.
-    }
-}
-
-// Using publishers.
-
-atom
-    .enqueue(Endpoint.refresh)
-    .resume(expecting: Seatmap.self)
-    .sink { completion in
-    	// Handle `AtomError`.
-    } receiveValue: { seatmap in
-	// Handle decoded `Seatmap` instance.
-    }
-    .store(in: &cancelables)
 ```
 
 The above example demonstrates how to use `resume(expecting:)` function to get a fully decoded `Seatmap` model object.
@@ -132,7 +106,7 @@ actor CredentialManager {
     private(set) var password = String()
 
     static let shared = CredentialManager()
-    private init() { }
+    private init() {}
 
     func update(username aUsername: String) {
         username = aUsername
