@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension BasicCredential {
+extension BasicCredential {
     /// Returns `username` and `password` combined together with `:` in-between.
     var combined: String {
         username.appending(":").appending(password)

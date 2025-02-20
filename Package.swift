@@ -26,7 +26,8 @@ let package = Package(
     products: [
         .library(
             name: "AtomNetworking",
-            targets: ["AtomNetworking"])
+            targets: ["AtomNetworking"]
+        )
     ],
     targets: [
         .target(

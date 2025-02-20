@@ -18,10 +18,10 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension Array where Element: RequestableItem {
+extension Array where Element: RequestableItem {
     /// Returns an array of `HeaderItem` as a dictionary.
     var dictionary: [String: String] {
-        return reduce([:]) {
+        reduce([:]) {
             var result = $0
             result[$1.name] = $1.value
 
@@ -30,7 +30,7 @@ internal extension Array where Element: RequestableItem {
     }
 }
 
-// MARK: - Protocol Conformance
+// MARK: - Array + Model
 
 /// Adds the ability to specify an array as the expected decoded type.
 extension Array: Model where Element: Model {}
@@ -42,7 +42,7 @@ extension Array: @retroactive ExpressibleByDictionaryLiteral where Element: Requ
         self.init()
 
         for element in elements {
-            self.append(.init(name: element.0, value: element.1))
+            append(.init(name: element.0, value: element.1))
         }
     }
 }

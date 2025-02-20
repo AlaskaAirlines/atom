@@ -17,8 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class AtomExtensionsTests: XCTestCase {
-    internal func testDidFailToRefreshAccessTokenReturnsCorrectRawValue () {
+final class AtomExtensionsTests: XCTestCase {
+    func testDidFailToRefreshAccessTokenReturnsCorrectRawValue() {
         XCTAssertEqual(Atom.didFailToRefreshAccessToken.rawValue, "com.alaskaair.atom.didFailToRefreshAccessToken")
     }
 }

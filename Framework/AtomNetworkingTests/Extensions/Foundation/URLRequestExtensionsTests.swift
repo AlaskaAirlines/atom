@@ -17,8 +17,10 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class URLRequestExtensionsTests: XCTestCase {
-    internal func testInitializeWithInvalidBaseURL() {
+// MARK: - URLRequestExtensionsTests
+
+final class URLRequestExtensionsTests: XCTestCase {
+    func testInitializeWithInvalidBaseURL() {
         // Given
         let endpoint = URLRequestExtensionsTests.Endpoint.invalidBaseURL
 
@@ -29,7 +31,7 @@ internal final class URLRequestExtensionsTests: XCTestCase {
         XCTAssertNil(request)
     }
 
-    internal func testInitializeWithInvalidURLPath() {
+    func testInitializeWithInvalidURLPath() {
         // Given
         let endpoint = URLRequestExtensionsTests.Endpoint.invalidURLPath
 
@@ -40,7 +42,7 @@ internal final class URLRequestExtensionsTests: XCTestCase {
         XCTAssertNil(request)
     }
 
-    internal func testInitializeWithValidBaseURLAndPath() throws {
+    func testInitializeWithValidBaseURLAndPath() throws {
         // Given
         let endpoint = URLRequestExtensionsTests.Endpoint.validBaseURLPath
 
@@ -51,7 +53,7 @@ internal final class URLRequestExtensionsTests: XCTestCase {
         XCTAssertNotNil(request)
     }
 
-    internal func testInitializeWithValidHeaderValues() throws {
+    func testInitializeWithValidHeaderValues() throws {
         // Given
         let endpoint = URLRequestExtensionsTests.Endpoint.validHeaderValues
 
@@ -62,7 +64,7 @@ internal final class URLRequestExtensionsTests: XCTestCase {
         XCTAssertEqual(request.allHTTPHeaderFields, URLRequestExtensionsTests.headers.dictionary)
     }
 
-    internal func testInitializeWithValidBodyData() throws {
+    func testInitializeWithValidBodyData() throws {
         // Given
         let endpoint = URLRequestExtensionsTests.Endpoint.validHTTPBody
 
@@ -73,7 +75,7 @@ internal final class URLRequestExtensionsTests: XCTestCase {
         XCTAssertEqual(request.httpBody, URLRequestExtensionsTests.body)
     }
 
-    internal func testInitializeWithValidHTTPMethodStringValue() throws {
+    func testInitializeWithValidHTTPMethodStringValue() throws {
         // Given
         let endpoint = URLRequestExtensionsTests.Endpoint.validMethod
 
@@ -87,12 +89,12 @@ internal final class URLRequestExtensionsTests: XCTestCase {
 
 // MARK: - Test Data
 
-private extension URLRequestExtensionsTests {
+extension URLRequestExtensionsTests {
     /// Test header values.
     private static let headers = [HeaderItem(name: "name", value: "value")]
 
     /// Test body data.
-    private static let body = Data()
+    private static let body: Data = .init()
 
     /// List of test endpoints.
     private enum Endpoint: Requestable {
@@ -104,6 +106,8 @@ private extension URLRequestExtensionsTests {
         case validHTTPBody
         case validMethod
 
+        // MARK: - Computed Properties
+
         var headerItems: [HeaderItem]? { URLRequestExtensionsTests.headers }
 
         var method: HTTPMethod {
@@ -114,6 +118,8 @@ private extension URLRequestExtensionsTests {
                 return .get
             }
         }
+
+        // MARK: - Functions
 
         func baseURL() throws(AtomError) -> BaseURL {
             switch self {

@@ -19,6 +19,8 @@ import Foundation
 /// The `ClientCredential` type declares an object used by Atom for automated refreshing of the access token.
 /// See https://tools.ietf.org/html/RFC6749
 public struct ClientCredential: Sendable, Equatable {
+    // MARK: - Properties
+
     /// The authorization grant type as described in Sections 4.1.3, 4.3.2, 4.4.2, RFC 6749. Starting with
     /// version 4.0, Atom supports automated token refresh using `refresh_token` grant type as defined in RFC 6749.
     public let grantType: GrantType
@@ -28,6 +30,8 @@ public struct ClientCredential: Sendable, Equatable {
 
     /// The client secret. The client MAY omit the parameter if the client secret is an empty string. See RFC 6749.
     public let secret: String
+
+    // MARK: - Lifecycle
 
     /// Creates a `ClientCredential` instance given the provided parameter(s).
     ///

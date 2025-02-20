@@ -20,11 +20,15 @@ import Foundation
 /// basic authentication is applied as Authorization header value, username and password will be combined into a single
 /// string using `:` and base 64 encoded.
 public struct BasicCredential: Sendable, Equatable {
+    // MARK: - Properties
+
     /// The password to encode and use when applying basic authentication to a request.
-    internal let password: String
+    let password: String
 
     /// The username to encode and use when applying basic authentication to a request.
-    internal let username: String
+    let username: String
+
+    // MARK: - Lifecycle
 
     /// Creates a `BasicCredential` instance given the provided parameter(s).
     ///

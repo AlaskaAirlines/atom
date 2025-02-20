@@ -17,8 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class HTTPMethodTests: XCTestCase {
-    internal func testHTTPMethodReturnsExpectedStringValue() {
+final class HTTPMethodTests: XCTestCase {
+    func testHTTPMethodReturnsExpectedStringValue() {
         // Give, When
         let delete = "DELETE"
         let get = "GET"

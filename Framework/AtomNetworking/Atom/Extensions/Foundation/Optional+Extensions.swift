@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension Optional {
+extension Optional {
     /// Unwraps an optional value. Terminates the process if the value is `nil`.
     ///
     /// - Warning:
@@ -33,7 +33,9 @@ internal extension Optional {
     ///
     /// - Returns: Value of the expected type.
     func unwrap(_ because: (() -> String)? = nil, file: StaticString = #file, line: UInt = #line) -> Wrapped {
-        if let value = self { return value }
+        if let value = self {
+            return value
+        }
 
         let message = because?() ?? "Unexpectedly found nil when unwrapping \(Wrapped.self)."
 

@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension AuthenticationMethod {
+extension AuthenticationMethod {
     /// A computed property that provides a `HeaderItem` for the request.
     ///
     /// This property creates and returns a new `HeaderItem` instance using the specified `headerField`
@@ -31,16 +31,16 @@ internal extension AuthenticationMethod {
 
 // MARK: - Private Properties and Methods
 
-private extension AuthenticationMethod {
+extension AuthenticationMethod {
     /// Returns "Authorization" as the header field name.
     private var headerField: String { "Authorization" }
 
     /// Returns authorization value based on specified method case.
     private var headerValue: String {
         switch self {
-        case .basic(let credential):
+        case let .basic(credential):
             return "Basic \(credential.combined.base64)"
-        case .bearer(_, _, let writable):
+        case let .bearer(_, _, writable):
             return "Bearer \(writable.tokenCredential.accessToken)"
         case .none:
             return String()

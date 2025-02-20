@@ -21,7 +21,7 @@ import Foundation
 extension URLSessionTaskMetrics {
     /// Returns a textual representation of this instance, suitable for debugging.
     override open var debugDescription: String {
-        return """
+        """
         → Duration: \(taskInterval.duration)
         """
     }

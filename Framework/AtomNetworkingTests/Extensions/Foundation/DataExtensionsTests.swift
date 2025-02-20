@@ -17,16 +17,16 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class DataExtensionsTests: XCTestCase {
-    internal func testDataConformsToModelProtocol() {
+final class DataExtensionsTests: XCTestCase {
+    func testDataConformsToModelProtocol() {
         // Given When
-        let data = Data()
+        let data: Data = .init()
 
         // Then
         XCTAssertNotNil(data as Model)
     }
 
-    internal func testJSONObjectOrSelfReturnsJSONObject() throws {
+    func testJSONObjectOrSelfReturnsJSONObject() throws {
         // Given
         let data = try JSONEncoder().encode(["key": "value"])
 

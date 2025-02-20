@@ -18,6 +18,8 @@ import Foundation
 
 /// The `TokenCredential` type declares an object used by Atom in network requests that require bearer authentication.
 public struct TokenCredential: Sendable {
+    // MARK: - Properties
+
     /// The access token as defined in OAuth 2.0 spec.
     public let accessToken: String
 
@@ -26,6 +28,8 @@ public struct TokenCredential: Sendable {
 
     /// The refresh token as defined in OAuth 2.0 spec.
     public let refreshToken: String
+
+    // MARK: - Lifecycle
 
     /// Creates a `TokenCredential` instance given the provided parameter(s).
     ///

@@ -20,19 +20,23 @@ import Foundation
 ///
 /// This structure is useful when you need to modify or extend the behavior of an existing `Requestable`
 /// without changing its underlying implementation. It can add or override headers and manage authorization flags.
-internal struct AuthorizedRequestable: Sendable {
+struct AuthorizedRequestable: Sendable {
+    // MARK: - Properties
+
     /// The original `Requestable` object which this structure wraps.
-    internal let requestable: Requestable
+    let requestable: Requestable
 
     /// An array of `HeaderItem` objects to be included with the request.
-    internal let authorizationHeaderItems: [HeaderItem]
+    let authorizationHeaderItems: [HeaderItem]
+
+    // MARK: - Lifecycle
 
     /// Creates the `AuthorizedRequestable` instance given the provided parameter(s).
     ///
     /// - Parameters:
     ///   - requestable:              The original `Requestable` object which this structure wraps.
     ///   - authorizationHeaderItems: An array of `HeaderItem` objects to be included with the request.
-    internal init(requestable: Requestable, authorizationHeaderItems: [HeaderItem]) {
+    init(requestable: Requestable, authorizationHeaderItems: [HeaderItem]) {
         self.requestable = requestable
         self.authorizationHeaderItems = authorizationHeaderItems
     }

@@ -17,5 +17,5 @@
 import SwiftUI
 
 extension Color {
-    static let midnight = Color(#colorLiteral(red: 0.003921568627, green: 0.2588235294, blue: 0.4156862745, alpha: 1))
+    static let midnight: Color = .init(#colorLiteral(red: 0.003921568627, green: 0.2588235294, blue: 0.4156862745, alpha: 1))
 }

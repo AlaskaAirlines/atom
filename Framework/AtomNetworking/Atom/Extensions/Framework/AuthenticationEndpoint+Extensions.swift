@@ -18,16 +18,20 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension AuthenticationEndpoint {
+extension AuthenticationEndpoint {
     /// Header keys, specific to this token refresh request.
-    struct HeaderKey {
+    enum HeaderKey {
         static let contentType = "Content-Type"
         static let authorization = "Authorization"
     }
 
     /// Header values, specific to this token refresh request.
-    struct HeaderValue {
+    enum HeaderValue {
+        // MARK: - Static Properties
+
         static let urlEncoded = "application/x-www-form-urlencoded"
+
+        // MARK: - Static Functions
 
         static func bearer(with writable: TokenCredentialWritable) -> String {
             "Bearer \(writable.tokenCredential.accessToken)"
@@ -35,37 +39,37 @@ internal extension AuthenticationEndpoint {
     }
 
     /// Body identifiers, specific to this token refresh request.
-    struct Identifier {
+    enum Identifier {
         static let grantType = "grant_type="
-        static let clientId = "client_id="
+        static let clientID = "client_id="
         static let clientSecret = "client_secret="
         static let refreshToken = "refresh_token="
     }
 }
 
-// MARK: - Protocol Conformance
+// MARK: - AuthenticationEndpoint + Requestable
 
 extension AuthenticationEndpoint: Requestable {
-    internal var headerItems: [HeaderItem]? {[
+    var headerItems: [HeaderItem]? { [
         HeaderItem(name: HeaderKey.contentType, value: HeaderValue.urlEncoded),
         HeaderItem(name: HeaderKey.authorization, value: HeaderValue.bearer(with: writable)),
-    ]}
+    ] }
 
-    internal var method: HTTPMethod {
+    var method: HTTPMethod {
         let grantType = Identifier.grantType.appending(credential.grantType.rawValue)
-        let clientId = Identifier.clientId.appending(credential.id)
+        let clientID = Identifier.clientID.appending(credential.id)
         let clientSecret = Identifier.clientSecret.appending(credential.secret)
         let refreshToken = Identifier.refreshToken.appending(writable.tokenCredential.refreshToken)
-        let bodyString = grantType + "&" + clientId + "&" + clientSecret + "&" + refreshToken
+        let bodyString = grantType + "&" + clientID + "&" + clientSecret + "&" + refreshToken
 
         return .post(Data(bodyString.utf8))
     }
 
-    internal func baseURL() throws(AtomError) -> BaseURL {
+    func baseURL() throws(AtomError) -> BaseURL {
         endpoint.baseURL
     }
 
-    internal func path() throws(AtomError) -> URLPath {
+    func path() throws(AtomError) -> URLPath {
         endpoint.path
     }
 }

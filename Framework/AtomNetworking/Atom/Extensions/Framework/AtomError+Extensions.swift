@@ -18,10 +18,12 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-public extension AtomError {
+extension AtomError {
     /// Returns `Bool` indicating whether the error is due to an invalid or expired access token.
-    var isAuthorizationFailure: Bool {
-        guard case let .response(response) = self else { return false }
+    public var isAuthorizationFailure: Bool {
+        guard case let .response(response) = self else {
+            return false
+        }
 
         return response.statusCode == 401
     }
@@ -34,11 +36,13 @@ public extension AtomError {
     /// Unlike `AtomError` case - `.response` - token refresh error is nested inside of the `.session` error
     /// case to make differentiation between a standard `Bad Request` and `Bad Request` due to an invalid /
     /// or expired access token easier.
-    var isAccessTokenRefreshFailure: Bool {
+    public var isAccessTokenRefreshFailure: Bool {
         guard
             case let .session(error) = self,
             case let .response(response) = error as? AtomError
-            else { return false }
+        else {
+            return false
+        }
 
         return response.statusCode == 400
     }
@@ -51,8 +55,10 @@ public extension AtomError {
     ///   - type: The type to decode.
     ///
     /// - Returns: An optional instance of type `T` if `AtomError` is `.response`, and contains valid data, `nil` otherwise.
-    func decodeIfPresent<T: Decodable>(as type: T.Type) throws -> T? {
-        guard case .response(let response) = self else { return nil }
+    public func decodeIfPresent<T: Decodable>(as type: T.Type) throws -> T? {
+        guard case let .response(response) = self else {
+            return nil
+        }
 
         // Atom supports returning raw data without decoding when the error object structure in not known.
         guard let value = response.data as? T else {
@@ -63,10 +69,10 @@ public extension AtomError {
     }
 }
 
-// MARK: - Protocol Conformance
+// MARK: - AtomError + StringConvertible
 
 extension AtomError: StringConvertible {
-    internal var stringValue: String {
+    var stringValue: String {
         switch self {
         case .decoder:
             return "decoder"
@@ -82,16 +88,18 @@ extension AtomError: StringConvertible {
     }
 }
 
+// MARK: - AtomError + CustomStringConvertible
+
 extension AtomError: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .decoder(let error):
+        case let .decoder(error):
             return "🧨 JSONDecoder failed to decode the response. This is usually due to a mismatch between the response and the expected type. 💥 Error: \(error)"
-        case .requestable(let error):
+        case let .requestable(error):
             return "🧨 Atom failed to initialize a request. This is usually due to an invalid base URL or path. Double-check the Requestable implementation. 💥 Error: \(error)"
-        case .response(let error):
+        case let .response(error):
             return "🧨 Atom received an invalid response that is not in the 200-299 range. 💥 Error: \(error)"
-        case .session(let error):
+        case let .session(error):
             return "🧨 URLSession failed to resume a request due to an error. 💥 Error: \(error)"
         case .unexpected:
             return "🧨 Unexpected logic error. Please submit an issue on GitHub."

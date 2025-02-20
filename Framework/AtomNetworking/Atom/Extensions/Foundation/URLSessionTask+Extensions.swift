@@ -22,7 +22,7 @@ extension URLSessionTask {
     /// Returns a textual representation of this instance, suitable for debugging.
     override open var debugDescription: String {
         let serverError = error?.localizedDescription ?? .init()
-        let identifier = String("❗️Task id: \(taskIdentifier)")
+        let identifier: String = .init("❗️Task id: \(taskIdentifier)")
         let request = originalRequest?.debugDescription ?? .init()
         let serverResponse = response?.debugDescription ?? .init()
 

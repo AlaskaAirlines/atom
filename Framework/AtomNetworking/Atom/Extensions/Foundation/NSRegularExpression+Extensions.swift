@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension NSRegularExpression {
+extension NSRegularExpression {
     /// Returns RFC compliant regex pattern for a URL host.
     ///
     /// Once a pattern is created, unless there was a change, it will just work. A forced

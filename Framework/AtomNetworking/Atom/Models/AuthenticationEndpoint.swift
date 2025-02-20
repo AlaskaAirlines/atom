@@ -17,15 +17,19 @@
 import Foundation
 
 /// A structure representing an authentication endpoint.
-internal struct AuthenticationEndpoint: Sendable {
+struct AuthenticationEndpoint: Sendable {
+    // MARK: - Properties
+
     /// The endpoint for refreshing the access token.
-    internal let endpoint: AuthorizationEndpoint
+    let endpoint: AuthorizationEndpoint
 
     /// The client credentials to be encoded in the body of the request.
-    internal let credential: ClientCredential
+    let credential: ClientCredential
 
     /// The writable instance used for accessing the existing access token.
-    internal let writable: any TokenCredentialWritable
+    let writable: any TokenCredentialWritable
+
+    // MARK: - Lifecycle
 
     /// Creates a `AuthenticationEndpoint` instance given the provided parameter(s).
     ///
@@ -33,7 +37,7 @@ internal struct AuthenticationEndpoint: Sendable {
     ///   - endpoint:   The endpoint for refreshing the access token.
     ///   - credential: The client credentials to be encoded in the body of the request.
     ///   - writable:   The writable instance used for accessing the existing access token.
-    internal init(endpoint: AuthorizationEndpoint, credential: ClientCredential, writable: any TokenCredentialWritable) {
+    init(endpoint: AuthorizationEndpoint, credential: ClientCredential, writable: any TokenCredentialWritable) {
         self.endpoint = endpoint
         self.credential = credential
         self.writable = writable

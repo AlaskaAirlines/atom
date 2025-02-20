@@ -18,11 +18,15 @@ import Foundation
 
 /// Model object representing `URLSessionConfiguration` timeout intervals.
 public struct ServiceTimeout: Sendable {
+    // MARK: - Properties
+
     /// The timeout interval to use when waiting for additional data.
-    internal var request: Double
+    var request: Double
 
     /// The maximum amount of time that a resource request should be allowed to take.
-    internal var resource: Double
+    var resource: Double
+
+    // MARK: - Lifecycle
 
     /// Creates a `ServiceTimeout` instance given the provided parameter(s).
     ///

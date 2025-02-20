@@ -17,7 +17,7 @@
 import Foundation
 
 /// The `StringConvertible` protocol declares an interface used for representing conforming type as a string.
-internal protocol StringConvertible: Sendable {
+protocol StringConvertible: Sendable {
     /// Returns conforming type as a **loosely** constructed string representation.
     var stringValue: String { get }
 }

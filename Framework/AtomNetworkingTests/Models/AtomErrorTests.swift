@@ -17,8 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class AtomErrorTests: XCTestCase {
-    internal func testAtomErrorReturnsExpectedStringValue() {
+final class AtomErrorTests: XCTestCase {
+    func testAtomErrorReturnsExpectedStringValue() {
         // Give, When
         let decoder = "decoder"
         let requestable = "requestable"
@@ -26,9 +26,9 @@ internal final class AtomErrorTests: XCTestCase {
         let session = "session"
         let unexpected = "unexpected"
 
-        let decodingError = DecodingError.typeMismatch(Void.self, .init(codingPath: [], debugDescription: .init()))
-        let requestableError = RequestableError.invalidURL
-        let atomResponse = AtomResponse(statusCode: 401)
+        let decodingError: DecodingError = .typeMismatch(Void.self, .init(codingPath: [], debugDescription: .init()))
+        let requestableError: RequestableError = .invalidURL
+        let atomResponse: AtomResponse = .init(statusCode: 401)
 
         // Then
         XCTAssertEqual(AtomError.decoder(decodingError).stringValue, decoder)

@@ -17,10 +17,10 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class EndpointTests: XCTestCase {
-    internal func testInitializeEmptyEndpoint() {
+final class EndpointTests: XCTestCase {
+    func testInitializeEmptyEndpoint() {
         // Given, When
-        let endpoint = Endpoint()
+        let endpoint: Endpoint = .init()
         let baseURL = try? endpoint.baseURL()
 
         // Then

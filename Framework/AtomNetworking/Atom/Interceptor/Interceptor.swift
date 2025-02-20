@@ -18,19 +18,23 @@ import Foundation
 import os.log
 
 /// An object for handling task-level events & logging for `URLSession` requests.
-internal final class Interceptor: NSObject, Sendable {
+final class Interceptor: NSObject, Sendable {
+    // MARK: - Properties
+
     /// The OSLog instance to use.
-    internal let log: OSLog
+    let log: OSLog
 
     /// The Bool indicating whether logging is enabled.
-    internal let isEnabled: Bool
+    let isEnabled: Bool
+
+    // MARK: - Lifecycle
 
     /// Creates a `Interceptor` instance given the provided parameter(s).
     ///
     /// - Parameters:
     ///   - log:       The service configuration data used for initializing `Service` instance.
     ///   - isEnabled: The Bool indicating whether logging is enabled.
-    internal init(for log: OSLog, isEnabled: Bool) {
+    init(for log: OSLog, isEnabled: Bool) {
         self.log = log
         self.isEnabled = isEnabled
     }

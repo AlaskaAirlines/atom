@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension Data {
+extension Data {
     /// Attempts to serialize `self` into a JSON object for debug purposes. If serialization
     /// fails, an instance of `self` is returned.
     ///
@@ -33,7 +33,7 @@ internal extension Data {
     }
 }
 
-// MARK: - Protocol Conformance
+// MARK: - Data + Model
 
 /// Conforming `Data` type to `Model` protocol allows it to be used where `Model` is expected.
 extension Data: Model {}

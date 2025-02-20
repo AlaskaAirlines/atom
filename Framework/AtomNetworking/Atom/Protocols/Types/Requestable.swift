@@ -16,6 +16,8 @@
 
 import Foundation
 
+// MARK: - Requestable
+
 /// The `Requestable` protocol declares an interface used for initializing network request object.
 public protocol Requestable: Sendable {
     /// The array of header items to apply to a `URLRequest`.
@@ -61,19 +63,19 @@ public protocol Requestable: Sendable {
 // MARK: - Default Implementation
 
 /// Default implementation for `Requestable` protocol.
-public extension Requestable {
+extension Requestable {
     /// The default value is `nil`.
-    var headerItems: [HeaderItem]? { nil }
+    public var headerItems: [HeaderItem]? { nil }
 
     /// The default value is `.get`.
-    var method: HTTPMethod { .get }
+    public var method: HTTPMethod { .get }
 
     /// The default valus is `nil`.
-    var queryItems: [QueryItem]? { nil }
+    public var queryItems: [QueryItem]? { nil }
 
     /// The default valus is `true`.
-    var requiresAuthorization: Bool { true }
+    public var requiresAuthorization: Bool { true }
 
     /// The default valus is `URLPath.default`.
-    func path() throws(AtomError) -> URLPath { URLPath.default }
+    public func path() throws(AtomError) -> URLPath { URLPath.default }
 }

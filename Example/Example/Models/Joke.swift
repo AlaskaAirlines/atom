@@ -17,6 +17,8 @@
 import AtomNetworking
 import Foundation
 
+// MARK: - Joke
+
 struct Joke: Model {
     /// The id of the joke.
     let id: String
@@ -26,7 +28,7 @@ struct Joke: Model {
 }
 
 extension Joke {
-    static let `default` = Joke(
+    static let `default`: Joke = .init(
         id: "id",
         value: "If Chuck Norris writes code with bugs, the bugs fix themselves."
     )

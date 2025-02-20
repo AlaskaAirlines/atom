@@ -17,8 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class StringExtensionsTests: XCTestCase {
-    internal func testInvalidURLHost() {
+final class StringExtensionsTests: XCTestCase {
+    func testInvalidURLHost() {
         // Given, When
         let alaska = "/api.alaskaair.net"
         let apple = "apple/"
@@ -34,7 +34,7 @@ internal final class StringExtensionsTests: XCTestCase {
         XCTAssertFalse(nike.isValidURLHost)
     }
 
-    internal func testValidURLHost() {
+    func testValidURLHost() {
         // Given, When
         let alaska = "api.alaskaair.net"
         let apple = "apple.com"
@@ -50,7 +50,7 @@ internal final class StringExtensionsTests: XCTestCase {
         XCTAssertTrue(nike.isValidURLHost)
     }
 
-    internal func testInvalidURLPath() {
+    func testInvalidURLPath() {
         // Given, When
         let single = "path"
         let multiple = "/v1/new/path/"
@@ -64,7 +64,7 @@ internal final class StringExtensionsTests: XCTestCase {
         XCTAssertFalse(underscore.isValidURLPath)
     }
 
-    internal func testValidURLPath() {
+    func testValidURLPath() {
         // Given, When
         let single = "/path"
         let multiple = "/v1/new/path"
@@ -77,5 +77,4 @@ internal final class StringExtensionsTests: XCTestCase {
         XCTAssertTrue(dash.isValidURLPath)
         XCTAssertTrue(underscore.isValidURLPath)
     }
-
 }

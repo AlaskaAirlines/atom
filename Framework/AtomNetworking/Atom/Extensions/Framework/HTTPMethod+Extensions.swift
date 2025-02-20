@@ -18,21 +18,24 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension HTTPMethod {
+extension HTTPMethod {
     var body: Data? {
         switch self {
-        case .delete, .get:
+        case .delete,
+             .get:
             return nil
-        case .patch(let data), .post(let data), .put(let data):
+        case let .patch(data),
+             let .post(data),
+             let .put(data):
             return data
         }
     }
 }
 
-// MARK: - Protocol Conformance
+// MARK: - HTTPMethod + StringConvertible
 
 extension HTTPMethod: StringConvertible {
-    internal var stringValue: String {
+    var stringValue: String {
         switch self {
         case .delete:
             return "DELETE"

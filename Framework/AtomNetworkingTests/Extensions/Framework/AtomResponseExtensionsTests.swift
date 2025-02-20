@@ -17,19 +17,19 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class AtomResponseExtensionsTests: XCTestCase {
-    internal func testIsFailure() {
+final class AtomResponseExtensionsTests: XCTestCase {
+    func testIsFailure() {
         // Given, When
-        let response = AtomResponse(response: HTTPURLResponse(statusCode: 100).unwrap() as URLResponse)
+        let response: AtomResponse = .init(response: HTTPURLResponse(statusCode: 100).unwrap() as URLResponse)
 
         // Then
         XCTAssertNotNil(response)
         XCTAssertTrue(response.isFailure)
     }
 
-    internal func testIsSuccess() {
+    func testIsSuccess() {
         // Given, When
-        let response = AtomResponse(response: HTTPURLResponse(statusCode: 204).unwrap() as URLResponse)
+        let response: AtomResponse = .init(response: HTTPURLResponse(statusCode: 204).unwrap() as URLResponse)
 
         // Then
         XCTAssertNotNil(response)

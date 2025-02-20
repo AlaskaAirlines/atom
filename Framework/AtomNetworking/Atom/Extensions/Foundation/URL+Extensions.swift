@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension URL {
+extension URL {
     /// A static property representing an empty URL, initialized with a forward slash.
     ///
     /// This can be useful for scenarios where a placeholder URL is required,

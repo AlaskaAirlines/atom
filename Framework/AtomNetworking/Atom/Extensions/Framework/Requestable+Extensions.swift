@@ -16,7 +16,7 @@
 
 import Foundation
 
-internal extension Requestable {
+extension Requestable {
     /// Applies authorization header to the `Requestable` instance.
     ///
     /// - Parameters:

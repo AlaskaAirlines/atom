@@ -17,8 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class ArrayExtensionsTests: XCTestCase {
-    internal func testArrayHeaderItemReturnsExpectedDictionary() {
+final class ArrayExtensionsTests: XCTestCase {
+    func testArrayHeaderItemReturnsExpectedDictionary() {
         // Given
         let dictionary = ["name": "value"]
 

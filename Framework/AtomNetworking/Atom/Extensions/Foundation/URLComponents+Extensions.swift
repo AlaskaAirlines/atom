@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension URLComponents {
+extension URLComponents {
     /// Creates a `URLComponents` instance given the provided parameter(s).
     ///
     /// - Parameters:

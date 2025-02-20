@@ -17,10 +17,10 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class ServiceConfigurationTests: XCTestCase {
-    internal func testInitializeWithDefaultParameters() {
+final class ServiceConfigurationTests: XCTestCase {
+    func testInitializeWithDefaultParameters() {
         // Given, When
-        let serviceConfiguration = ServiceConfiguration()
+        let serviceConfiguration: ServiceConfiguration = .init()
 
         // Then
         XCTAssertEqual(serviceConfiguration.dispatchQueue, .main)
@@ -28,10 +28,10 @@ internal final class ServiceConfigurationTests: XCTestCase {
         XCTAssertFalse(serviceConfiguration.isLogEnabled)
     }
 
-    internal func testInitializeWithTimeout() {
+    func testInitializeWithTimeout() {
         // Given, When
-        let timeout = ServiceTimeout(request: 60, resource: 60)
-        let serviceConfiguration = ServiceConfiguration(timeout: timeout)
+        let timeout: ServiceTimeout = .init(request: 60, resource: 60)
+        let serviceConfiguration: ServiceConfiguration = .init(timeout: timeout)
 
         // Then
         XCTAssertEqual(serviceConfiguration.timeout.request, 60)

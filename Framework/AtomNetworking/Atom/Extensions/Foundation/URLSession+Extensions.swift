@@ -16,7 +16,7 @@
 
 import Foundation
 
-internal extension URLSession {
+extension URLSession {
     /// Convenience method to load data using a `Requestable`, creates and resumes a `URLRequest` internally.
     ///
     /// - Parameters:
@@ -29,12 +29,12 @@ internal extension URLSession {
         do {
             let request = try URLRequest(requestable: requestable)
             let (data, response) = try await data(for: request)
-            let atomResponse = AtomResponse(data: data, response: response)
+            let atomResponse: AtomResponse = .init(data: data, response: response)
 
             // Process the response returned by the service, ensuring it falls within the expected range.
             guard atomResponse.isSuccess else {
                 // Create an error that includes the response object.
-                let error = AtomError.response(atomResponse)
+                let error: AtomError = .response(atomResponse)
 
                 // Checks if the error is related to:
                 //

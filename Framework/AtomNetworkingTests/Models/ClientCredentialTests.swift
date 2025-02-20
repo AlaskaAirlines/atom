@@ -17,14 +17,14 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class ClientCredentialTests: XCTestCase {
-    internal func testInitializeWithIdAndSecret() {
+final class ClientCredentialTests: XCTestCase {
+    func testInitializeWithIDAndSecret() {
         // Given
         let id = "id"
         let secret = "secret"
 
         // When
-        let credential = ClientCredential(grantType: .refreshToken, id: id, secret: secret)
+        let credential: ClientCredential = .init(grantType: .refreshToken, id: id, secret: secret)
 
         // Then
         XCTAssertEqual(credential.id, id)

@@ -18,23 +18,7 @@ import Foundation
 
 /// Model object representing `ServiceConfiguration` configuration.
 public struct ServiceConfiguration: Sendable {
-    /// The authentication method indicating how authorization header will be handled.
-    internal let authenticationMethod: AuthenticationMethod
-
-    /// The `SessionConfiguration` - default value is `.ephemeral`.
-    internal let configuration: SessionConfiguration
-
-    /// The `JSONDecoder` instance for decoding raw data into models.
-    internal let decoder: JSONDecoder
-
-    /// The queue to dispatch `Result` object on.
-    internal let dispatchQueue: DispatchQueue
-
-    /// The standardized timeout interval for request and resource.
-    internal let timeout: ServiceTimeout
-
-    /// A `Bool` indicating whether or not all service requests should be logged to the console.
-    internal let isLogEnabled: Bool
+    // MARK: - Nested Types
 
     /// Constants that specify the type of service that Multipath TCP uses.
     ///
@@ -49,8 +33,30 @@ public struct ServiceConfiguration: Sendable {
     ///  - `.aggregate`   - A service that aggregates the capacities of other Multipath options in an attempt to increase throughput and minimize latency.
     public typealias MultipathServiceType = URLSessionConfiguration.MultipathServiceType
 
+    // MARK: - Properties
+
+    /// The authentication method indicating how authorization header will be handled.
+    let authenticationMethod: AuthenticationMethod
+
+    /// The `SessionConfiguration` - default value is `.ephemeral`.
+    let configuration: SessionConfiguration
+
+    /// The `JSONDecoder` instance for decoding raw data into models.
+    let decoder: JSONDecoder
+
+    /// The queue to dispatch `Result` object on.
+    let dispatchQueue: DispatchQueue
+
+    /// The standardized timeout interval for request and resource.
+    let timeout: ServiceTimeout
+
+    /// A `Bool` indicating whether or not all service requests should be logged to the console.
+    let isLogEnabled: Bool
+
     /// The service type that specifies the Multipath TCP connection policy for transmitting data over Wi-Fi and cellular interfaces.
-    internal var multipathServiceType: MultipathServiceType = .none
+    var multipathServiceType: MultipathServiceType = .none
+
+    // MARK: - Lifecycle
 
     /// Creates a `ServiceConfiguration` instance given the provided parameter(s).
     ///
@@ -69,8 +75,8 @@ public struct ServiceConfiguration: Sendable {
         dispatchQueue: DispatchQueue = .main,
         multipathServiceType: MultipathServiceType = .none,
         timeout: ServiceTimeout = .init(),
-        isLogEnabled: Bool = false)
-    {
+        isLogEnabled: Bool = false
+    ) {
         self.authenticationMethod = authenticationMethod
         self.configuration = configuration
         self.decoder = decoder

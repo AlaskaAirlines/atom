@@ -20,8 +20,6 @@ import Foundation
 /// Global instance of AtomNetworking library.
 let atom: Atom = {
     let method: AuthenticationMethod = .basic(BasicCredential(password: "password", username: "username"))
-    let configuration = ServiceConfiguration(authenticationMethod: method, isLogEnabled: true)
-    let atom = Atom(serviceConfiguration: configuration)
-
-    return atom
+    let configuration: ServiceConfiguration = .init(authenticationMethod: method, isLogEnabled: true)
+    return .init(serviceConfiguration: configuration)
 }()

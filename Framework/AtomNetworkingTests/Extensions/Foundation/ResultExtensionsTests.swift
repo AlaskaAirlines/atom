@@ -17,22 +17,22 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class ResultExtensionsTests: XCTestCase {
-    internal func testInitializeFailureWithError() {
+final class ResultExtensionsTests: XCTestCase {
+    func testInitializeFailureWithError() {
         // Given
-        let error = NSError(domain: "domain", code: 100, userInfo: nil)
+        let error: NSError = .init(domain: "domain", code: 100, userInfo: nil)
 
         // When
-        let result = Result<Void, NSError>(error)
+        let result: Result<Void, NSError> = .init(error)
 
         // Then
         XCTAssertNil(result.value)
         XCTAssertNotNil(result.error)
     }
 
-    internal func testFailureUnwrapThrowsError() {
+    func testFailureUnwrapThrowsError() {
         // Given
-        let result = Result<Void, AtomError>(.unexpected)
+        let result: Result<Void, AtomError> = .init(.unexpected)
 
         // When
         var expectedError: Error?
@@ -47,20 +47,20 @@ internal final class ResultExtensionsTests: XCTestCase {
         XCTAssertNotNil(expectedError)
     }
 
-    internal func testInitializeSuccessWithValue() {
+    func testInitializeSuccessWithValue() {
         // Given, When
         let value = "Alaska Airlines"
-        let result = Result<String, NSError>(value)
+        let result: Result<String, NSError> = .init(value)
 
         // Then
         XCTAssertNil(result.error)
         XCTAssertEqual(result.value, value)
     }
 
-    internal func testSuccessUnwrapReturnsValue() throws {
+    func testSuccessUnwrapReturnsValue() throws {
         // Given
         let value = "Alaska Airlines"
-        let result = Result<String, NSError>(value)
+        let result: Result<String, NSError> = .init(value)
 
         // When
         let expectedValue = try result.unwrap()

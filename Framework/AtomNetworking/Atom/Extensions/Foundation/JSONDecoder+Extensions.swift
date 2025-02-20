@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension JSONDecoder {
+extension JSONDecoder {
     /// Decodes a top-level value of the given type from the given JSON representation.
     ///
     /// - Parameters:

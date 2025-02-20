@@ -4,7 +4,8 @@
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
       <PreActions>
          <ExecutionAction
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
@@ -14,10 +15,10 @@
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "1C48196720D0349600CB6F31"
-                     BuildableName = "AtomNetworking.framework"
-                     BlueprintName = "AtomNetworking"
-                     ReferencedContainer = "container:AtomNetworking.xcodeproj">
+                     BlueprintIdentifier = "67F83AE12D1F733800B9880A"
+                     BuildableName = "Example.app"
+                     BlueprintName = "Example"
+                     ReferencedContainer = "container:Example.xcodeproj">
                   </BuildableReference>
                </EnvironmentBuildable>
             </ActionContent>
@@ -32,10 +33,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1C48196720D0349600CB6F31"
-               BuildableName = "AtomNetworking.framework"
-               BlueprintName = "AtomNetworking"
-               ReferencedContainer = "container:AtomNetworking.xcodeproj">
+               BlueprintIdentifier = "67F83AE12D1F733800B9880A"
+               BuildableName = "Example.app"
+               BlueprintName = "Example"
+               ReferencedContainer = "container:Example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,28 +45,8 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1C48196720D0349600CB6F31"
-            BuildableName = "AtomNetworking.framework"
-            BlueprintName = "AtomNetworking"
-            ReferencedContainer = "container:AtomNetworking.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1C48197020D0349600CB6F31"
-               BuildableName = "AtomNetworkingTests.xctest"
-               BlueprintName = "AtomNetworkingTests"
-               ReferencedContainer = "container:AtomNetworking.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -77,15 +58,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1C48196720D0349600CB6F31"
-            BuildableName = "AtomNetworking.framework"
-            BlueprintName = "AtomNetworking"
-            ReferencedContainer = "container:AtomNetworking.xcodeproj">
+            BlueprintIdentifier = "67F83AE12D1F733800B9880A"
+            BuildableName = "Example.app"
+            BlueprintName = "Example"
+            ReferencedContainer = "container:Example.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -93,15 +75,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1C48196720D0349600CB6F31"
-            BuildableName = "AtomNetworking.framework"
-            BlueprintName = "AtomNetworking"
-            ReferencedContainer = "container:AtomNetworking.xcodeproj">
+            BlueprintIdentifier = "67F83AE12D1F733800B9880A"
+            BuildableName = "Example.app"
+            BlueprintName = "Example"
+            ReferencedContainer = "container:Example.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

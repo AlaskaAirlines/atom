@@ -17,18 +17,18 @@
 import Foundation
 import os.log
 
-internal extension OSLog {
+extension OSLog {
     /// An identifier string, in reverse DNS notation, representing the subsystem that’s performing
     /// logging. By default, bundle identifier of the application integrating Atom will be used. In the unlikely
     /// case that the bundle identifier cannot be retrieved, `com.alaskaair.atom` will be assigned.
     private static let subsystem = Bundle.main.bundleIdentifier ?? "com.alaskaair.atom"
 
     /// A custom log object to use for for all authentication related logging.
-    static let authentication = OSLog(subsystem: subsystem, category: "Authentication")
+    static let authentication: OSLog = .init(subsystem: subsystem, category: "Authentication")
 
     /// A custom log object to use for for all model related logging.
-    static let model = OSLog(subsystem: subsystem, category: "Model")
+    static let model: OSLog = .init(subsystem: subsystem, category: "Model")
 
     /// A custom log object to use for for all network related logging.
-    static let network = OSLog(subsystem: subsystem, category: "Network")
+    static let network: OSLog = .init(subsystem: subsystem, category: "Network")
 }

@@ -18,8 +18,12 @@ import Foundation
 
 /// The lightweight & delightful networking library.
 public actor Atom: Sendable {
+    // MARK: - Properties
+
     /// The `Service` instance.
     private let service: Service
+
+    // MARK: - Lifecycle
 
     /// Creates a `Atom` instance given the provided parameter(s).
     ///
@@ -28,6 +32,8 @@ public actor Atom: Sendable {
     public init(serviceConfiguration: ServiceConfiguration = ServiceConfiguration()) {
         self.service = Service(serviceConfiguration: serviceConfiguration)
     }
+
+    // MARK: - Functions
 
     /// Cancels all currently running and suspended tasks.
     ///
