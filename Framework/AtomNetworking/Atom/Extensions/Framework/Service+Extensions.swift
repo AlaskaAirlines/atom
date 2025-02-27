@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension Service {
+extension Service {
     /// Applies authorization header to a `Requestable` instance.
     ///
     /// - Parameters:
@@ -40,7 +40,7 @@ internal extension Service {
             // Apply basic authorization header.
             return AuthorizedRequestable(requestable: requestable, authorizationHeaderItems: [method.authorizationHeaderItem])
 
-        case .bearer(let endpoint, let credential, let writable):
+        case let .bearer(endpoint, credential, writable):
             // Ensure the requestable requires an authorization header to be applied to it. A client has a
             // way to opt out of including the authorization header on a per-request basis even if the `authenticationMethod` is set.
             guard requestable.requiresAuthorization else {
@@ -83,8 +83,12 @@ internal extension Service {
     /// - Returns: A `TokenCredential` object representing the new credential.
     ///
     /// - Throws: An `AtomError` if there's an issue during the refresh process.
-    func refreshAccessToken(using endpoint: AuthorizationEndpoint, credential: ClientCredential, writable: any TokenCredentialWritable) async throws(AtomError) -> TokenCredential {
-        let authenticationEndpoint = AuthenticationEndpoint(endpoint: endpoint, credential: credential, writable: writable)
+    func refreshAccessToken(
+        using endpoint: AuthorizationEndpoint,
+        credential: ClientCredential,
+        writable: any TokenCredentialWritable
+    ) async throws(AtomError) -> TokenCredential {
+        let authenticationEndpoint: AuthenticationEndpoint = .init(endpoint: endpoint, credential: credential, writable: writable)
         let response = try await session.data(for: authenticationEndpoint)
 
         return try credentialDecoder.decode(type: TokenCredential.self, from: response.data)

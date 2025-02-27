@@ -21,6 +21,8 @@ enum JokeEndpoint: Requestable {
     /// Get a random, single, Chuck Norris joke.
     case random
 
+    // MARK: - Functions
+
     func baseURL() throws(AtomError) -> BaseURL {
         try BaseURL(host: "api.chucknorris.io")
     }

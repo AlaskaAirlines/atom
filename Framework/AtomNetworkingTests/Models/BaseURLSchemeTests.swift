@@ -17,8 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class BaseURLSchemeTests: XCTestCase {
-    internal func testBaseURLSchemeReturnsExpectedStringValue() {
+final class BaseURLSchemeTests: XCTestCase {
+    func testBaseURLSchemeReturnsExpectedStringValue() {
         // Give, When
         let http = "http://"
         let https = "https://"

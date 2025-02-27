@@ -18,17 +18,21 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension Result {
+extension Result {
     /// Returns an optional error if the `Result` is Failure.
     var error: Failure? {
-        guard case .failure(let error) = self else { return nil }
+        guard case let .failure(error) = self else {
+            return nil
+        }
 
         return error
     }
 
     /// Returns an optional value if the `Result` is Success.
     var value: Success? {
-        guard case .success(let value) = self else { return nil }
+        guard case let .success(value) = self else {
+            return nil
+        }
 
         return value
     }
@@ -52,9 +56,9 @@ internal extension Result {
     /// Returns an optional value if the `Result` is Success. Throws on error.
     func unwrap() throws -> Success? {
         switch self {
-        case .success(let value):
+        case let .success(value):
             return value
-        case .failure(let error):
+        case let .failure(error):
             throw error
         }
     }

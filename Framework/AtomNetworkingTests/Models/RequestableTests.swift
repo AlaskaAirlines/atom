@@ -17,10 +17,10 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class RequestableTests: XCTestCase {
-    internal func testRequestableProvidesExpectedDefaultImplementation() {
+final class RequestableTests: XCTestCase {
+    func testRequestableProvidesExpectedDefaultImplementation() {
         // Given, When
-        let endpoint = Endpoint()
+        let endpoint: Endpoint = .init()
 
         // Then
         XCTAssertEqual(endpoint.method, .get)

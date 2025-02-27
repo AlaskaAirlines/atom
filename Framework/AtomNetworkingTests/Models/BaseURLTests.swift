@@ -17,8 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class BaseURLTests: XCTestCase {
-    internal func testInitializeWithInvalidHost() {
+final class BaseURLTests: XCTestCase {
+    func testInitializeWithInvalidHost() {
         // Given
         let host = ".api.alaskaair.net"
 
@@ -29,7 +29,7 @@ internal final class BaseURLTests: XCTestCase {
         XCTAssertNil(atomBaseURL)
     }
 
-    internal func testInitializeWithValidHost() {
+    func testInitializeWithValidHost() {
         // Given
         let host = "api.alaskaair.net"
         let baseURL = "https://api.alaskaair.net"

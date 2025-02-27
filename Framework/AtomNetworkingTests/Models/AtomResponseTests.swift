@@ -17,18 +17,18 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class AtomResponseTests: XCTestCase {
-    internal func testInitializeWithNilValues() {
+final class AtomResponseTests: XCTestCase {
+    func testInitializeWithNilValues() {
         // Given, When
-        let response = AtomResponse(response: nil)
+        let response: AtomResponse = .init(response: nil)
 
         // Then
         XCTAssertNotNil(response)
     }
 
-    internal func testInitializeWithDataNilResponseSuccess() {
+    func testInitializeWithDataNilResponseSuccess() {
         // Given, When
-        let response = AtomResponse(response: HTTPURLResponse(statusCode: 200).unwrap() as URLResponse)
+        let response: AtomResponse = .init(response: HTTPURLResponse(statusCode: 200).unwrap() as URLResponse)
 
         // Then
         XCTAssertNotNil(response)
@@ -36,9 +36,9 @@ internal final class AtomResponseTests: XCTestCase {
         XCTAssertEqual(response.httpResponse?.url?.absoluteString, "/")
     }
 
-    internal func testInitializeWithDataURLResponseNil() {
+    func testInitializeWithDataURLResponseNil() {
         // Given, When
-        let response = AtomResponse(response: nil)
+        let response: AtomResponse = .init(response: nil)
 
         // Then
         XCTAssertNotNil(response)

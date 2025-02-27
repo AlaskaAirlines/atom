@@ -17,14 +17,14 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class QueryItemTests: XCTestCase {
-    internal func testInitializeWithNameAndValue() {
+final class QueryItemTests: XCTestCase {
+    func testInitializeWithNameAndValue() {
         // Given
         let name = "name"
         let value = "value"
 
         // When
-        let queryItem = QueryItem(name: name, value: value)
+        let queryItem: QueryItem = .init(name: name, value: value)
 
         // Then
         XCTAssertEqual(queryItem.name, name)

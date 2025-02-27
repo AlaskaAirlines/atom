@@ -17,28 +17,28 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class AtomErrorExtensionsTests: XCTestCase {
-    internal func testIsAuthorizationFailure() {
+final class AtomErrorExtensionsTests: XCTestCase {
+    func testIsAuthorizationFailure() {
         // Given, When
-        let error = AtomError.response(AtomResponse(statusCode: 401))
+        let error: AtomError = .response(AtomResponse(statusCode: 401))
 
         // Then
         XCTAssertTrue(error.isAuthorizationFailure)
     }
 
-    internal func testIsAccessTokenRefreshFailure() {
+    func testIsAccessTokenRefreshFailure() {
         // Given, When
-        let error = AtomError.session(AtomError.response(AtomResponse(statusCode: 400)))
+        let error: AtomError = .session(AtomError.response(AtomResponse(statusCode: 400)))
 
         // Then
         XCTAssertTrue(error.isAccessTokenRefreshFailure)
     }
 
-    internal func testDataDecodeIfPresentErrorData() throws {
+    func testDataDecodeIfPresentErrorData() throws {
         // Given
         let json = ["key": "value"]
         let data = try JSONEncoder().encode(json)
-        let error = AtomError.response(AtomResponse(data: data, response: nil))
+        let error: AtomError = .response(AtomResponse(data: data, response: nil))
 
         // When
         let dictionary = try error.decodeIfPresent(as: [String: String].self)

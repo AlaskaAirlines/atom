@@ -18,11 +18,15 @@ import Foundation
 
 /// The metadata associated with the response to a URL load request, independent of protocol and URL scheme.
 public struct AtomResponse: Sendable {
+    // MARK: - Properties
+
     /// The data returned by the server.
     public let data: Data
 
     /// The response object containing HTTP-specific details.
     public let httpResponse: HTTPURLResponse?
+
+    // MARK: - Computed Properties
 
     /// The response’s HTTP status code.
     public var statusCode: Int? {

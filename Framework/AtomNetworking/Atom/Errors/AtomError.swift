@@ -17,7 +17,8 @@
 import Foundation
 
 /// List of all possible error cases thrown by `Atom` framework.
-@frozen public enum AtomError: Error, Sendable {
+@frozen
+public enum AtomError: Error, Sendable {
     /// Decoder failed to decode data.
     case decoder(DecodingError)
 

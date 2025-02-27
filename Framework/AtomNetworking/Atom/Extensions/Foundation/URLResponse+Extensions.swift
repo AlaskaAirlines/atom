@@ -18,20 +18,24 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-public extension URLResponse {
+extension URLResponse {
     /// Returns `true` if the status code of the `HTTPURLResponse` is not in `200...299` range.
-    var isFailure: Bool { !isSuccess }
+    public var isFailure: Bool { !isSuccess }
 
     /// Returns `true` if the status code of the `HTTPURLResponse` is in `200...299` range.
-    var isSuccess: Bool {
-        guard let response = self as? HTTPURLResponse else { return false }
+    public var isSuccess: Bool {
+        guard let response = self as? HTTPURLResponse else {
+            return false
+        }
 
-        return (200...299).contains(response.statusCode)
+        return (200 ... 299).contains(response.statusCode)
     }
 
     /// Returns a textual representation of this instance, suitable for debugging.
-    override var debugDescription: String {
-        guard let response = self as? HTTPURLResponse else { return description }
+    override public var debugDescription: String {
+        guard let response = self as? HTTPURLResponse else {
+            return description
+        }
 
         return """
         ↘︎ Response Code: \(response.statusCode)

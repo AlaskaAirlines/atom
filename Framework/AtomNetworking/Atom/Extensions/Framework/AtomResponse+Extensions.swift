@@ -18,18 +18,20 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-public extension AtomResponse {
+extension AtomResponse {
     /// Returns default, success response where status code is 200.
-    static let success = AtomResponse(statusCode: 200)
+    public static let success: AtomResponse = .init(statusCode: 200)
 
     /// Returns `true` if the status code of the `AtomResponse` is not in `200...299` range.
-    var isFailure: Bool { !isSuccess }
+    public var isFailure: Bool { !isSuccess }
 
     /// Returns `true` if the status code of the `AtomResponse` is in `200...299` range.
-    var isSuccess: Bool {
-        guard let statusCode = statusCode else { return false }
+    public var isSuccess: Bool {
+        guard let statusCode else {
+            return false
+        }
 
-        return (200...299).contains(statusCode)
+        return (200 ... 299).contains(statusCode)
     }
 
     /// Creates a `AtomResponse` instance given the provided parameter(s).
@@ -37,7 +39,7 @@ public extension AtomResponse {
     /// - Parameters:
     ///   - data:     The Data returned by URLSession completion.
     ///   - response: The URLresponse returned by URLSession completion.
-    internal init(data: Data = .init(), response: URLResponse? = nil) {
+    init(data: Data = .init(), response: URLResponse? = nil) {
         self.data = data
         self.httpResponse = response as? HTTPURLResponse
     }
@@ -46,7 +48,7 @@ public extension AtomResponse {
     ///
     /// - Parameters:
     ///   - statusCode: The response’s HTTP status code.
-    internal init(statusCode: Int) {
+    init(statusCode: Int) {
         self.data = .init()
         self.httpResponse = .init(statusCode: statusCode)
     }

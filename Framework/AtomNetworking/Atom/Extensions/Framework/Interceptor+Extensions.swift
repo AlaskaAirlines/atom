@@ -21,7 +21,9 @@ import os.log
 
 extension Interceptor: URLSessionTaskDelegate {
     func urlSession(_ session: URLSession, task: URLSessionTask, didFinishCollecting metrics: URLSessionTaskMetrics) {
-        guard isEnabled else { return }
+        guard isEnabled else {
+            return
+        }
 
         // Create formatted log value.
         let logValue = "\(String(reflecting: task))\(String(reflecting: metrics))"

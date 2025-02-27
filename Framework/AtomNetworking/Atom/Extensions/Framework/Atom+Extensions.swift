@@ -18,18 +18,18 @@ import Foundation
 
 // MARK: - Public APIs
 
-public extension Atom {
+extension Atom {
     /// Notification name posted when an attempt to refresh the access token fails.
     ///
     /// This notification is posted when there's an error during the process of refreshing the access token, allowing
     /// other parts of the application to respond to this event, such as updating UI to reflect login status or
     /// prompting the user to re-authenticate.
-    static let didFailToRefreshAccessToken = Notification.Name(rawValue: "com.alaskaair.atom.didFailToRefreshAccessToken")
+    public static let didFailToRefreshAccessToken = Notification.Name(rawValue: "com.alaskaair.atom.didFailToRefreshAccessToken")
 
     /// Notification name posted when an attempt to authorize the request fails.
     ///
     /// This notification is posted when there's an error during the process of authorizing the request, allowing
     /// other parts of the application to respond to this event, such as updating UI to reflect login status or
     /// prompting the user to re-authenticate.
-    static let didFailToAuthorizeRequest = Notification.Name(rawValue: "com.alaskaair.atom.didFailToAuthorizeRequest")
+    public static let didFailToAuthorizeRequest = Notification.Name(rawValue: "com.alaskaair.atom.didFailToAuthorizeRequest")
 }

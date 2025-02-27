@@ -17,7 +17,7 @@
 import Foundation
 
 /// Model object representing default `Endpoint` requestable used for initializing `Service` only.
-internal struct Endpoint: Requestable, Sendable {
+struct Endpoint: Requestable, Sendable {
     /// Creates an empty Endpoint.
     ///
     /// Note: This will always fail as designed. This function is meant to
@@ -27,7 +27,7 @@ internal struct Endpoint: Requestable, Sendable {
     /// - Returns: BaseURL with host as "".
     ///
     /// - Throws: `AtomError` when initialization and validation fails.
-    internal func baseURL() throws(AtomError) -> BaseURL {
+    func baseURL() throws(AtomError) -> BaseURL {
         try BaseURL(host: String())
     }
 }

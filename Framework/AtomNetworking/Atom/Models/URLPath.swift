@@ -18,8 +18,12 @@ import Foundation
 
 /// Model object representing URL path.
 public struct URLPath: Sendable, Equatable {
+    // MARK: - Properties
+
     /// The URL path as defined in RFC 3986.
-    internal let path: String
+    let path: String
+
+    // MARK: - Lifecycle
 
     /// Creates a `URLPath` instance given the provided parameter(s).
     ///

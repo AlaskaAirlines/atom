@@ -17,8 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class AuthorizationEndpointTests: XCTestCase {
-    internal func testInitializeWithHostAndPath() throws {
+final class AuthorizationEndpointTests: XCTestCase {
+    func testInitializeWithHostAndPath() throws {
         // Given, When
         let endpoint = try AuthorizationEndpoint(host: "api.alaskaair.com", path: "/path")
 

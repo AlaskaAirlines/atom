@@ -18,13 +18,15 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension URLRequest {
+extension URLRequest {
     /// Returns a textual representation of this instance, suitable for debugging.
     ///
     /// If the request does not contain a valid URL, default description will be returned
     /// without evaluating remaining properties of this request.
     var debugDescription: String {
-        guard let url = url else { return description }
+        guard let url else {
+            return description
+        }
 
         let body = httpBody ?? .init()
         let headers = allHTTPHeaderFields ?? .init()

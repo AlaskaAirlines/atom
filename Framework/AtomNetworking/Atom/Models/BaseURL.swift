@@ -18,11 +18,15 @@ import Foundation
 
 /// Model object representing base URL composed from URL scheme and host.
 public struct BaseURL: Sendable, Equatable {
+    // MARK: - Properties
+
     /// The URL scheme as defined in RFC 2718.
-    internal let scheme: BaseURLScheme
+    let scheme: BaseURLScheme
 
     /// The URL host as defined in RFC 1738.
-    internal let host: String
+    let host: String
+
+    // MARK: - Lifecycle
 
     /// Creates a `BaseURL` instance given the provided parameter(s).
     ///

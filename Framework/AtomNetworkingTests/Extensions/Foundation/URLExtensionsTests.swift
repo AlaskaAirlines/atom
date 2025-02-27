@@ -17,10 +17,10 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class URLExtensionsTests: XCTestCase {
-    internal func testEmptyStaticPropertyReturnsValidURL() {
+final class URLExtensionsTests: XCTestCase {
+    func testEmptyStaticPropertyReturnsValidURL() {
         // Given, When
-        let url = URL.empty
+        let url: URL? = .empty
 
         // Then
         XCTAssertNotNil(url)

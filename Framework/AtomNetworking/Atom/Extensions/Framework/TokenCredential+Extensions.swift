@@ -18,12 +18,12 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension TokenCredential {
+extension TokenCredential {
     /// Returns `Bool` indicating whether the credential needs refreshing.
     var requiresRefresh: Bool { expiresAt <= .now }
 }
 
-// MARK: - Protocol Conformance
+// MARK: - TokenCredential + Model
 
 extension TokenCredential: Model {
     private enum CodingKeys: String, CodingKey {
@@ -39,11 +39,14 @@ extension TokenCredential: Model {
     /// - Throws:
     ///   - `DecodingError.dataCorruptedError` if neither `expiresAt` nor `expiresIn` can be decoded.
     ///
-    /// - Note: Local Data: If `expiresAt` is present, it suggests the data was previously saved locally. The value of `expiresAt` is directly assigned to `self.expiresAt`.
-    /// - Note: Service Data: If `expiresAt` is not present but `expiresIn` is, it indicates the data is fresh from a service. Here, `expiresAt` is calculated using `Date.now` plus the number of seconds in `expiresIn`.
+    /// - Note: Local Data: If `expiresAt` is present, it suggests the data was previously saved locally. The value of `expiresAt` is directly assigned to
+    /// `self.expiresAt`.
+    /// - Note: Service Data: If `expiresAt` is not present but `expiresIn` is, it indicates the data is fresh from a service. Here, `expiresAt` is calculated using
+    /// `Date.now` plus the number of seconds in `expiresIn`.
     /// - Note: Error Case: If neither `expiresAt` nor `expiresIn` can be decoded, an error is thrown.
     ///
-    /// - Note: This initializer assumes that either `expiresAt` or `expiresIn` will be present in the decoded data. If neither is present, it results in an error since token expiration information is crucial.
+    /// - Note: This initializer assumes that either `expiresAt` or `expiresIn` will be present in the decoded data. If neither is present, it results in an error since
+    /// token expiration information is crucial.
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let expiresAt = try container.decodeIfPresent(Date.self, forKey: .expiresAt)
@@ -54,12 +57,10 @@ extension TokenCredential: Model {
         // saved token from data stored in the iOS Keychain.
         if let expiresAt {
             self.expiresAt = expiresAt
-
-        // If expiresIn has a value, it indicates that the decoder is processing data received from a service.
+            // If expiresIn has a value, it indicates that the decoder is processing data received from a service.
         } else if let expiresIn {
             self.expiresAt = Date.now.addingTimeInterval(Double(expiresIn))
-
-        // An error occured.
+            // An error occured.
         } else {
             throw DecodingError.dataCorruptedError(forKey: .expiresIn, in: container, debugDescription: .init())
         }
@@ -73,7 +74,8 @@ extension TokenCredential: Model {
     /// - Parameter encoder: The encoder to write data to.
     /// - Throws: An error if encoding any of the properties fails.
     ///
-    /// - Note: This method does not encode `expiresIn` since it's derived from `expiresAt` during decoding. Ensure that `expiresAt` is set correctly before encoding to reflect the accurate expiration time.
+    /// - Note: This method does not encode `expiresIn` since it's derived from `expiresAt` during decoding. Ensure that `expiresAt` is set correctly before encoding to
+    /// reflect the accurate expiration time.
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
 

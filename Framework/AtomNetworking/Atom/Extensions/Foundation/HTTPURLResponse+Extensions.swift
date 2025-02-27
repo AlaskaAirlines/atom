@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension HTTPURLResponse {
+extension HTTPURLResponse {
     /// Convenience initializer for creating an `HTTPURLResponse` with just a status code.
     ///
     /// - Parameters:

@@ -18,13 +18,13 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension ServiceConfiguration {
+extension ServiceConfiguration {
     /// Returns `URLSessionConfiguration` for each `SessionConfiguration` case.
     var sessionConfiguration: URLSessionConfiguration {
         let sessionConfiguration: URLSessionConfiguration
 
         switch configuration {
-        case .background(let identifier):
+        case let .background(identifier):
             sessionConfiguration = .background(withIdentifier: identifier)
         case .ephemeral:
             sessionConfiguration = .ephemeral

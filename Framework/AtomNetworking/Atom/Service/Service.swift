@@ -23,23 +23,27 @@ import Foundation
 /// behavior is intentional to allow for better separation of responsibilities such as creating a request,
 /// network call, and data decoding.
 public actor Service: Sendable {
+    // MARK: - Properties
+
     /// The service configuration data.
-    internal let serviceConfiguration: ServiceConfiguration
+    let serviceConfiguration: ServiceConfiguration
 
     /// The `JSONDecoder` instance for decoding token credential.
-    internal let credentialDecoder: JSONDecoder
+    let credentialDecoder: JSONDecoder
 
     /// The `URLSession` instance configured from `ServiceConfiguration`.
-    internal let session: URLSession
+    let session: URLSession
 
     /// The requestable item to initialize `URLRequest` with.
     private var requestable: Requestable
+
+    // MARK: - Lifecycle
 
     /// Creates a `Service` instance given the provided parameter(s).
     ///
     /// - Parameters:
     ///   - serviceConfiguration: The service configuration data.
-    internal init(serviceConfiguration: ServiceConfiguration) {
+    init(serviceConfiguration: ServiceConfiguration) {
         self.requestable = Endpoint()
         self.serviceConfiguration = serviceConfiguration
         self.credentialDecoder = JSONDecoder()
@@ -50,17 +54,7 @@ public actor Service: Sendable {
         )
     }
 
-    /// For documentation see `cancelAllSessionTasks` declaration.
-    internal func cancelAllSessionTasks() async {
-        await session.allTasks.forEach { $0.cancel() }
-    }
-
-    /// Update requestable instance property with new data.
-    internal func update(with requestable: Requestable) async -> Service {
-        self.requestable = requestable
-
-        return self
-    }
+    // MARK: - Functions
 
     /// Creates and resumes `URLRequest` initialized from `Requestable`.
     ///
@@ -100,5 +94,17 @@ public actor Service: Sendable {
         let authorizedRequestable = try await applyAuthorizationHeader(to: requestable)
 
         return try await session.data(for: authorizedRequestable)
+    }
+
+    /// For documentation see `cancelAllSessionTasks` declaration.
+    func cancelAllSessionTasks() async {
+        await session.allTasks.forEach { $0.cancel() }
+    }
+
+    /// Update requestable instance property with new data.
+    func update(with requestable: Requestable) async -> Service {
+        self.requestable = requestable
+
+        return self
     }
 }

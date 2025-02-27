@@ -18,11 +18,15 @@ import Foundation
 
 /// Model object representing the location of the authorization server.
 public struct AuthorizationEndpoint: Sendable {
+    // MARK: - Properties
+
     /// The base url of the authorization server.
-    internal let baseURL: BaseURL
+    let baseURL: BaseURL
 
     /// The url path of the authorization server.
-    internal let path: URLPath
+    let path: URLPath
+
+    // MARK: - Lifecycle
 
     /// Creates a `AuthorizationEndpoint` instance given the provided parameter(s).
     ///

@@ -18,11 +18,15 @@ import Foundation
 
 /// A single name-value pair from the header portion of a request.
 public struct HeaderItem: RequestableItem, Sendable {
+    // MARK: - Properties
+
     /// The name of the header item.
     public let name: String
 
     /// The value of the header item.
     public let value: String
+
+    // MARK: - Lifecycle
 
     /// Creates a `HeaderItem` instance given the provided parameter(s).
     ///

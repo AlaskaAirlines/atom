@@ -17,15 +17,15 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class TokenCredentialTests: XCTestCase {
-    internal func testInitializeWithRequiredValues() {
+final class TokenCredentialTests: XCTestCase {
+    func testInitializeWithRequiredValues() {
         // Given
         let accessToken = "accessToken"
-        let expiresAt = Date()
+        let expiresAt: Date = .init()
         let refreshToken = "refreshToken"
 
         // When
-        let tokenCredential = TokenCredential(accessToken: accessToken, expiresAt: expiresAt, refreshToken: refreshToken)
+        let tokenCredential: TokenCredential = .init(accessToken: accessToken, expiresAt: expiresAt, refreshToken: refreshToken)
 
         // Then
         XCTAssertEqual(tokenCredential.accessToken, accessToken)
@@ -33,12 +33,12 @@ internal final class TokenCredentialTests: XCTestCase {
         XCTAssertEqual(tokenCredential.refreshToken, refreshToken)
     }
 
-    internal func testEncodeAndDecode() throws {
+    func testEncodeAndDecode() throws {
         // Given
         let accessToken = "accessToken"
-        let expiresAt = Date()
+        let expiresAt: Date = .init()
         let refreshToken = "refreshToken"
-        let tokenCredential = TokenCredential(accessToken: accessToken, expiresAt: expiresAt, refreshToken: refreshToken)
+        let tokenCredential: TokenCredential = .init(accessToken: accessToken, expiresAt: expiresAt, refreshToken: refreshToken)
 
         // When
         let encoded = try JSONEncoder().encode(tokenCredential)

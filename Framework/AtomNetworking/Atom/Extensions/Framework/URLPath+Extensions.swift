@@ -18,11 +18,11 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension URLPath {
+extension URLPath {
     /// Provides default implementation value for the `Requestable` protocol.
     ///
     /// For documentation see `URLPath.init` declaration.
-    static let `default` = URLPath()
+    static let `default`: URLPath = .init()
 
     /// Creates a `URLPath` instance where path is an empty string.
     ///
@@ -39,11 +39,11 @@ internal extension URLPath {
     /// requirement and yet when implemented by the client, validate url path where the value is
     /// guaranteed to be valid or invalid.
     private init() {
-        self.path = String()
+        path = String()
     }
 }
 
-// MARK: - Protocol Conformance
+// MARK: - URLPath + StringConvertible
 
 extension URLPath: StringConvertible {
     var stringValue: String { path }

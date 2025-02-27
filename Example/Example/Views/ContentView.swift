@@ -17,8 +17,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    // MARK: - SwiftUI Properties
+
     /// View model for this view.
-    @ObservedObject var vm = ContentViewModel()
+    @ObservedObject
+    var vm: ContentViewModel = .init()
+
+    // MARK: - Content Properties
 
     var body: some View {
         content

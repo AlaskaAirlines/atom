@@ -17,16 +17,18 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class AuthorizedRequestableTests: XCTestCase {
-    internal func testInitializeFromRequestableMapsRequestableProperties() throws {
+// MARK: - AuthorizedRequestableTests
+
+final class AuthorizedRequestableTests: XCTestCase {
+    func testInitializeFromRequestableMapsRequestableProperties() throws {
         // Given
-        let endpoint = Endpoint()
-        let method = AuthenticationMethod.basic(.init(password: "password", username: "username"))
+        let endpoint: Endpoint = .init()
+        let method: AuthenticationMethod = .basic(.init(password: "password", username: "username"))
         let expectedHeaderItems = [method.authorizationHeaderItem] + [.init(name: "name", value: "value")]
         let sortedExpectedHeaderItems = expectedHeaderItems.sorted { $0.name < $1.name }
 
         // When
-        let authorizedRequestable = AuthorizedRequestable(requestable: endpoint, authorizationHeaderItems: [method.authorizationHeaderItem])
+        let authorizedRequestable: AuthorizedRequestable = .init(requestable: endpoint, authorizationHeaderItems: [method.authorizationHeaderItem])
         let sortedActualHeaderItems = authorizedRequestable.headerItems?.sorted { $0.name < $1.name }
 
         // Then
@@ -34,15 +36,17 @@ internal final class AuthorizedRequestableTests: XCTestCase {
         XCTAssertEqual(endpoint.method, authorizedRequestable.method)
         XCTAssertEqual(endpoint.queryItems, authorizedRequestable.queryItems)
         XCTAssertEqual(endpoint.requiresAuthorization, authorizedRequestable.requiresAuthorization)
-        XCTAssertEqual(try endpoint.baseURL(), try  authorizedRequestable.baseURL())
+        XCTAssertEqual(try endpoint.baseURL(), try authorizedRequestable.baseURL())
         XCTAssertEqual(try endpoint.path(), try authorizedRequestable.path())
     }
 }
 
-// MARK: - Test Data
+// MARK: - AuthorizedRequestableTests.Endpoint
 
-private extension AuthorizedRequestableTests {
+extension AuthorizedRequestableTests {
     private struct Endpoint: Requestable {
+        // MARK: - Computed Properties
+
         var headerItems: [HeaderItem]? {
             [.init(name: "name", value: "value")]
         }
@@ -56,6 +60,8 @@ private extension AuthorizedRequestableTests {
         var requiresAuthorization: Bool {
             true
         }
+
+        // MARK: - Functions
 
         func baseURL() throws(AtomError) -> BaseURL {
             try .init(host: "api.alaskaair.com")

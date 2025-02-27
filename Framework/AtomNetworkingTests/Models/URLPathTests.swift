@@ -17,8 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class URLPathTests: XCTestCase {
-    internal func testInitializeWithInvalidPath() {
+final class URLPathTests: XCTestCase {
+    func testInitializeWithInvalidPath() {
         // Given, When
         let pathString = "path"
         let path = try? URLPath(pathString)
@@ -27,7 +27,7 @@ internal final class URLPathTests: XCTestCase {
         XCTAssertNil(path)
     }
 
-    internal func testInitializeWithValidPath() {
+    func testInitializeWithValidPath() {
         // Given
         let pathString = "/path"
 

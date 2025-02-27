@@ -17,10 +17,10 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class HTTPURLResponseExtensionsTests: XCTestCase {
-    internal func testInitializeWithStatusCode() {
+final class HTTPURLResponseExtensionsTests: XCTestCase {
+    func testInitializeWithStatusCode() {
         // Given, When
-        let response = HTTPURLResponse(statusCode: 200)
+        let response: HTTPURLResponse? = .init(statusCode: 200)
 
         // Then
         XCTAssertNotNil(response)

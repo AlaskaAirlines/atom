@@ -19,11 +19,17 @@ import Foundation
 
 @MainActor
 final class ContentViewModel: ObservableObject {
+    // MARK: - Properties
+
     /// The joke to display on successful fetch.
-    @Published var joke: Joke = .default
+    @Published
+    var joke: Joke = .default
 
     /// A boolean indicating whether an error alert should be shown.
-    @Published var showError: Bool = false
+    @Published
+    var showError: Bool = false
+
+    // MARK: - Functions
 
     /// Fetches a random joke.
     func random() async throws {

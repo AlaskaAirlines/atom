@@ -17,8 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
-internal final class GrantTypeTests: XCTestCase {
-    internal func testReturnExpectedRawValues() {
+final class GrantTypeTests: XCTestCase {
+    func testReturnExpectedRawValues() {
         XCTAssertEqual(GrantType.refreshToken.rawValue, "refresh_token")
     }
 }

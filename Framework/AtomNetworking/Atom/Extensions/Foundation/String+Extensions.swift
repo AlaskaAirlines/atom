@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-internal extension String {
+extension String {
     /// Returns `self` as Base64 encoded string.
     var base64: String {
         Data(utf8).base64EncodedString()

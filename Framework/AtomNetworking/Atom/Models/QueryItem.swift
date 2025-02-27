@@ -18,11 +18,15 @@ import Foundation
 
 /// A single name-value pair from the query portion of a URL.
 public struct QueryItem: RequestableItem, Sendable {
+    // MARK: - Properties
+
     /// The name of the query item.
     public let name: String
 
     /// The value of the query item.
     public let value: String
+
+    // MARK: - Lifecycle
 
     /// Creates a `QueryItem` instance given the provided parameter(s).
     ///
