@@ -35,16 +35,6 @@ public actor Atom: Sendable {
 
     // MARK: - Functions
 
-    /// Cancels all currently running and suspended tasks.
-    ///
-    /// Calling `cancelAllSessionTasks()` method will not invalide `URLSession`
-    /// instance nor will it empty cookies, cache or credential stores.
-    ///
-    /// All subsequent tasks will occur on the same TCP connection.
-    public func cancelAllSessionTasks() async {
-        await service.cancelAllSessionTasks()
-    }
-
     /// Prepares `Service` for a network call.
     ///
     /// Calling `enqueue(_:)` method will not initiate a network call until

@@ -6,24 +6,6 @@
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
       buildArchitectures = "Automatic">
-      <PreActions>
-         <ExecutionAction
-            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
-            <ActionContent
-               title = "Run Script"
-               scriptText = "if which swiftformat &gt;/dev/null; then&#10;  swiftformat &quot;$SRCROOT&quot; --cache &quot;$TEMP_DIR/swiftformat.cache&quot;&#10;else&#10;  echo &quot;warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat&quot;&#10;fi&#10;">
-               <EnvironmentBuildable>
-                  <BuildableReference
-                     BuildableIdentifier = "primary"
-                     BlueprintIdentifier = "67F83AE12D1F733800B9880A"
-                     BuildableName = "Example.app"
-                     BlueprintName = "Example"
-                     ReferencedContainer = "container:Example.xcodeproj">
-                  </BuildableReference>
-               </EnvironmentBuildable>
-            </ActionContent>
-         </ExecutionAction>
-      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"

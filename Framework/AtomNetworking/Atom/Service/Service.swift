@@ -96,11 +96,6 @@ public actor Service: Sendable {
         return try await session.data(for: authorizedRequestable)
     }
 
-    /// For documentation see `cancelAllSessionTasks` declaration.
-    func cancelAllSessionTasks() async {
-        await session.allTasks.forEach { $0.cancel() }
-    }
-
     /// Update requestable instance property with new data.
     func update(with requestable: Requestable) async -> Service {
         self.requestable = requestable
