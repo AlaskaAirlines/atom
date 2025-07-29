@@ -1,0 +1,79 @@
+# SonarQube repository reference
+resources:
+  repositories:
+    - repository: self
+    - repository: templates
+      type: git
+      name: SoftwareTransformation/DevOps
+      ref: refs/heads/master
+
+
+trigger:
+- main
+
+pool:
+  name: ACE iOS
+
+steps:
+- script: |
+    swift package resolve
+  displayName: 'Resolve Swift Package Dependencies'
+
+   # SonarQube Prepare CLI Task
+- template: YAML/Builds/Security/SonarQubePrepareCLI.yml@templates # Template reference
+  parameters:
+       ProjectKey: 'its_ace_CSAMAtom'
+       ProjectName: 'its_ace_CSAMAtom'
+       Scannedsources: '.'
+       ExtraProperties: |
+        sonar.c.file.suffixes=-
+        sonar.cpp.file.suffixes=-
+        sonar.objc.file.suffixes=-
+        sonar.verbose=true
+        sonar.log.level=debug
+        sonar.language=swift
+        sonar.coverageReportPaths=$(agent.builddirectory)/sonarqube-test-coverage.xml
+        sonar.swift.simulator=platform=iOS Simulator,name=iPad (10th generation)]
+        sonar.sourceEncoding=UTF-8
+        sonar.cfamily.compile-commands=compile_commands.json
+
+- script: |
+    xcodebuild test \
+      -scheme AtomNetworking \
+      -destination 'platform=iOS Simulator,name=iPad (10th generation)' \
+      -enableCodeCoverage YES \
+      -resultBundlePath '$(Common.TestResultsDirectory)/Results'
+  displayName: 'Run Unit Tests'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'XcTest'
+    testResultsFiles: '**/TestResults/Results.xcresult'
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    failTaskOnFailedTests: true
+  displayName: 'Publish Test Results'
+
+- task: Bash@3
+  displayName: 'XCode code coverage To XML'
+  inputs:
+    targetType: 'filePath'
+    filePath: './Pipeline/xcresult-to-sonarqube.sh'
+    arguments: '$(agent.builddirectory)/TestResults/*.xcresult/ > $(agent.builddirectory)/sonarqube-test-coverage.xml'
+    failOnStderr: false
+
+- task: Bash@3
+  displayName: Convert to cobertura
+  inputs:
+    targetType: inline
+    script: /usr/local/bin/xcresultparser -o cobertura $(agent.builddirectory)/TestResults/*.xcresult/ > $(agent.builddirectory)/cobertura.xml
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(agent.builddirectory)/cobertura.xml'
+
+  # SonarQube SonarQubeAnalyzeAndPublish Task
+- template: YAML/Builds/Security/SonarQubeAnalyzeAndPublish.yml@templates # Template reference
+  parameters:
+      ProjectKey: 'its_ace_CSAMAtom'
+      ProjectName: 'its_ace_CSAMAtom'
