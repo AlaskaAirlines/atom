@@ -16,18 +16,19 @@
 
 import Foundation
 
-/// Model object representing default `Endpoint` requestable used for initializing `SessionActor` only.
-struct Endpoint: Requestable, Sendable {
-    /// Creates an empty Endpoint.
-    ///
-    /// Note: This will always fail as designed. This function is meant to
-    /// allow for non-optional property initialization in the SessionActor actor,
-    /// which is meant to be overridden by the client.
-    ///
-    /// - Returns: BaseURL with host as "".
-    ///
-    /// - Throws: `AtomError` when initialization and validation fails.
-    func baseURL() throws(AtomError) -> BaseURL {
-        try BaseURL(host: String())
+/// Performs an operation with a checked continuation, mapping any thrown Error to AtomError.
+///
+/// - Parameters:
+///   - operation: A closure that takes a CheckedContinuation and performs the work.
+///
+/// - Returns: The continuation's success value.
+/// - Throws:  AtomError (mapped from any underlying Error).
+func withAtomCheckedContinuation<T>(operation: (CheckedContinuation<T, Error>) -> Void) async throws(AtomError) -> T {
+    do {
+        return try await withCheckedThrowingContinuation {
+            operation($0)
+        }
+    } catch {
+        throw (error as? AtomError) ?? .unexpected
     }
 }

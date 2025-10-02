@@ -17,7 +17,7 @@
 import Foundation
 
 /// The lightweight & delightful networking library.
-public actor Atom: Sendable {
+public struct Atom: Sendable {
     // MARK: - Properties
 
     /// The `Service` instance.
@@ -49,7 +49,7 @@ public actor Atom: Sendable {
     ///   - requestable: The requestable item containing required data for a network call.
     ///
     /// - Returns: Updated `Service` instance initialized using `ServiceConfiguration`.
-    public func enqueue(_ requestable: Requestable) async -> Service {
-        await service.update(with: requestable)
+    public func enqueue(_ requestable: Requestable) -> Service {
+        service.update(with: requestable)
     }
 }

@@ -10,12 +10,18 @@
 		1C48197220D0349600CB6F31 /* AtomNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C48196820D0349600CB6F31 /* AtomNetworking.framework */; };
 		1C48197920D0349600CB6F31 /* Atom.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C48196B20D0349600CB6F31 /* Atom.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C4819B720D039D700CB6F31 /* Atom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C4819B620D039D700CB6F31 /* Atom.swift */; };
+		6775AB2F2E8F01A5000FC252 /* Task+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6775AB2E2E8F01A4000FC252 /* Task+Extensions.swift */; };
+		6775AB372E8F0E34000FC252 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6775AB362E8F0E32000FC252 /* Service.swift */; };
+		6775AB392E8F1192000FC252 /* Service+Completions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6775AB382E8F1187000FC252 /* Service+Completions.swift */; };
+		6775AB3B2E8F11BE000FC252 /* Service+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6775AB3A2E8F11B9000FC252 /* Service+Async.swift */; };
 		678BEE772D2C49060084E003 /* AuthorizedRequestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678BEE762D2C49060084E003 /* AuthorizedRequestable.swift */; };
 		678BEE792D2C4A890084E003 /* AuthorizedRequestable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678BEE782D2C4A890084E003 /* AuthorizedRequestable+Extensions.swift */; };
 		678BEE7B2D2C4B930084E003 /* Requestable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678BEE7A2D2C4B930084E003 /* Requestable+Extensions.swift */; };
 		678BEE7D2D2C4C0C0084E003 /* AuthenticationEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678BEE7C2D2C4C0C0084E003 /* AuthenticationEndpoint.swift */; };
 		678BEE7F2D2C4F0D0084E003 /* AuthorizedRequestableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678BEE7E2D2C4F0D0084E003 /* AuthorizedRequestableTests.swift */; };
 		678BEE8A2D2CB59F0084E003 /* AuthenticationEndpoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 678BEE892D2CB59F0084E003 /* AuthenticationEndpoint+Extensions.swift */; };
+		67B191B42E942CD300E892F6 /* RequestableQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B191B32E942CD300E892F6 /* RequestableQueueManager.swift */; };
+		67B191B62E94324400E892F6 /* Function+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B191B52E94324400E892F6 /* Function+Extensions.swift */; };
 		67F83B142D1F76AD00B9880A /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83B132D1F76AD00B9880A /* Model.swift */; };
 		67F83B162D1F76D400B9880A /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83B152D1F76D400B9880A /* Requestable.swift */; };
 		67F83B182D1F774E00B9880A /* RequestableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83B172D1F774E00B9880A /* RequestableItem.swift */; };
@@ -95,10 +101,10 @@
 		67F83BE52D2857DB00B9880A /* ServiceConfiguration+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BE42D2857DB00B9880A /* ServiceConfiguration+Extensions.swift */; };
 		67F83BE72D2858C100B9880A /* SessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BE62D2858C100B9880A /* SessionConfiguration.swift */; };
 		67F83BE92D285A2D00B9880A /* ServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BE82D285A2D00B9880A /* ServiceConfigurationTests.swift */; };
-		67F83BEC2D285C6700B9880A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BEB2D285C6700B9880A /* Service.swift */; };
+		67F83BEC2D285C6700B9880A /* SessionActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BEB2D285C6700B9880A /* SessionActor.swift */; };
 		67F83C062D28A59900B9880A /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83C052D28A59900B9880A /* URLSession+Extensions.swift */; };
 		67F83C082D28A68300B9880A /* JSONDecoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83C072D28A68300B9880A /* JSONDecoder+Extensions.swift */; };
-		67F83C0C2D29C41400B9880A /* Service+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83C0B2D29C41400B9880A /* Service+Extensions.swift */; };
+		67F83C0C2D29C41400B9880A /* SessionActor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83C0B2D29C41400B9880A /* SessionActor+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,12 +124,18 @@
 		1C48197120D0349600CB6F31 /* AtomNetworkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AtomNetworkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C48197820D0349600CB6F31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C4819B620D039D700CB6F31 /* Atom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atom.swift; sourceTree = "<group>"; };
+		6775AB2E2E8F01A4000FC252 /* Task+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extensions.swift"; sourceTree = "<group>"; };
+		6775AB362E8F0E32000FC252 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		6775AB382E8F1187000FC252 /* Service+Completions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Service+Completions.swift"; sourceTree = "<group>"; };
+		6775AB3A2E8F11B9000FC252 /* Service+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Service+Async.swift"; sourceTree = "<group>"; };
 		678BEE762D2C49060084E003 /* AuthorizedRequestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedRequestable.swift; sourceTree = "<group>"; };
 		678BEE782D2C4A890084E003 /* AuthorizedRequestable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthorizedRequestable+Extensions.swift"; sourceTree = "<group>"; };
 		678BEE7A2D2C4B930084E003 /* Requestable+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Requestable+Extensions.swift"; sourceTree = "<group>"; };
 		678BEE7C2D2C4C0C0084E003 /* AuthenticationEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationEndpoint.swift; sourceTree = "<group>"; };
 		678BEE7E2D2C4F0D0084E003 /* AuthorizedRequestableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizedRequestableTests.swift; sourceTree = "<group>"; };
 		678BEE892D2CB59F0084E003 /* AuthenticationEndpoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AuthenticationEndpoint+Extensions.swift"; sourceTree = "<group>"; };
+		67B191B32E942CD300E892F6 /* RequestableQueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestableQueueManager.swift; sourceTree = "<group>"; };
+		67B191B52E94324400E892F6 /* Function+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Function+Extensions.swift"; sourceTree = "<group>"; };
 		67F83B132D1F76AD00B9880A /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		67F83B152D1F76D400B9880A /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		67F83B172D1F774E00B9880A /* RequestableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestableItem.swift; sourceTree = "<group>"; };
@@ -203,10 +215,10 @@
 		67F83BE42D2857DB00B9880A /* ServiceConfiguration+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceConfiguration+Extensions.swift"; sourceTree = "<group>"; };
 		67F83BE62D2858C100B9880A /* SessionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionConfiguration.swift; sourceTree = "<group>"; };
 		67F83BE82D285A2D00B9880A /* ServiceConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfigurationTests.swift; sourceTree = "<group>"; };
-		67F83BEB2D285C6700B9880A /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		67F83BEB2D285C6700B9880A /* SessionActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionActor.swift; sourceTree = "<group>"; };
 		67F83C052D28A59900B9880A /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
 		67F83C072D28A68300B9880A /* JSONDecoder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JSONDecoder+Extensions.swift"; sourceTree = "<group>"; };
-		67F83C0B2D29C41400B9880A /* Service+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Service+Extensions.swift"; sourceTree = "<group>"; };
+		67F83C0B2D29C41400B9880A /* SessionActor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SessionActor+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +293,7 @@
 				67F83B3D2D205AF300B9880A /* Errors */,
 				67F83B1E2D1F796200B9880A /* Extensions */,
 				67F83BC12D284D3C00B9880A /* Interceptor */,
+				67B191B22E9425F800E892F6 /* Managers */,
 				67F83B1B2D1F77E100B9880A /* Models */,
 				67F83B112D1F769500B9880A /* Protocols */,
 				67F83BEA2D285C5700B9880A /* Service */,
@@ -294,6 +307,14 @@
 				1C48197820D0349600CB6F31 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		67B191B22E9425F800E892F6 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				67B191B32E942CD300E892F6 /* RequestableQueueManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		67F83B112D1F769500B9880A /* Protocols */ = {
@@ -389,12 +410,14 @@
 			children = (
 				67F83B622D230A4000B9880A /* Array+Extensions.swift */,
 				67F83B662D230BD800B9880A /* Data+Extensions.swift */,
+				67B191B52E94324400E892F6 /* Function+Extensions.swift */,
 				67F83B232D1F7C1400B9880A /* HTTPURLResponse+Extensions.swift */,
 				67F83C072D28A68300B9880A /* JSONDecoder+Extensions.swift */,
 				67F83B472D205C2A00B9880A /* NSRegularExpression+Extensions.swift */,
 				67F83B2D2D1F821F00B9880A /* Optional+Extensions.swift */,
 				67F83B6A2D2313DE00B9880A /* Result+Extensions.swift */,
 				67F83B452D205BE300B9880A /* String+Extensions.swift */,
+				6775AB2E2E8F01A4000FC252 /* Task+Extensions.swift */,
 				67F83B1F2D1F7BE100B9880A /* URL+Extensions.swift */,
 				67F83B6E2D2317B400B9880A /* URLComponents+Extensions.swift */,
 				67F83B742D231BF100B9880A /* URLRequest+Extensions.swift */,
@@ -421,8 +444,8 @@
 				67F83BB32D2451F700B9880A /* HTTPMethod+Extensions.swift */,
 				67F83BDE2D28546B00B9880A /* Interceptor+Extensions.swift */,
 				678BEE7A2D2C4B930084E003 /* Requestable+Extensions.swift */,
-				67F83C0B2D29C41400B9880A /* Service+Extensions.swift */,
 				67F83BE42D2857DB00B9880A /* ServiceConfiguration+Extensions.swift */,
+				67F83C0B2D29C41400B9880A /* SessionActor+Extensions.swift */,
 				67F83BA72D244D5500B9880A /* TokenCredential+Extensions.swift */,
 				67F83BB52D24522E00B9880A /* URLPath+Extensions.swift */,
 			);
@@ -492,7 +515,10 @@
 		67F83BEA2D285C5700B9880A /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				67F83BEB2D285C6700B9880A /* Service.swift */,
+				6775AB362E8F0E32000FC252 /* Service.swift */,
+				6775AB3A2E8F11B9000FC252 /* Service+Async.swift */,
+				6775AB382E8F1187000FC252 /* Service+Completions.swift */,
+				67F83BEB2D285C6700B9880A /* SessionActor.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -629,6 +655,8 @@
 				67F83BA62D244CF800B9880A /* AuthorizationEndpoint.swift in Sources */,
 				67F83B3C2D205A4B00B9880A /* BaseURLScheme.swift in Sources */,
 				67F83B502D20661C00B9880A /* HeaderItem.swift in Sources */,
+				6775AB3B2E8F11BE000FC252 /* Service+Async.swift in Sources */,
+				67B191B62E94324400E892F6 /* Function+Extensions.swift in Sources */,
 				67F83B182D1F774E00B9880A /* RequestableItem.swift in Sources */,
 				67F83BDF2D28546B00B9880A /* Interceptor+Extensions.swift in Sources */,
 				678BEE8A2D2CB59F0084E003 /* AuthenticationEndpoint+Extensions.swift in Sources */,
@@ -636,10 +664,13 @@
 				67F83BA02D244BFF00B9880A /* AuthenticationMethod.swift in Sources */,
 				67F83B8F2D2328DA00B9880A /* BasicCredential.swift in Sources */,
 				67F83B162D1F76D400B9880A /* Requestable.swift in Sources */,
-				67F83C0C2D29C41400B9880A /* Service+Extensions.swift in Sources */,
+				6775AB372E8F0E34000FC252 /* Service.swift in Sources */,
+				67F83C0C2D29C41400B9880A /* SessionActor+Extensions.swift in Sources */,
 				67F83BA82D244D5500B9880A /* TokenCredential+Extensions.swift in Sources */,
 				67F83B1A2D1F777700B9880A /* TokenCredentialWritable.swift in Sources */,
+				6775AB2F2E8F01A5000FC252 /* Task+Extensions.swift in Sources */,
 				67F83B812D2320A300B9880A /* URLSessionTaskMetrics+Extensions.swift in Sources */,
+				6775AB392E8F1192000FC252 /* Service+Completions.swift in Sources */,
 				67F83B932D2329B100B9880A /* GrantType.swift in Sources */,
 				67F83B332D1F885A00B9880A /* AtomResponse+Extensions.swift in Sources */,
 				67F83B842D23253400B9880A /* OSLog+Extensions.swift in Sources */,
@@ -650,9 +681,10 @@
 				67F83B672D230BD800B9880A /* Data+Extensions.swift in Sources */,
 				67F83B462D205BE300B9880A /* String+Extensions.swift in Sources */,
 				67F83B1D2D1F780A00B9880A /* AtomResponse.swift in Sources */,
+				67B191B42E942CD300E892F6 /* RequestableQueueManager.swift in Sources */,
 				67F83C062D28A59900B9880A /* URLSession+Extensions.swift in Sources */,
 				67F83BAA2D244DA500B9880A /* TokenCredential.swift in Sources */,
-				67F83BEC2D285C6700B9880A /* Service.swift in Sources */,
+				67F83BEC2D285C6700B9880A /* SessionActor.swift in Sources */,
 				678BEE772D2C49060084E003 /* AuthorizedRequestable.swift in Sources */,
 				678BEE7D2D2C4C0C0084E003 /* AuthenticationEndpoint.swift in Sources */,
 				67F83B7B2D231FC100B9880A /* URLSessionTask+Extensions.swift in Sources */,
@@ -863,7 +895,7 @@
 				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = AtomNetworking/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -894,7 +926,7 @@
 				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = AtomNetworking/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -916,7 +948,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H562758AXX;
 				INFOPLIST_FILE = AtomNetworkingTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -937,7 +969,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = H562758AXX;
 				INFOPLIST_FILE = AtomNetworkingTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -16,18 +16,20 @@
 
 import Foundation
 
-/// Model object representing default `Endpoint` requestable used for initializing `SessionActor` only.
-struct Endpoint: Requestable, Sendable {
-    /// Creates an empty Endpoint.
+// MARK: - Helper Properties and Methods
+
+extension Task where Failure == Error {
+    /// Awaits the task's value and maps any thrown Error to AtomError.
     ///
-    /// Note: This will always fail as designed. This function is meant to
-    /// allow for non-optional property initialization in the SessionActor actor,
-    /// which is meant to be overridden by the client.
+    /// Use this to convert generic Task throws to typed `AtomError` with custom mapping.
     ///
-    /// - Returns: BaseURL with host as "".
-    ///
-    /// - Throws: `AtomError` when initialization and validation fails.
-    func baseURL() throws(AtomError) -> BaseURL {
-        try BaseURL(host: String())
+    /// - Returns: The Success value.
+    /// - Throws: AtomError (mapped from the original Error).
+    func typedValue() async throws(AtomError) -> Success {
+        do {
+            return try await value
+        } catch {
+            throw (error as? AtomError) ?? .unexpected
+        }
     }
 }
