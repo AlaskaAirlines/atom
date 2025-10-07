@@ -38,10 +38,10 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
-            <a href="../Actors.html">Actors</a>
+            <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Actors/Service.html">Service</a>
+                <a href="../Classes/Service.html">Service</a>
               </li>
             </ul>
           </li>
@@ -173,6 +173,15 @@
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Lifecycle"></a>
+                <a name="//apple_ref/swift/Section/Lifecycle" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Lifecycle"></a>
+                  <h3 class="section-name"><span>Lifecycle</span>
+</h3>
+                </div>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -210,7 +219,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The service configuration data used for initializing <code><a href="../Actors/Service.html">Service</a></code> instance.</p>
+                                  <p>The service configuration data used for initializing <code><a href="../Classes/Service.html">Service</a></code> instance.</p>
                                 </div>
                               </td>
                             </tr>
@@ -220,65 +229,40 @@
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Functions"></a>
+                <a name="//apple_ref/swift/Section/Functions" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Functions"></a>
+                  <h3 class="section-name"><span>Functions</span>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AtomNetworking0A0V21cancelAllSessionTasksyyYaF"></a>
-                    <a name="//apple_ref/swift/Method/cancelAllSessionTasks()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AtomNetworking0A0V21cancelAllSessionTasksyyYaF">cancelAllSessionTasks()</a>
-                    </code>
-                      <span class="declaration-note">
-                        Asynchronous
-                      </span>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Cancels all currently running and suspended tasks.</p>
-
-<p>Calling <code>cancelAllSessionTasks()</code> method will not invalide <code>URLSession</code>
-instance nor will it empty cookies, cache or credential stores.</p>
-
-<p>All subsequent tasks will occur on the same TCP connection.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cancelAllSessionTasks</span><span class="p">()</span> <span class="k">async</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14AtomNetworking0A0V7enqueueyAA7ServiceCAA11Requestable_pYaF"></a>
+                    <a name="/s:14AtomNetworking0A0V7enqueueyAA7ServiceCAA11Requestable_pF"></a>
                     <a name="//apple_ref/swift/Method/enqueue(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AtomNetworking0A0V7enqueueyAA7ServiceCAA11Requestable_pYaF">enqueue(_:<wbr>)</a>
+                    <a class="token" href="#/s:14AtomNetworking0A0V7enqueueyAA7ServiceCAA11Requestable_pF">enqueue(_:<wbr>)</a>
                     </code>
-                      <span class="declaration-note">
-                        Asynchronous
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Prepares <code><a href="../Actors/Service.html">Service</a></code> for a network call.</p>
+                        <p>Prepares <code><a href="../Classes/Service.html">Service</a></code> for a network call.</p>
 
 <p>Calling <code>enqueue(_:)</code> method will not initiate a network call until
-one of the available methods on <code><a href="../Actors/Service.html">Service</a></code> is called first.</p>
+one of the available methods on <code><a href="../Classes/Service.html">Service</a></code> is called first.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>Calling <code>enqueue(_:)</code> method multiple times without executing a network call will update
-previously set <code>requestable</code> property on <code><a href="../Actors/Service.html">Service</a></code> with new value. This framework
+previously set <code>requestable</code> property on <code><a href="../Classes/Service.html">Service</a></code> with new value. This framework
 does not support queue based flow.</p>
 
 </div>
@@ -288,7 +272,7 @@ does not support queue based flow.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">enqueue</span><span class="p">(</span><span class="n">_</span> <span class="nv">requestable</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Requestable.html">Requestable</a></span><span class="p">)</span> <span class="k">async</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Actors/Service.html">Service</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">enqueue</span><span class="p">(</span><span class="n">_</span> <span class="nv">requestable</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Requestable.html">Requestable</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/Service.html">Service</a></span></code></pre>
 
                         </div>
                       </div>
@@ -313,7 +297,7 @@ does not support queue based flow.</p>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>Updated <code><a href="../Actors/Service.html">Service</a></code> instance initialized using <code><a href="../Structs/ServiceConfiguration.html">ServiceConfiguration</a></code>.</p>
+                        <p>Updated <code><a href="../Classes/Service.html">Service</a></code> instance initialized using <code><a href="../Structs/ServiceConfiguration.html">ServiceConfiguration</a></code>.</p>
                       </div>
                     </section>
                   </div>
@@ -355,7 +339,7 @@ prompting the user to re-authenticate.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">didFailToRefreshAccessToken</span><span class="p">:</span> <span class="kt">Notification</span><span class="o">.</span><span class="kt">Name</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">didFailToRefreshAccessToken</span><span class="p">:</span> <span class="kt">Notification</span><span class="o">.</span><span class="kt">Name</span></code></pre>
 
                         </div>
                       </div>
@@ -386,155 +370,9 @@ prompting the user to re-authenticate.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="k">let</span> <span class="nv">didFailToAuthorizeRequest</span><span class="p">:</span> <span class="kt">Notification</span><span class="o">.</span><span class="kt">Name</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">didFailToAuthorizeRequest</span><span class="p">:</span> <span class="kt">Notification</span><span class="o">.</span><span class="kt">Name</span></code></pre>
 
                         </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14AtomNetworking0A0V7enqueue_9expecting10completionyAA11Requestable_p_xmys6ResultOyxAA0A5ErrorOGYbctAA5ModelRzlF"></a>
-                    <a name="//apple_ref/swift/Method/enqueue(_:expecting:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AtomNetworking0A0V7enqueue_9expecting10completionyAA11Requestable_p_xmys6ResultOyxAA0A5ErrorOGYbctAA5ModelRzlF">enqueue(_:<wbr>expecting:<wbr>completion:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates and resumes <code>URLRequest</code> initialized from <code><a href="../Protocols/Requestable.html">Requestable</a></code>.</p>
-
-<p>Use this method to make network requests where you expect data returned by the
-service and require that data to be decoded into internal representations - models.</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    <p>This function exists to allow <code>AtomNetworking</code> to offer backward-compatible APIs for applications that want to use the new
-    version of the package without fully transitioning to async/await, thereby continuing to use completion-based APIs.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="n">enqueue</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">requestable</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Requestable.html">Requestable</a></span><span class="p">,</span> <span class="n">expecting</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@Sendable</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt"><a href="../Enums/AtomError.html">AtomError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>requestable</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The requestable item containing required data for a network call.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>type</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The type to decode.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>completion</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The completion containing <code>Result</code> where the associated value is either an <code><a href="../Enums/AtomError.html">AtomError</a></code> or decoded <code><a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a></code> instance.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14AtomNetworking0A0V7enqueue_10completionyAA11Requestable_p_ys6ResultOyAA0A8ResponseVAA0A5ErrorOGYbctF"></a>
-                    <a name="//apple_ref/swift/Method/enqueue(_:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AtomNetworking0A0V7enqueue_10completionyAA11Requestable_p_ys6ResultOyAA0A8ResponseVAA0A5ErrorOGYbctF">enqueue(_:<wbr>completion:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Creates and resumes <code>URLRequest</code> initialized from <code><a href="../Protocols/Requestable.html">Requestable</a></code>.</p>
-
-<p>Use this method to make network requests where you don&rsquo;t expect any data returned
-and are only interested in knowing if the network call succeeded or failed.</p>
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    <p>This function exists to allow <code>AtomNetworking</code> to offer backward-compatible APIs for applications that want to use the new
-    version of the package without fully transitioning to async/await, thereby continuing to use completion-based APIs.</p>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">enqueue</span><span class="p">(</span><span class="n">_</span> <span class="nv">requestable</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Requestable.html">Requestable</a></span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@Sendable</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/AtomResponse.html">AtomResponse</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/AtomError.html">AtomError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>requestable</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The requestable item containing required data for a network call.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>completion</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The completion containing <code>Result</code> where the associated value is either an <code><a href="../Enums/AtomError.html">AtomError</a></code> or <code><a href="../Structs/AtomResponse.html">AtomResponse</a></code> instance.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -544,7 +382,7 @@ and are only interested in knowing if the network call succeeded or failed.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-01-09)</p>
+          <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-10-06)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>
