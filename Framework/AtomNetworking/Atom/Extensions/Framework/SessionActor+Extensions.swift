@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-extension Service {
+extension SessionActor {
     /// Applies authorization header to a `Requestable` instance.
     ///
     /// - Parameters:
@@ -48,19 +48,53 @@ extension Service {
             }
 
             // Ensure the existing credential requires a refresh.
-            guard writable.tokenCredential.requiresRefresh else {
-                // The credential is valid and does not require a refresh. Apply the access token or credential as an authorization header.
-                return AuthorizedRequestable(requestable: requestable, authorizationHeaderItems: [method.authorizationHeaderItem])
+            if writable.tokenCredential.requiresRefresh {
+                if let refreshTask {
+                    // Await the ongoing refresh Task to ensure completion before proceeding.
+                    writable.tokenCredential = try await refreshTask.typedValue()
+                }
+
+                else {
+                    // If isRefreshing but no task yet (race window), wait briefly.
+                    var pollCount = 0
+
+                    // Poll loop to handle potential race where flag is set but Task not yet assigned.
+                    while isRefreshing, refreshTask == nil, pollCount < 10 {
+                        pollCount += 1
+
+                        // Sleep briefly to allow the other call to assign the refreshTask.
+                        try? await Task.sleep(for: .milliseconds(10))
+                    }
+
+                    // After polling, check if the refreshTask is now available and await it if so.
+                    if let refreshTask {
+                        writable.tokenCredential = try await refreshTask.typedValue()
+                    }
+
+                    // If no Task after polling, initiate a new refresh.
+                    else {
+                        // Set the flag to block other concurrent calls from starting a duplicate refresh.
+                        isRefreshing = true
+
+                        // Create a new Task for the background refresh operation.
+                        refreshTask = Task {
+                            // Ensure the flag and task reference are reset after completion or failure.
+                            defer {
+                                isRefreshing = false
+                                refreshTask = nil
+                            }
+
+                            // Perform the actual token refresh and return the new credential.
+                            return try await refreshAccessToken(using: endpoint, credential: credential, writable: writable)
+                        }
+
+                        // Await the new Task's result and assign if successful, or throw on failure.
+                        if let value = try await refreshTask?.typedValue() {
+                            writable.tokenCredential = value
+                        }
+                    }
+                }
             }
-
-            // Refresh the credential.
-            let credential = try await refreshAccessToken(using: endpoint, credential: credential, writable: writable)
-
-            // Update the client with a new credential value.
-            //
-            // Note: This implementation assumes that the token is written to the keychain
-            // in a thread-safe manner before it is retrieved by the `writable` instance below.
-            writable.tokenCredential = credential
 
             // Apply access token/credential authorization header.
             return AuthorizedRequestable(requestable: requestable, authorizationHeaderItems: [method.authorizationHeaderItem])

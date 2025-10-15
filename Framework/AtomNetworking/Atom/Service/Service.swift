@@ -16,89 +16,57 @@
 
 import Foundation
 
-/// `Service` is a public facing class responsible for managing `URLSession` configuration,
-/// network calls, and decoding instances of a data type into internal models.
+// MARK: - Service
+
+/// A wrapper class for managing service operations with serialized task queuing.
 ///
-/// `Service` is available through the `Atom` instance only and cannot be initialized dirrectly. This
-/// behavior is intentional to allow for better separation of responsibilities such as creating a request,
-/// network call, and data decoding.
-public actor Service: Sendable {
+/// This class delegates queue management to `RequestableQueueManager` for FIFO serialization of operations and interacts with `SessionActor` for session-related tasks
+/// (e.g., updates). It's marked `@unchecked Sendable` for cross-concurrency safety, as the queue manager protects shared state.
+public final class Service: @unchecked Sendable {
     // MARK: - Properties
 
-    /// The service configuration data.
+    /// The manager for handling FIFO queuing and serial processing of tasks, ensuring thread-safety and order.
+    let requestableQueueManager: RequestableQueueManager
+
+    /// The actor responsible for session operations, such as updates and network calls, providing isolated state management.
+    let sessionActor: SessionActor
+
+    /// The configuration for the underlying session actor.
     let serviceConfiguration: ServiceConfiguration
-
-    /// The `JSONDecoder` instance for decoding token credential.
-    let credentialDecoder: JSONDecoder
-
-    /// The `URLSession` instance configured from `ServiceConfiguration`.
-    let session: URLSession
-
-    /// The requestable item to initialize `URLRequest` with.
-    private var requestable: Requestable
 
     // MARK: - Lifecycle
 
-    /// Creates a `Service` instance given the provided parameter(s).
+    /// Initializes the service with a configuration.
+    ///
+    /// Creates a new queue manager for task serialization and a session actor for handling operations.
     ///
     /// - Parameters:
-    ///   - serviceConfiguration: The service configuration data.
+    ///   - serviceConfiguration: The configuration for the underlying session actor.
     init(serviceConfiguration: ServiceConfiguration) {
-        self.requestable = Endpoint()
+        self.requestableQueueManager = RequestableQueueManager()
+        self.sessionActor = SessionActor(serviceConfiguration: serviceConfiguration)
         self.serviceConfiguration = serviceConfiguration
-        self.credentialDecoder = JSONDecoder()
-        self.session = URLSession(
-            configuration: serviceConfiguration.sessionConfiguration,
-            delegate: Interceptor(for: .network, isEnabled: serviceConfiguration.isLogEnabled),
-            delegateQueue: nil
-        )
     }
 
     // MARK: - Functions
 
-    /// Creates and resumes `URLRequest` initialized from `Requestable`.
+    /// Enqueues an update operation with a requestable object, returning self for chaining.
     ///
-    /// Use this method to make network requests where you expect data returned by the
-    /// service and require that data to be decoded into internal representations - models.
+    /// This method adds the update task to the queue manager for FIFO processing and returns immediately, allowing fluent chaining (e.g., `update(...).resume(...)`). The
+    /// actual update on the session actor happens asynchronously.
     ///
     /// - Parameters:
-    ///   - type: The type to decode.
+    ///   - requestable: The `Requestable` object to update the session with.
     ///
-    /// - Throws: `AtomError` instance if an error occurred.
-    ///
-    /// - Returns: Decoded `Model` instance.
-    public func resume<T>(expecting type: T.Type) async throws(AtomError) -> T where T: Model {
-        let authorizedRequestable = try await applyAuthorizationHeader(to: requestable)
-        let response = try await session.data(for: authorizedRequestable)
+    /// - Returns: The service instance for method chaining.
+    public func update(with requestable: Requestable) -> Service {
+        requestableQueueManager.enqueue { [weak self] in
+            guard let self else {
+                return
+            }
 
-        // Atom supports returning raw data without decoding.
-        guard let value = response.data as? T else {
-            return try serviceConfiguration.decoder.decode(type: type, from: response.data)
+            await sessionActor.update(with: requestable)
         }
-
-        return value
-    }
-
-    /// Creates and resumes `URLRequest` initialized from `Requestable`.
-    ///
-    /// Use this method to make network requests where you don't expect any data returned
-    /// and are only interested in knowing if the network call succeeded or failed.
-    ///
-    /// `Atom` framework uses a convenience computed variable on `AtomResponse` - `isSuccessful`
-    /// to determine success or a failure of a response based on a status code returned by the service.
-    ///
-    /// - Throws: `AtomError` instance if an error occurred.
-    ///
-    /// - Returns: `AtomResponse` instance.
-    public func resume() async throws(AtomError) -> AtomResponse {
-        let authorizedRequestable = try await applyAuthorizationHeader(to: requestable)
-
-        return try await session.data(for: authorizedRequestable)
-    }
-
-    /// Update requestable instance property with new data.
-    func update(with requestable: Requestable) async -> Service {
-        self.requestable = requestable
 
         return self
     }

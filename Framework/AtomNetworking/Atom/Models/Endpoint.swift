@@ -16,12 +16,12 @@
 
 import Foundation
 
-/// Model object representing default `Endpoint` requestable used for initializing `Service` only.
+/// Model object representing default `Endpoint` requestable used for initializing `SessionActor` only.
 struct Endpoint: Requestable, Sendable {
     /// Creates an empty Endpoint.
     ///
     /// Note: This will always fail as designed. This function is meant to
-    /// allow for non-optional property initialization in the Service class,
+    /// allow for non-optional property initialization in the SessionActor actor,
     /// which is meant to be overridden by the client.
     ///
     /// - Returns: BaseURL with host as "".

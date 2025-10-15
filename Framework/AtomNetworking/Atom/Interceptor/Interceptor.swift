@@ -32,7 +32,7 @@ final class Interceptor: NSObject, Sendable {
     /// Creates a `Interceptor` instance given the provided parameter(s).
     ///
     /// - Parameters:
-    ///   - log:       The service configuration data used for initializing `Service` instance.
+    ///   - log:       The service configuration data used for initializing `Interceptor` instance.
     ///   - isEnabled: The Bool indicating whether logging is enabled.
     init(for log: OSLog, isEnabled: Bool) {
         self.log = log
