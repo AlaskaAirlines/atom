@@ -19,7 +19,7 @@ import Foundation
 extension Service {
     /// Executes or enqueues an asynchronous task based on whether the access token requires refreshing.
     ///
-    /// This function creates a task to check if the session's access token needs to be refreshed using `sessionActor.shouldRefreshAccessToken()`. If a
+    /// This function creates a task to check if the session's access token needs to be refreshed using `sessionActor.needsSerialization()`. If a
     /// refresh is required, the provided task is enqueued in the `requestableQueueManager` for later execution. If no refresh is needed, the task is
     /// executed immediately within the detached task context.
     ///
