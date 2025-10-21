@@ -24,7 +24,7 @@ extension Service {
     ///   - type:       The expected model type conforming to `Model`.
     ///   - completion: A `@Sendable` escaping closure called with the result (success with the decoded model or failure with `AtomError`).
     public func resume<T>(expecting type: T.Type, completion: @Sendable @escaping (Result<T, AtomError>) -> Void) where T: Model {
-        requestableQueueManager.enqueue { [weak self, completion] in
+        awaitOrEnqueue { [weak self, completion] in
             guard let self else {
                 return
             }
@@ -54,7 +54,7 @@ extension Service {
     /// - Parameters:
     ///   - completion: A `@Sendable` escaping closure called with the result (success with `AtomResponse` or failure with `AtomError`).
     public func resume(_ completion: @Sendable @escaping (Result<AtomResponse, AtomError>) -> Void) {
-        requestableQueueManager.enqueue { [weak self, completion] in
+        awaitOrEnqueue { [weak self, completion] in
             guard let self else {
                 return
             }

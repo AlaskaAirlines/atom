@@ -19,7 +19,7 @@ Atom is a wrapper library built around a subset of features offered by `URLSessi
 
 
 ## Requirements
-* iOS 15.0+
+* iOS 16.0+
 * Xcode 16.0+
 * Swift 6.0+
 
@@ -181,6 +181,8 @@ Also, Atom will only decode token credential from a JSON objecting returned in t
 ```
 
 The above response is in accordance with [RFC 6749, section 1.5](https://tools.ietf.org/html/rfc6749#section-1.5).
+
+**NOTE:** In a high-throughput scenario where the client enqueues a large number of network calls, it’s best practice to adjust the token’s expiration time to account for the service timeout. If your `ServiceTimeout` is set to the default of 30 seconds, configure `TokenWritable` to subtract those 30 seconds from the token’s expiration time. This ensures every enqueued call has at least 30 seconds to complete before the token expires.
 
 For more information and Atom usage example, please see [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html) and the provided Example application.
 
