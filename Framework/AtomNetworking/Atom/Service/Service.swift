@@ -60,7 +60,7 @@ public final class Service: @unchecked Sendable {
     ///
     /// - Returns: The service instance for method chaining.
     public func update(with requestable: Requestable) -> Service {
-        requestableQueueManager.enqueue { [weak self] in
+        awaitOrEnqueue { [weak self] in
             guard let self else {
                 return
             }

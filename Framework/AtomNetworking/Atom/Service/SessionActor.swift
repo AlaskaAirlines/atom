@@ -16,6 +16,8 @@
 
 import Foundation
 
+// MARK: - SessionActor
+
 /// `SessionActor` is a type responsible for managing `URLSession` configuration, network calls, and decoding instances of a data type into internal models.
 actor SessionActor: Sendable {
     // MARK: - Properties
@@ -103,5 +105,19 @@ actor SessionActor: Sendable {
         self.requestable = requestable
 
         return self
+    }
+
+    /// Determines whether the access token should be refreshed based on the service configuration.
+    ///
+    /// This asynchronous function checks the authentication method in the service configuration. It only proceeds if the method is a
+    /// bearer token with a writable component.
+    ///
+    /// - Returns: A `Bool` value indicating if the access token needs refreshing. Returns `true` if refresh is required; otherwise, `false`.
+    func needsSerialization() async -> Bool {
+        guard case let .bearer(_, _, writable) = serviceConfiguration.authenticationMethod else {
+            return false
+        }
+
+        return writable.tokenCredential.requiresRefresh || isRefreshing
     }
 }
