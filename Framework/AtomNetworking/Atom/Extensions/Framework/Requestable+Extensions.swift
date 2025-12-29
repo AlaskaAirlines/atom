@@ -17,6 +17,14 @@
 import Foundation
 
 extension Requestable {
+    /// Returns a `Bool` indicating whether the current requestable is targeted at an authentication endpoint.
+    ///
+    /// This property is `true` when the conforming type is `AuthenticationEndpoint`. It allows Atom to quickly identify
+    /// whether the request involves authentication-related operations, such as token refresh.
+    var isAuthenticationEndpoint: Bool {
+        self is AuthenticationEndpoint
+    }
+
     /// Applies authorization header to the `Requestable` instance.
     ///
     /// - Parameters:

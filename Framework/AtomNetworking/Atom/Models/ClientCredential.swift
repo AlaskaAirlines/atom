@@ -29,7 +29,7 @@ public struct ClientCredential: Sendable, Equatable {
     public let id: String
 
     /// The client secret. The client MAY omit the parameter if the client secret is an empty string. See RFC 6749.
-    public let secret: String
+    public let secret: String?
 
     // MARK: - Lifecycle
 
@@ -39,7 +39,7 @@ public struct ClientCredential: Sendable, Equatable {
     ///   - grantType: The authorization grant type as described in Sections 4.1.3, 4.3.2, 4.4.2, RFC 6749.
     ///   - id:        The client identifier issued to the client during the registration process described by Section 2.2, RFC 6749.
     ///   - secret:    The client secret. The client MAY omit the parameter if the client secret is an empty string. See RFC 6749.
-    public init(grantType: GrantType = .refreshToken, id: String, secret: String) {
+    public init(grantType: GrantType = .refreshToken, id: String, secret: String? = nil) {
         self.id = id
         self.grantType = grantType
         self.secret = secret

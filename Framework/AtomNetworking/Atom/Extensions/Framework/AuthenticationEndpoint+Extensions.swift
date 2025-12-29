@@ -58,9 +58,13 @@ extension AuthenticationEndpoint: Requestable {
     var method: HTTPMethod {
         let grantType = Identifier.grantType.appending(credential.grantType.rawValue)
         let clientID = Identifier.clientID.appending(credential.id)
-        let clientSecret = Identifier.clientSecret.appending(credential.secret)
         let refreshToken = Identifier.refreshToken.appending(writable.tokenCredential.refreshToken)
-        let bodyString = grantType + "&" + clientID + "&" + clientSecret + "&" + refreshToken
+        var bodyString = grantType + "&" + clientID + "&" + refreshToken
+
+        if let secret = credential.secret {
+            bodyString.append("&")
+            bodyString.append(Identifier.clientSecret.appending(secret))
+        }
 
         return .post(Data(bodyString.utf8))
     }
