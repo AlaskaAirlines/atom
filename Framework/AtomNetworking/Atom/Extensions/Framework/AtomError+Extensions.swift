@@ -28,19 +28,12 @@ extension AtomError {
         return response.statusCode == 401
     }
 
-    /// Returns `Bool` indicating whether the error is due to a failed attempt to refresh an access token.
+    /// Returns `Bool` indicating whether the error is a general "Bad Request" (HTTP 400) from a normal API response.
     ///
-    /// A client might encouter this error if the authorization server determines that the
-    /// refresh token used in a request is invalid or expired.
-    ///
-    /// Unlike `AtomError` case - `.response` - token refresh error is nested inside of the `.session` error
-    /// case to make differentiation between a standard `Bad Request` and `Bad Request` due to an invalid /
-    /// or expired access token easier.
-    public var isAccessTokenRefreshFailure: Bool {
-        guard
-            case let .session(error) = self,
-            case let .response(response) = error as? AtomError
-        else {
+    /// This detects cases where an API endpoint returned a 400 status code, typically due to invalid parameters,
+    /// malformed requests, or other client errors.
+    public var isBadRequest: Bool {
+        guard case let .response(response) = self else {
             return false
         }
 
