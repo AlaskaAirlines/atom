@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-extension SessionActor {
+extension ServiceActor {
     /// Applies authorization header to a `Requestable` instance.
     ///
     /// - Parameters:
@@ -49,50 +49,21 @@ extension SessionActor {
 
             // Ensure the existing credential requires a refresh.
             if writable.tokenCredential.requiresRefresh {
-                if let refreshTask {
-                    // Await the ongoing refresh Task to ensure completion before proceeding.
-                    writable.tokenCredential = try await refreshTask.typedValue()
+                // If no refresh Task in progress, initiate a new refresh.
+                if refreshTask == nil {
+                    // Create a new Task for the background refresh operation.
+                    refreshTask = Task {
+                        // Ensure the task reference is reset after completion or failure.
+                        defer { refreshTask = nil }
+
+                        // Perform the actual token refresh and return the new credential.
+                        return try await refreshAccessToken(using: endpoint, credential: credential, writable: writable)
+                    }
                 }
 
-                else {
-                    // If isRefreshing but no task yet (race window), wait briefly.
-                    var pollCount = 0
-
-                    // Poll loop to handle potential race where flag is set but Task not yet assigned.
-                    while isRefreshing, refreshTask == nil, pollCount < 10 {
-                        pollCount += 1
-
-                        // Sleep briefly to allow the other call to assign the refreshTask.
-                        try? await Task.sleep(for: .milliseconds(10))
-                    }
-
-                    // After polling, check if the refreshTask is now available and await it if so.
-                    if let refreshTask {
-                        writable.tokenCredential = try await refreshTask.typedValue()
-                    }
-
-                    // If no Task after polling, initiate a new refresh.
-                    else {
-                        // Set the flag to block other concurrent calls from starting a duplicate refresh.
-                        isRefreshing = true
-
-                        // Create a new Task for the background refresh operation.
-                        refreshTask = Task {
-                            // Ensure the flag and task reference are reset after completion or failure.
-                            defer {
-                                isRefreshing = false
-                                refreshTask = nil
-                            }
-
-                            // Perform the actual token refresh and return the new credential.
-                            return try await refreshAccessToken(using: endpoint, credential: credential, writable: writable)
-                        }
-
-                        // Await the new Task's result and assign if successful, or throw on failure.
-                        if let value = try await refreshTask?.typedValue() {
-                            writable.tokenCredential = value
-                        }
-                    }
+                // Await the new Task's result and assign if successful, or throw on failure.
+                if let refreshTask {
+                    writable.tokenCredential = try await refreshTask.typedValue()
                 }
             }
 
@@ -102,6 +73,20 @@ extension SessionActor {
         case .none:
             return requestable
         }
+    }
+
+    /// Determines whether request execution should be serialized.
+    ///
+    /// When this returns `true`, incoming requests are queued so they wait for the refresh to complete before executing. This prevents
+    /// multiple concurrent refresh attempts and ensures consistent credential usage across parallel requests.
+    ///
+    /// - Returns: `true` if requests should be queued; otherwise `false`.
+    func needsSerialization() async -> Bool {
+        guard case let .bearer(_, _, writable) = serviceConfiguration.authenticationMethod else {
+            return false
+        }
+
+        return writable.tokenCredential.requiresRefresh || refreshTask != nil
     }
 
     /// Refreshes the current access token asynchronously.
@@ -117,7 +102,7 @@ extension SessionActor {
     /// - Returns: A `TokenCredential` object representing the new credential.
     ///
     /// - Throws: An `AtomError` if there's an issue during the refresh process.
-    func refreshAccessToken(
+    private func refreshAccessToken(
         using endpoint: AuthorizationEndpoint,
         credential: ClientCredential,
         writable: any TokenCredentialWritable

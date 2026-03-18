@@ -24,7 +24,7 @@ public protocol RequestableItem: Sendable, Equatable {
     /// The value of the requestable item.
     var value: String { get }
 
-    ///
+    /// Creates a `RequestableItem` instance given the provided parameter(s).
     ///
     /// - Parameters:
     ///   - name:  The name of the requestable item.

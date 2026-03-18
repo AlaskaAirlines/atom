@@ -23,7 +23,7 @@ import Foundation
 ///
 /// - Returns: The continuation's success value.
 /// - Throws:  AtomError (mapped from any underlying Error).
-func withAtomCheckedContinuation<T>(operation: (CheckedContinuation<T, Error>) -> Void) async throws(AtomError) -> T {
+func withAtomCheckedContinuation<T>(operation: @Sendable (CheckedContinuation<T, Error>) -> Void) async throws(AtomError) -> T {
     do {
         return try await withCheckedThrowingContinuation {
             operation($0)

@@ -164,14 +164,38 @@
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Service</span> <span class="p">:</span> <span class="kd">@unchecked</span> <span class="kt">Sendable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Service</span> <span class="p">:</span> <span class="kt">Sendable</span></code></pre>
 
                 </div>
               </div>
-            <p>A wrapper class for managing service operations with serialized task queuing.</p>
+            <p>Represents a single network request bound to the shared internal actor.</p>
 
-<p>This class delegates queue management to <code>RequestableQueueManager</code> for FIFO serialization of operations and interacts with <code>SessionActor</code> for session-related tasks
-(e.g., updates). It&rsquo;s marked <code>@unchecked Sendable</code> for cross-concurrency safety, as the queue manager protects shared state.</p>
+<p><code>Service</code> captures a <code><a href="../Protocols/Requestable.html">Requestable</a></code> and delegates execution to the shared <code>ServiceActor</code>, which is responsible for:</p>
+
+<ul>
+<li>Executing the request</li>
+<li>Coordinating token refresh</li>
+<li>Ensuring only one refresh occurs when multiple requests detect expiration</li>
+</ul>
+
+<p>A <code>Service</code> instance is lightweight and immutable. It does not execute
+anything until one of the <code>resume(...)</code> methods is called.</p>
+<h2 id='concurrency-behavior' class='heading'>Concurrency Behavior</h2>
+
+<ul>
+<li>All <code>Service</code> instances share the same internal actor.</li>
+<li>If the token is expired, concurrent callers automatically wait for the same refresh instead of triggering multiple refresh calls.</li>
+<li>Both async/await and completion-based APIs route through the same actor, ensuring consistent behavior.</li>
+</ul>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="k">try</span> <span class="k">await</span> <span class="n">atom</span><span class="o">.</span><span class="nf">enqueue</span><span class="p">(</span><span class="kt">MyEndpoint</span><span class="p">())</span><span class="o">.</span><span class="nf">resume</span><span class="p">(</span><span class="nv">expecting</span><span class="p">:</span> <span class="kt">MyModel</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
+</code></pre>
+
+<p>Or using completion:</p>
+<pre class="highlight swift"><code><span class="n">atom</span><span class="o">.</span><span class="nf">enqueue</span><span class="p">(</span><span class="kt">MyEndpoint</span><span class="p">())</span><span class="o">.</span><span class="nf">resume</span><span class="p">(</span><span class="nv">expecting</span><span class="p">:</span> <span class="kt">MyModel</span><span class="o">.</span><span class="k">self</span><span class="p">)</span> <span class="p">{</span> <span class="n">result</span> <span class="k">in</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</code></pre>
 
           </section>
           <section class="section task-group-section">
@@ -189,59 +213,6 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AtomNetworking7ServiceC6update4withAcA11Requestable_p_tF"></a>
-                    <a name="//apple_ref/swift/Method/update(with:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AtomNetworking7ServiceC6update4withAcA11Requestable_p_tF">update(with:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Enqueues an update operation with a requestable object, returning self for chaining.</p>
-
-<p>This method adds the update task to the queue manager for FIFO processing and returns immediately, allowing fluent chaining (e.g., <code>update(...).resume(...)</code>). The
-actual update on the session actor happens asynchronously.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="n">with</span> <span class="nv">requestable</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Requestable.html">Requestable</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Service</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>requestable</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The <code><a href="../Protocols/Requestable.html">Requestable</a></code> object to update the session with.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>The service instance for method chaining.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:14AtomNetworking7ServiceC6resume9expectingxxm_tYaAA0A5ErrorOYKAA5ModelRzlF"></a>
                     <a name="//apple_ref/swift/Method/resume(expecting:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:14AtomNetworking7ServiceC6resume9expectingxxm_tYaAA0A5ErrorOYKAA5ModelRzlF">resume(expecting:<wbr>)</a>
@@ -255,15 +226,10 @@ actual update on the session actor happens asynchronously.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Asynchronous overload of resume expecting a decodable model type.</p>
+                        <p>Executes the request using async/await and decodes the result.</p>
 
-<p>This method enqueues the resume task for FIFO processing via the queue manager and awaits its completion using a checked continuation. It bridges the
-completion-based API to async/await, allowing use in modern Swift Concurrency contexts while maintaining serialization.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/AtomError.html">AtomError</a></code> on failure (e.g., network errors or decoding issues).</p>
-
-</div>
+<p>If the token is expired, the shared actor ensures only one refresh
+occurs and all concurrent callers wait for it.</p>
 
                       </div>
                       <div class="declaration">
@@ -286,7 +252,7 @@ completion-based API to async/await, allowing use in modern Swift Concurrency co
                               </td>
                               <td>
                                 <div>
-                                  <p>The expected model type conforming to <code><a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a></code>.</p>
+                                  <p>The expected response model type.</p>
                                 </div>
                               </td>
                             </tr>
@@ -295,7 +261,7 @@ completion-based API to async/await, allowing use in modern Swift Concurrency co
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>The decoded model of type <code>T</code>.</p>
+                        <p>The decoded response.</p>
                       </div>
                     </section>
                   </div>
@@ -316,15 +282,7 @@ completion-based API to async/await, allowing use in modern Swift Concurrency co
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Asynchronous overload of resume for a raw response, using a provided requestable.</p>
-
-<p>This method enqueues the resume task for FIFO processing via the queue manager and awaits its completion using a checked continuation. It bridges the
-completion-based API to async/await, allowing use in modern Swift Concurrency contexts while maintaining serialization.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <code><a href="../Enums/AtomError.html">AtomError</a></code> on failure (e.g., network errors).
-
-</div>
+                        <p>Executes the request using async/await and returns the raw response.</p>
 
                       </div>
                       <div class="declaration">
@@ -355,10 +313,10 @@ completion-based API to async/await, allowing use in modern Swift Concurrency co
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Completion-based overload of resume expecting a decodable model type.</p>
+                        <p>Executes the request using a completion handler.</p>
 
-<p>This method enqueues the resume task for FIFO processing via the queue manager, invoking the completion asynchronously with the result. It supports non-async
-contexts (e.g., UIKit) while ensuring serialized execution to prevent races on shared state. The task awaits the session actor&rsquo;s resume operation internally.</p>
+<p>The call is routed through the shared actor to ensure consistent
+behavior with async/await usage.</p>
 
                       </div>
                       <div class="declaration">
@@ -381,7 +339,7 @@ contexts (e.g., UIKit) while ensuring serialized execution to prevent races on s
                               </td>
                               <td>
                                 <div>
-                                  <p>The expected model type conforming to <code><a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a></code>.</p>
+                                  <p>The expected response model type.</p>
                                 </div>
                               </td>
                             </tr>
@@ -393,7 +351,7 @@ contexts (e.g., UIKit) while ensuring serialized execution to prevent races on s
                               </td>
                               <td>
                                 <div>
-                                  <p>A <code>@Sendable</code> escaping closure called with the result (success with the decoded model or failure with <code><a href="../Enums/AtomError.html">AtomError</a></code>).</p>
+                                  <p>Called with the result.</p>
                                 </div>
                               </td>
                             </tr>
@@ -416,10 +374,7 @@ contexts (e.g., UIKit) while ensuring serialized execution to prevent races on s
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Completion-based overload of resume for a raw response.</p>
-
-<p>This method enqueues the resume task for FIFO processing via the queue manager, invoking the completion asynchronously with the result. It supports non-async
-contexts (e.g., UIKit) while ensuring serialized execution to prevent races on shared state. The task awaits the session actor&rsquo;s resume operation internally.</p>
+                        <p>Executes the request using a completion handler and returns the raw response.</p>
 
                       </div>
                       <div class="declaration">
@@ -442,7 +397,7 @@ contexts (e.g., UIKit) while ensuring serialized execution to prevent races on s
                               </td>
                               <td>
                                 <div>
-                                  <p>A <code>@Sendable</code> escaping closure called with the result (success with <code><a href="../Structs/AtomResponse.html">AtomResponse</a></code> or failure with <code><a href="../Enums/AtomError.html">AtomError</a></code>).</p>
+                                  <p>Called with the result.</p>
                                 </div>
                               </td>
                             </tr>
@@ -457,7 +412,7 @@ contexts (e.g., UIKit) while ensuring serialized execution to prevent races on s
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-10-21)</p>
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-03-03)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

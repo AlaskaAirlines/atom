@@ -20,8 +20,8 @@ import Foundation
 public struct Atom: Sendable {
     // MARK: - Properties
 
-    /// The `Service` instance.
-    private let service: Service
+    /// The `ServiceActor` instance.
+    private let serviceActor: ServiceActor
 
     // MARK: - Lifecycle
 
@@ -30,26 +30,28 @@ public struct Atom: Sendable {
     /// - Parameters:
     ///   - serviceConfiguration: The service configuration data used for initializing `Service` instance.
     public init(serviceConfiguration: ServiceConfiguration = ServiceConfiguration()) {
-        self.service = Service(serviceConfiguration: serviceConfiguration)
+        self.serviceActor = ServiceActor(serviceConfiguration: serviceConfiguration)
     }
 
     // MARK: - Functions
 
-    /// Prepares `Service` for a network call.
+    /// Enqueues a `Requestable` and returns a `Service` that will execute it.
     ///
-    /// Calling `enqueue(_:)` method will not initiate a network call until
-    /// one of the available methods on `Service` is called first.
+    /// The returned `Service` captures the request and sends it to a shared
+    /// internal actor that:
     ///
-    /// - Note:
-    ///   Calling `enqueue(_:)` method multiple times without executing a network call will update
-    ///   previously set `requestable` property on `Service` with new value. This framework
-    ///   does not support queue based flow.
+    /// - Executes network requests
+    /// - Handles token refresh
+    /// - Ensures that only one refresh happens at a time when multiple requests detect an expired token
+    ///
+    /// All requests share the same internal actor, so if the token is expired, concurrent callers
+    /// will wait for the same refresh instead of triggering multiple refresh calls.
     ///
     /// - Parameters:
-    ///   - requestable: The requestable item containing required data for a network call.
+    ///   - requestable: The request to execute.
     ///
-    /// - Returns: Updated `Service` instance initialized using `ServiceConfiguration`.
+    /// - Returns: A `Service` used to start the request via `resume(...)`.
     public func enqueue(_ requestable: Requestable) -> Service {
-        service.update(with: requestable)
+        Service(serviceActor: serviceActor, requestable: requestable)
     }
 }

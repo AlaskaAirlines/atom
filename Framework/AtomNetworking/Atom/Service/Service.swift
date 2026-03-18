@@ -18,56 +18,93 @@ import Foundation
 
 // MARK: - Service
 
-/// A wrapper class for managing service operations with serialized task queuing.
+/// Represents a single network request bound to the shared internal actor.
 ///
-/// This class delegates queue management to `RequestableQueueManager` for FIFO serialization of operations and interacts with `SessionActor` for session-related tasks
-/// (e.g., updates). It's marked `@unchecked Sendable` for cross-concurrency safety, as the queue manager protects shared state.
-public final class Service: @unchecked Sendable {
+/// `Service` captures a `Requestable` and delegates execution to the shared `ServiceActor`, which is responsible for:
+/// - Executing the request
+/// - Coordinating token refresh
+/// - Ensuring only one refresh occurs when multiple requests detect expiration
+///
+/// A `Service` instance is lightweight and immutable. It does not execute
+/// anything until one of the `resume(...)` methods is called.
+///
+/// ## Concurrency Behavior
+/// - All `Service` instances share the same internal actor.
+/// - If the token is expired, concurrent callers automatically wait for the same refresh instead of triggering multiple refresh calls.
+/// - Both async/await and completion-based APIs route through the same actor, ensuring consistent behavior.
+///
+/// ## Usage
+/// ```swift
+/// let result = try await atom.enqueue(MyEndpoint()).resume(expecting: MyModel.self)
+/// ```
+///
+/// Or using completion:
+///
+/// ```swift
+/// atom.enqueue(MyEndpoint()).resume(expecting: MyModel.self) { result in
+///     ...
+/// }
+/// ```
+public final class Service: Sendable {
     // MARK: - Properties
 
-    /// The manager for handling FIFO queuing and serial processing of tasks, ensuring thread-safety and order.
-    let requestableQueueManager: RequestableQueueManager
+    /// Shared internal actor that executes the request and handles token refresh coordination.
+    private let serviceActor: ServiceActor
 
-    /// The actor responsible for session operations, such as updates and network calls, providing isolated state management.
-    let sessionActor: SessionActor
-
-    /// The configuration for the underlying session actor.
-    let serviceConfiguration: ServiceConfiguration
+    /// The captured request to execute.
+    private let requestable: any Requestable
 
     // MARK: - Lifecycle
 
-    /// Initializes the service with a configuration.
-    ///
-    /// Creates a new queue manager for task serialization and a session actor for handling operations.
+    /// Creates a `Service` bound to the shared actor and a specific request.
     ///
     /// - Parameters:
-    ///   - serviceConfiguration: The configuration for the underlying session actor.
-    init(serviceConfiguration: ServiceConfiguration) {
-        self.requestableQueueManager = RequestableQueueManager()
-        self.sessionActor = SessionActor(serviceConfiguration: serviceConfiguration)
-        self.serviceConfiguration = serviceConfiguration
+    ///   - serviceActor: The shared actor responsible for execution.
+    ///   - requestable:  The request to execute.
+    init(serviceActor: ServiceActor, requestable: any Requestable) {
+        self.serviceActor = serviceActor
+        self.requestable = requestable
     }
 
     // MARK: - Functions
 
-    /// Enqueues an update operation with a requestable object, returning self for chaining.
+    /// Executes the request using async/await and decodes the result.
     ///
-    /// This method adds the update task to the queue manager for FIFO processing and returns immediately, allowing fluent chaining (e.g., `update(...).resume(...)`). The
-    /// actual update on the session actor happens asynchronously.
+    /// If the token is expired, the shared actor ensures only one refresh
+    /// occurs and all concurrent callers wait for it.
     ///
     /// - Parameters:
-    ///   - requestable: The `Requestable` object to update the session with.
+    ///   - type: The expected response model type.
     ///
-    /// - Returns: The service instance for method chaining.
-    public func update(with requestable: Requestable) -> Service {
-        awaitOrEnqueue { [weak self] in
-            guard let self else {
-                return
-            }
+    /// - Returns: The decoded response.
+    public func resume<T>(expecting type: T.Type) async throws(AtomError) -> T where T: Model {
+        try await serviceActor.resume(for: requestable, expecting: type)
+    }
 
-            await sessionActor.update(with: requestable)
-        }
+    /// Executes the request using async/await and returns the raw response.
+    ///
+    /// - Returns: The raw `AtomResponse`.
+    public func resume() async throws(AtomError) -> AtomResponse {
+        try await serviceActor.resume(for: requestable)
+    }
 
-        return self
+    /// Executes the request using a completion handler.
+    ///
+    /// The call is routed through the shared actor to ensure consistent
+    /// behavior with async/await usage.
+    ///
+    /// - Parameters:
+    ///   - type:       The expected response model type.
+    ///   - completion: Called with the result.
+    public func resume<T>(expecting type: T.Type, completion: @Sendable @escaping (Result<T, AtomError>) -> Void) where T: Model {
+        Task { await serviceActor.resume(for: requestable, expecting: type, completion: completion) }
+    }
+
+    /// Executes the request using a completion handler and returns the raw response.
+    ///
+    /// - Parameters:
+    ///   - completion: Called with the result.
+    public func resume(_ completion: @Sendable @escaping (Result<AtomResponse, AtomError>) -> Void) {
+        Task { await serviceActor.resume(for: requestable, completion: completion) }
     }
 }

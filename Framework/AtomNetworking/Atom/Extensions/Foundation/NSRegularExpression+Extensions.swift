@@ -39,7 +39,7 @@ extension NSRegularExpression {
     /// crash, when the `NSRegularExpression` instance creation fails, is intentional.
     static let urlPath: NSRegularExpression = {
         do {
-            let pattern = "(^[/]((\\w.+)))+.(\\w)+"
+            let pattern = "^/([A-Za-z0-9._~-]+/)*[A-Za-z0-9._~-]*$"
 
             return try NSRegularExpression(pattern: pattern, options: .caseInsensitive)
         } catch {
