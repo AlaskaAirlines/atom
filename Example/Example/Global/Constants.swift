@@ -21,5 +21,6 @@ import Foundation
 let atom: Atom = {
     let method: AuthenticationMethod = .basic(BasicCredential(password: "password", username: "username"))
     let configuration: ServiceConfiguration = .init(authenticationMethod: method, isLogEnabled: true)
+
     return .init(serviceConfiguration: configuration)
 }()

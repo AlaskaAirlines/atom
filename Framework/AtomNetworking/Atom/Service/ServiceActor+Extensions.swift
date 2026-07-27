@@ -18,7 +18,7 @@ import Foundation
 
 // MARK: - Helper Properties and Methods
 
-extension Service {
+extension ServiceActor {
     /// Applies authorization header to a `Requestable` instance.
     ///
     /// - Parameters:
@@ -48,19 +48,24 @@ extension Service {
             }
 
             // Ensure the existing credential requires a refresh.
-            guard writable.tokenCredential.requiresRefresh else {
-                // The credential is valid and does not require a refresh. Apply the access token or credential as an authorization header.
-                return AuthorizedRequestable(requestable: requestable, authorizationHeaderItems: [method.authorizationHeaderItem])
+            if writable.tokenCredential.requiresRefresh {
+                // If no refresh Task in progress, initiate a new refresh.
+                if refreshTask == nil {
+                    // Create a new Task for the background refresh operation.
+                    refreshTask = Task {
+                        // Ensure the task reference is reset after completion or failure.
+                        defer { refreshTask = nil }
+
+                        // Perform the actual token refresh and return the new credential.
+                        return try await refreshAccessToken(using: endpoint, credential: credential, writable: writable)
+                    }
+                }
+
+                // Await the new Task's result and assign if successful, or throw on failure.
+                if let refreshTask {
+                    writable.tokenCredential = try await refreshTask.typedValue()
+                }
             }
-
-            // Refresh the credential.
-            let credential = try await refreshAccessToken(using: endpoint, credential: credential, writable: writable)
-
-            // Update the client with a new credential value.
-            //
-            // Note: This implementation assumes that the token is written to the keychain
-            // in a thread-safe manner before it is retrieved by the `writable` instance below.
-            writable.tokenCredential = credential
 
             // Apply access token/credential authorization header.
             return AuthorizedRequestable(requestable: requestable, authorizationHeaderItems: [method.authorizationHeaderItem])
@@ -68,6 +73,20 @@ extension Service {
         case .none:
             return requestable
         }
+    }
+
+    /// Determines whether request execution should be serialized.
+    ///
+    /// When this returns `true`, incoming requests are queued so they wait for the refresh to complete before executing. This prevents
+    /// multiple concurrent refresh attempts and ensures consistent credential usage across parallel requests.
+    ///
+    /// - Returns: `true` if requests should be queued; otherwise `false`.
+    func needsSerialization() async -> Bool {
+        guard case let .bearer(_, _, writable) = serviceConfiguration.authenticationMethod else {
+            return false
+        }
+
+        return writable.tokenCredential.requiresRefresh || refreshTask != nil
     }
 
     /// Refreshes the current access token asynchronously.
@@ -83,7 +102,7 @@ extension Service {
     /// - Returns: A `TokenCredential` object representing the new credential.
     ///
     /// - Throws: An `AtomError` if there's an issue during the refresh process.
-    func refreshAccessToken(
+    private func refreshAccessToken(
         using endpoint: AuthorizationEndpoint,
         credential: ClientCredential,
         writable: any TokenCredentialWritable

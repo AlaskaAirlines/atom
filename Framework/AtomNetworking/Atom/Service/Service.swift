@@ -16,90 +16,95 @@
 
 import Foundation
 
-/// `Service` is a public facing class responsible for managing `URLSession` configuration,
-/// network calls, and decoding instances of a data type into internal models.
+// MARK: - Service
+
+/// Represents a single network request bound to the shared internal actor.
 ///
-/// `Service` is available through the `Atom` instance only and cannot be initialized dirrectly. This
-/// behavior is intentional to allow for better separation of responsibilities such as creating a request,
-/// network call, and data decoding.
-public actor Service: Sendable {
+/// `Service` captures a `Requestable` and delegates execution to the shared `ServiceActor`, which is responsible for:
+/// - Executing the request
+/// - Coordinating token refresh
+/// - Ensuring only one refresh occurs when multiple requests detect expiration
+///
+/// A `Service` instance is lightweight and immutable. It does not execute
+/// anything until one of the `resume(...)` methods is called.
+///
+/// ## Concurrency Behavior
+/// - All `Service` instances share the same internal actor.
+/// - If the token is expired, concurrent callers automatically wait for the same refresh instead of triggering multiple refresh calls.
+/// - Both async/await and completion-based APIs route through the same actor, ensuring consistent behavior.
+///
+/// ## Usage
+/// ```swift
+/// let result = try await atom.enqueue(MyEndpoint()).resume(expecting: MyModel.self)
+/// ```
+///
+/// Or using completion:
+///
+/// ```swift
+/// atom.enqueue(MyEndpoint()).resume(expecting: MyModel.self) { result in
+///     ...
+/// }
+/// ```
+public final class Service: Sendable {
     // MARK: - Properties
 
-    /// The service configuration data.
-    let serviceConfiguration: ServiceConfiguration
+    /// Shared internal actor that executes the request and handles token refresh coordination.
+    private let serviceActor: ServiceActor
 
-    /// The `JSONDecoder` instance for decoding token credential.
-    let credentialDecoder: JSONDecoder
-
-    /// The `URLSession` instance configured from `ServiceConfiguration`.
-    let session: URLSession
-
-    /// The requestable item to initialize `URLRequest` with.
-    private var requestable: Requestable
+    /// The captured request to execute.
+    private let requestable: any Requestable
 
     // MARK: - Lifecycle
 
-    /// Creates a `Service` instance given the provided parameter(s).
+    /// Creates a `Service` bound to the shared actor and a specific request.
     ///
     /// - Parameters:
-    ///   - serviceConfiguration: The service configuration data.
-    init(serviceConfiguration: ServiceConfiguration) {
-        self.requestable = Endpoint()
-        self.serviceConfiguration = serviceConfiguration
-        self.credentialDecoder = JSONDecoder()
-        self.session = URLSession(
-            configuration: serviceConfiguration.sessionConfiguration,
-            delegate: Interceptor(for: .network, isEnabled: serviceConfiguration.isLogEnabled),
-            delegateQueue: nil
-        )
+    ///   - serviceActor: The shared actor responsible for execution.
+    ///   - requestable:  The request to execute.
+    init(serviceActor: ServiceActor, requestable: any Requestable) {
+        self.serviceActor = serviceActor
+        self.requestable = requestable
     }
 
     // MARK: - Functions
 
-    /// Creates and resumes `URLRequest` initialized from `Requestable`.
+    /// Executes the request using async/await and decodes the result.
     ///
-    /// Use this method to make network requests where you expect data returned by the
-    /// service and require that data to be decoded into internal representations - models.
+    /// If the token is expired, the shared actor ensures only one refresh
+    /// occurs and all concurrent callers wait for it.
     ///
     /// - Parameters:
-    ///   - type: The type to decode.
+    ///   - type: The expected response model type.
     ///
-    /// - Throws: `AtomError` instance if an error occurred.
-    ///
-    /// - Returns: Decoded `Model` instance.
+    /// - Returns: The decoded response.
     public func resume<T>(expecting type: T.Type) async throws(AtomError) -> T where T: Model {
-        let authorizedRequestable = try await applyAuthorizationHeader(to: requestable)
-        let response = try await session.data(for: authorizedRequestable)
-
-        // Atom supports returning raw data without decoding.
-        guard let value = response.data as? T else {
-            return try serviceConfiguration.decoder.decode(type: type, from: response.data)
-        }
-
-        return value
+        try await serviceActor.resume(for: requestable, expecting: type)
     }
 
-    /// Creates and resumes `URLRequest` initialized from `Requestable`.
+    /// Executes the request using async/await and returns the raw response.
     ///
-    /// Use this method to make network requests where you don't expect any data returned
-    /// and are only interested in knowing if the network call succeeded or failed.
-    ///
-    /// `Atom` framework uses a convenience computed variable on `AtomResponse` - `isSuccessful`
-    /// to determine success or a failure of a response based on a status code returned by the service.
-    ///
-    /// - Throws: `AtomError` instance if an error occurred.
-    ///
-    /// - Returns: `AtomResponse` instance.
+    /// - Returns: The raw `AtomResponse`.
     public func resume() async throws(AtomError) -> AtomResponse {
-        let authorizedRequestable = try await applyAuthorizationHeader(to: requestable)
-
-        return try await session.data(for: authorizedRequestable)
+        try await serviceActor.resume(for: requestable)
     }
 
-    /// Update requestable instance property with new data.
-    func update(with requestable: Requestable) async -> Service {
-        self.requestable = requestable
+    /// Executes the request using a completion handler.
+    ///
+    /// The call is routed through the shared actor to ensure consistent
+    /// behavior with async/await usage.
+    ///
+    /// - Parameters:
+    ///   - type:       The expected response model type.
+    ///   - completion: Called with the result.
+    public func resume<T>(expecting type: T.Type, completion: @Sendable @escaping (Result<T, AtomError>) -> Void) where T: Model {
+        Task { await serviceActor.resume(for: requestable, expecting: type, completion: completion) }
+    }
 
-        return self
+    /// Executes the request using a completion handler and returns the raw response.
+    ///
+    /// - Parameters:
+    ///   - completion: Called with the result.
+    public func resume(_ completion: @Sendable @escaping (Result<AtomResponse, AtomError>) -> Void) {
+        Task { await serviceActor.resume(for: requestable, completion: completion) }
     }
 }

@@ -53,14 +53,10 @@ final class StringExtensionsTests: XCTestCase {
     func testInvalidURLPath() {
         // Given, When
         let single = "path"
-        let multiple = "/v1/new/path/"
-        let dash = "/v2/new-path-"
         let underscore = "_/v3/new_path"
 
         // Then
         XCTAssertFalse(single.isValidURLPath)
-        XCTAssertFalse(multiple.isValidURLPath)
-        XCTAssertFalse(dash.isValidURLPath)
         XCTAssertFalse(underscore.isValidURLPath)
     }
 

@@ -26,14 +26,6 @@ final class AtomErrorExtensionsTests: XCTestCase {
         XCTAssertTrue(error.isAuthorizationFailure)
     }
 
-    func testIsAccessTokenRefreshFailure() {
-        // Given, When
-        let error: AtomError = .session(AtomError.response(AtomResponse(statusCode: 400)))
-
-        // Then
-        XCTAssertTrue(error.isAccessTokenRefreshFailure)
-    }
-
     func testDataDecodeIfPresentErrorData() throws {
         // Given
         let json = ["key": "value"]

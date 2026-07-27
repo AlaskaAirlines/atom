@@ -42,7 +42,7 @@ extension URLSession {
                 // - Authorization Failure: Posts `Atom.didFailToAuthorizeRequest` notification.
                 //
                 // Both notifications include the error in `userInfo`.
-                if error.isAccessTokenRefreshFailure {
+                if requestable.isAuthenticationEndpoint, error.isBadRequest {
                     // Notify observers that a token refresh has failed.
                     NotificationCenter.default.post(name: Atom.didFailToRefreshAccessToken, object: nil, userInfo: ["error": error])
                 } else if error.isAuthorizationFailure {
