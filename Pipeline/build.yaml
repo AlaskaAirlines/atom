@@ -33,16 +33,16 @@ steps:
         sonar.log.level=debug
         sonar.language=swift
         sonar.coverageReportPaths=$(agent.builddirectory)/sonarqube-test-coverage.xml
-        sonar.swift.simulator=platform=iOS Simulator,name=iPad (10th generation)]
+        sonar.swift.simulator=platform=iOS Simulator,OS=18.6,name=iPad (10th generation)]
         sonar.sourceEncoding=UTF-8
         sonar.cfamily.compile-commands=compile_commands.json
 
 - script: |
     xcodebuild test \
       -scheme AtomNetworking \
-      -destination 'platform=iOS Simulator,name=iPad (10th generation)' \
+      -destination 'platform=iOS Simulator,OS=18.6,name=iPad (10th generation)' \
       -enableCodeCoverage YES \
-      -resultBundlePath '$(Common.TestResultsDirectory)/Results'
+      -resultBundlePath '$(Common.TestResultsDirectory)/Results.xcresult'
   displayName: 'Run Unit Tests'
 
 - task: PublishTestResults@2
