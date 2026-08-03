@@ -80,7 +80,7 @@ For more information, please see [documentation](https://htmlpreview.github.com/
 
 ### Request de-duplication
 
-When several parts of your app ask for the same resource at once, Atom collapses those identical `GET` requests into a single network call. The first caller starts the request; any caller that arrives while it is still in flight waits for that same result instead of firing a second call. Every caller then receives the same response — or the same error, if it fails.
+When several parts of your app ask for the same resource at once, Atom collapses those identical `GET` requests into a single network call. The first caller starts the request; any caller that arrives while it is still in flight waits for that same result instead of firing a second call. Every caller then receives the same response - or the same error, if it fails.
 
 De-duplication applies to `GET` requests only. Requests using any other HTTP method always execute on their own, since combining them would not be safe.
 
@@ -100,7 +100,7 @@ extension Seatmap {
 }
 ```
 
-Requests are matched on their HTTP method and fully-resolved URL — including query items, but ignoring the `Authorization` header. De-duplication therefore behaves the same across every authentication method.
+Requests are matched on their HTTP method and fully-resolved URL - including query items, but ignoring the `Authorization` header. De-duplication therefore behaves the same across every authentication method.
 
 ### Authentication
 
