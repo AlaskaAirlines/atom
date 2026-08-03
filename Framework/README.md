@@ -12,6 +12,7 @@ Atom is a wrapper library built around a subset of features offered by `URLSessi
 - [x] Supports Multipath TCP configuration
 - [x] Handles object decoding from data returned by the service
 - [x] Handles token refresh
+- [x] De-duplicates identical in-flight GET requests
 - [x] Handles and applies authorization headers on behalf of the client
 - [x] Handles URL host validation
 - [x] Handles URL path validation
@@ -76,6 +77,30 @@ let seatmap = try await atom.enqueue(Endpoint.refresh).resume(expecting: Seatmap
 The above example demonstrates how to use `resume(expecting:)` function to get a fully decoded `Seatmap` model object.
 
 For more information, please see [documentation](https://htmlpreview.github.com/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html).
+
+### Request de-duplication
+
+When several parts of your app ask for the same resource at once, Atom collapses those identical `GET` requests into a single network call. The first caller starts the request; any caller that arrives while it is still in flight waits for that same result instead of firing a second call. Every caller then receives the same response — or the same error, if it fails.
+
+De-duplication applies to `GET` requests only. Requests using any other HTTP method always execute on their own, since combining them would not be safe.
+
+It is on by default. To opt a specific endpoint out, set `allowsDeduplication` to `false`:
+
+```swift
+extension Seatmap {
+    enum Endpoint: Requestable {
+        case refresh
+
+        func baseURL() throws(AtomError) -> BaseURL {
+            try BaseURL(host: "api.alaskaair.net")
+        }
+
+        var allowsDeduplication: Bool { false }
+    }
+}
+```
+
+Requests are matched on their HTTP method and fully-resolved URL — including query items, but ignoring the `Authorization` header. De-duplication therefore behaves the same across every authentication method.
 
 ### Authentication
 

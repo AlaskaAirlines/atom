@@ -19,6 +19,12 @@ import Foundation
 // MARK: - Helper Properties and Methods
 
 extension String {
+    /// An empty string constant.
+    ///
+    /// Prefer this over hard-coding `""` for consistency and readability
+    /// when providing default values or performing empty string checks.
+    static let empty: String = ""
+
     /// Returns `self` as Base64 encoded string.
     var base64: String {
         Data(utf8).base64EncodedString()
