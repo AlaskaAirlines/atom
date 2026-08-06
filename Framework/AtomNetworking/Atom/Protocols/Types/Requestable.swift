@@ -33,6 +33,15 @@ public protocol Requestable: Sendable {
     /// automatically by Atom to a `URLRequest` instance created from `Requestable`.
     var requiresAuthorization: Bool { get }
 
+    /// The `Bool` indicating whether the library may coalesce identical concurrent executions of
+    /// this request into a single in-flight network call. Only `GET` requests are coalesced;
+    /// for any other HTTP method this value has no effect.
+    ///
+    /// Leave this at its default of `true` unless an endpoint must always reach the network - for
+    /// example, a `GET` that records a side effect on the server, or one whose response can change
+    /// between two otherwise-identical concurrent calls.
+    var allowsDeduplication: Bool { get }
+
     /// The base url to initialize `URLRequest` with.
     ///
     /// The URL host must begin and end with a word.
@@ -75,6 +84,9 @@ extension Requestable {
 
     /// The default valus is `true`.
     public var requiresAuthorization: Bool { true }
+
+    /// The default value is `true`.
+    public var allowsDeduplication: Bool { true }
 
     /// The default valus is `URLPath.default`.
     public func path() throws(AtomError) -> URLPath { URLPath.default }

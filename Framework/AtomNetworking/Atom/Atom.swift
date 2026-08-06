@@ -43,9 +43,12 @@ public struct Atom: Sendable {
     /// - Executes network requests
     /// - Handles token refresh
     /// - Ensures that only one refresh happens at a time when multiple requests detect an expired token
+    /// - Coalesces identical in-flight `GET` requests into a single network call
     ///
     /// All requests share the same internal actor, so if the token is expired, concurrent callers
-    /// will wait for the same refresh instead of triggering multiple refresh calls.
+    /// will wait for the same refresh instead of triggering multiple refresh calls. Likewise, concurrent
+    /// callers issuing the same `GET` await a single in-flight request rather than each hitting the
+    /// network (see `Requestable.allowsDeduplication`).
     ///
     /// - Parameters:
     ///   - requestable: The request to execute.

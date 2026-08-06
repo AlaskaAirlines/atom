@@ -48,6 +48,9 @@ actor ServiceActor: Sendable {
     /// Tracks the currently running refresh task, if one exists.
     var refreshTask: Task<TokenCredential, Error>?
 
+    /// Tracks in-flight GET requests so identical concurrent calls collapse into a single call.
+    var inFlightRequests: [RequestKey: Task<AtomResponse, Error>] = .init()
+
     /// Queue manager used to serialize request execution when a refresh is required.
     let requestableQueueManager: RequestableQueueManager
 
