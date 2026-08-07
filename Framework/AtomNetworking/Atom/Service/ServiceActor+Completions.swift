@@ -27,12 +27,18 @@ extension ServiceActor {
     /// - Parameters:
     ///   - requestable: The request to execute.
     ///   - type:        The expected model type conforming to `Model`.
+    ///   - decoder:     An optional decoder to use for this call only. Omit (or pass `nil`) to use the service-configured decoder.
     ///   - completion:  A `@Sendable` escaping closure called with the result.
-    func resume<T: Model>(for requestable: any Requestable, expecting type: T.Type, completion: @Sendable @escaping (Result<T, AtomError>) -> Void) {
+    func resume<T: Model>(
+        for requestable: any Requestable,
+        expecting type: T.Type,
+        decoder: JSONDecoder? = nil,
+        completion: @Sendable @escaping (Result<T, AtomError>) -> Void
+    ) {
         Task {
             do {
                 // Perform the async resume operation on the session actor.
-                let value = try await resume(for: requestable, expecting: type)
+                let value = try await resume(for: requestable, expecting: type, decoder: decoder)
 
                 // Dispatch the success completion asynchronously to the specified queue (e.g., for UI/main thread safety).
                 serviceConfiguration.dispatchQueue.async {

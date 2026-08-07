@@ -74,11 +74,12 @@ public final class Service: Sendable {
     /// occurs and all concurrent callers wait for it.
     ///
     /// - Parameters:
-    ///   - type: The expected response model type.
+    ///   - type:    The expected response model type.
+    ///   - decoder: An optional decoder to use for this call only. Omit (or pass `nil`) to use the service-configured decoder.
     ///
     /// - Returns: The decoded response.
-    public func resume<T>(expecting type: T.Type) async throws(AtomError) -> T where T: Model {
-        try await serviceActor.resume(for: requestable, expecting: type)
+    public func resume<T>(expecting type: T.Type, decoder: JSONDecoder? = nil) async throws(AtomError) -> T where T: Model {
+        try await serviceActor.resume(for: requestable, expecting: type, decoder: decoder)
     }
 
     /// Executes the request using async/await and returns the raw response.
@@ -95,9 +96,10 @@ public final class Service: Sendable {
     ///
     /// - Parameters:
     ///   - type:       The expected response model type.
+    ///   - decoder:    An optional decoder to use for this call only. Omit (or pass `nil`) to use the service-configured decoder.
     ///   - completion: Called with the result.
-    public func resume<T>(expecting type: T.Type, completion: @Sendable @escaping (Result<T, AtomError>) -> Void) where T: Model {
-        Task { await serviceActor.resume(for: requestable, expecting: type, completion: completion) }
+    public func resume<T>(expecting type: T.Type, decoder: JSONDecoder? = nil, completion: @Sendable @escaping (Result<T, AtomError>) -> Void) where T: Model {
+        Task { await serviceActor.resume(for: requestable, expecting: type, decoder: decoder, completion: completion) }
     }
 
     /// Executes the request using a completion handler and returns the raw response.
