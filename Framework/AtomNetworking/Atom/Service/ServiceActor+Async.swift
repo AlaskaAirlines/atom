@@ -31,14 +31,15 @@ extension ServiceActor {
     /// - Parameters:
     ///   - requestable: The request to execute.
     ///   - type:        The expected model type conforming to `Model`.
+    ///   - decoder:     An optional decoder to use for this call only. Omit (or pass `nil`) to use the service-configured decoder.
     ///
     /// - Returns: The decoded model of type `T`.
     /// - Throws:  `AtomError` on failure (e.g., network errors or decoding issues).
-    func resume<T: Model>(for requestable: any Requestable, expecting type: T.Type) async throws(AtomError) -> T {
+    func resume<T: Model>(for requestable: any Requestable, expecting type: T.Type, decoder: JSONDecoder? = nil) async throws(AtomError) -> T {
         let response = try await deduplicatedResponse(for: requestable)
 
         guard let value = response.data as? T else {
-            return try serviceConfiguration.decoder.decode(type: type, from: response.data)
+            return try (decoder ?? serviceConfiguration.decoder).decode(type: type, from: response.data)
         }
 
         return value
