@@ -36,13 +36,33 @@ extension ServiceActor {
     /// - Returns: The decoded model of type `T`.
     /// - Throws:  `AtomError` on failure (e.g., network errors or decoding issues).
     func resume<T: Model>(for requestable: any Requestable, expecting type: T.Type, decoder: JSONDecoder? = nil) async throws(AtomError) -> T {
+        try await resume(for: requestable, decoding: type, decoder: decoder).model
+    }
+
+    /// Asynchronous overload of resume decoding a model type and returning it alongside the response metadata.
+    ///
+    /// Routes through in-flight de-duplication.
+    ///
+    /// This is the only decode path. `resume(for:expecting:decoder:)` delegates to it, so decoder resolution,
+    /// the `AtomError` mapping and the short circuit for a `T` of `Data` each exist in exactly one place.
+    ///
+    /// - Parameters:
+    ///   - requestable: The request to execute.
+    ///   - type:        The expected model type conforming to `Model`.
+    ///   - decoder:     An optional decoder to use for this call only. Omit (or pass `nil`) to use the service-configured decoder.
+    ///
+    /// - Returns: The decoded model of type `T` together with the response it was decoded from.
+    /// - Throws:  `AtomError` on failure (e.g., network errors or decoding issues).
+    func resume<T: Model>(for requestable: any Requestable, decoding type: T.Type, decoder: JSONDecoder? = nil) async throws(AtomError) -> DecodedResponse<T> {
         let response = try await pluggedResponse(for: requestable)
 
         guard let value = response.data as? T else {
-            return try (decoder ?? serviceConfiguration.decoder).decode(type: type, from: response.data)
+            let model = try (decoder ?? serviceConfiguration.decoder).decode(type: type, from: response.data)
+
+            return DecodedResponse(model: model, response: response)
         }
 
-        return value
+        return DecodedResponse(model: value, response: response)
     }
 
     /// Asynchronous overload of resume for a raw response.

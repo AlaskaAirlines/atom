@@ -21,6 +21,8 @@
 struct AuthorizedRequestableEndpoint: Requestable {
     // MARK: - Computed Properties
 
+    var caching: ResponseCaching { .whileCacheFresh }
+
     var headerItems: [HeaderItem]? {
         [.init(name: "name", value: "value")]
     }

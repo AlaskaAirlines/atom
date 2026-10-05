@@ -14,27 +14,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import AtomNetworking
 import Foundation
 
-enum JokeEndpoint: Requestable {
-    /// Get a random, single, Chuck Norris joke.
-    case random
+/// A decoded model together with the response metadata it was decoded from.
+public struct DecodedResponse<T>: Sendable where T: Model {
+    /// The decoded model.
+    public let model: T
 
-    // MARK: - Computed Properties
-
-    /// The per-request caching option.
-    var caching: ResponseCaching {
-        .revalidatingWithService
-    }
-
-    // MARK: - Functions
-
-    func baseURL() throws(AtomError) -> BaseURL {
-        try BaseURL(host: "api.chucknorris.io")
-    }
-
-    func path() throws(AtomError) -> URLPath {
-        try URLPath("/jokes/random")
-    }
+    /// The response the model was decoded from, carrying status code and headers.
+    public let response: AtomResponse
 }

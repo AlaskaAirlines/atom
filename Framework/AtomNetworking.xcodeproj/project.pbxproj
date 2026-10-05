@@ -96,6 +96,7 @@
 		67F83BA82D244D5500B9880A /* TokenCredential+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BA72D244D5500B9880A /* TokenCredential+Extensions.swift */; };
 		67F83BAA2D244DA500B9880A /* TokenCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BA92D244DA500B9880A /* TokenCredential.swift */; };
 		67F83BAC2D244E4900B9880A /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BAB2D244E4900B9880A /* Endpoint.swift */; };
+		67C1A0062E5A100000B9880A /* DecodedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C1A0052E5A100000B9880A /* DecodedResponse.swift */; };
 		67F83BB02D24514E00B9880A /* BaseURL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BAF2D24514E00B9880A /* BaseURL+Extensions.swift */; };
 		67F83BB22D2451A200B9880A /* BaseURLScheme+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BB12D2451A200B9880A /* BaseURLScheme+Extensions.swift */; };
 		67F83BB42D2451F700B9880A /* HTTPMethod+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BB32D2451F700B9880A /* HTTPMethod+Extensions.swift */; };
@@ -106,8 +107,10 @@
 		67F83BC32D284D4B00B9880A /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BC22D284D4B00B9880A /* Interceptor.swift */; };
 		67F83BDF2D28546B00B9880A /* Interceptor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BDE2D28546B00B9880A /* Interceptor+Extensions.swift */; };
 		67F83BE12D2855CD00B9880A /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BE02D2855CD00B9880A /* ServiceConfiguration.swift */; };
+		67C1A0022E5A100000B9880A /* ResponseCaching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C1A0012E5A100000B9880A /* ResponseCaching.swift */; };
 		67F83BE32D2855E100B9880A /* ServiceTimeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BE22D2855E100B9880A /* ServiceTimeout.swift */; };
 		67F83BE52D2857DB00B9880A /* ServiceConfiguration+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BE42D2857DB00B9880A /* ServiceConfiguration+Extensions.swift */; };
+		67C1A0042E5A100000B9880A /* ResponseCaching+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C1A0032E5A100000B9880A /* ResponseCaching+Extensions.swift */; };
 		67F83BE72D2858C100B9880A /* SessionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BE62D2858C100B9880A /* SessionConfiguration.swift */; };
 		67F83BE92D285A2D00B9880A /* ServiceConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BE82D285A2D00B9880A /* ServiceConfigurationTests.swift */; };
 		67F83BEC2D285C6700B9880A /* ServiceActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F83BEB2D285C6700B9880A /* ServiceActor.swift */; };
@@ -121,6 +124,7 @@
 		67D40A152E5A010000AA0015 /* NextHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D40A052E5A010000AA0005 /* NextHandlerTests.swift */; };
 		67D40A162E5A010000AA0016 /* ServiceActorPluginsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D40A062E5A010000AA0006 /* ServiceActorPluginsTests.swift */; };
 		67D40A172E5A010000AA0017 /* ServiceActorTransportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D40A072E5A010000AA0007 /* ServiceActorTransportTests.swift */; };
+		67D40A1B2E5A010000AA001B /* ServiceActorDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D40A0B2E5A010000AA000B /* ServiceActorDecodingTests.swift */; };
 		67D40A182E5A010000AA0018 /* ServiceActorDeduplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D40A082E5A010000AA0008 /* ServiceActorDeduplicationTests.swift */; };
 		67D40A192E5A010000AA0019 /* ServiceActorRequestKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D40A092E5A010000AA0009 /* ServiceActorRequestKeyTests.swift */; };
 		67B100000000000000000001 /* ConnectivitySnapshot+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B100000000000000000002 /* ConnectivitySnapshot+Extensions.swift */; };
@@ -261,6 +265,7 @@
 		67F83BA72D244D5500B9880A /* TokenCredential+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TokenCredential+Extensions.swift"; sourceTree = "<group>"; };
 		67F83BA92D244DA500B9880A /* TokenCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenCredential.swift; sourceTree = "<group>"; };
 		67F83BAB2D244E4900B9880A /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		67C1A0052E5A100000B9880A /* DecodedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodedResponse.swift; sourceTree = "<group>"; };
 		67F83BAF2D24514E00B9880A /* BaseURL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseURL+Extensions.swift"; sourceTree = "<group>"; };
 		67F83BB12D2451A200B9880A /* BaseURLScheme+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseURLScheme+Extensions.swift"; sourceTree = "<group>"; };
 		67F83BB32D2451F700B9880A /* HTTPMethod+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPMethod+Extensions.swift"; sourceTree = "<group>"; };
@@ -271,8 +276,10 @@
 		67F83BC22D284D4B00B9880A /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
 		67F83BDE2D28546B00B9880A /* Interceptor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Interceptor+Extensions.swift"; sourceTree = "<group>"; };
 		67F83BE02D2855CD00B9880A /* ServiceConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
+		67C1A0012E5A100000B9880A /* ResponseCaching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseCaching.swift; sourceTree = "<group>"; };
 		67F83BE22D2855E100B9880A /* ServiceTimeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTimeout.swift; sourceTree = "<group>"; };
 		67F83BE42D2857DB00B9880A /* ServiceConfiguration+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ServiceConfiguration+Extensions.swift"; sourceTree = "<group>"; };
+		67C1A0032E5A100000B9880A /* ResponseCaching+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ResponseCaching+Extensions.swift"; sourceTree = "<group>"; };
 		67F83BE62D2858C100B9880A /* SessionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionConfiguration.swift; sourceTree = "<group>"; };
 		67F83BE82D285A2D00B9880A /* ServiceConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfigurationTests.swift; sourceTree = "<group>"; };
 		67F83BEB2D285C6700B9880A /* ServiceActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceActor.swift; sourceTree = "<group>"; };
@@ -286,6 +293,7 @@
 		67D40A052E5A010000AA0005 /* NextHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextHandlerTests.swift; sourceTree = "<group>"; };
 		67D40A062E5A010000AA0006 /* ServiceActorPluginsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceActorPluginsTests.swift; sourceTree = "<group>"; };
 		67D40A072E5A010000AA0007 /* ServiceActorTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceActorTransportTests.swift; sourceTree = "<group>"; };
+		67D40A0B2E5A010000AA000B /* ServiceActorDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceActorDecodingTests.swift; sourceTree = "<group>"; };
 		67D40A082E5A010000AA0008 /* ServiceActorDeduplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceActorDeduplicationTests.swift; sourceTree = "<group>"; };
 		67D40A092E5A010000AA0009 /* ServiceActorRequestKeyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceActorRequestKeyTests.swift; sourceTree = "<group>"; };
 		67B100000000000000000002 /* ConnectivitySnapshot+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConnectivitySnapshot+Extensions.swift"; sourceTree = "<group>"; };
@@ -459,11 +467,13 @@
 				67F83B8E2D2328DA00B9880A /* BasicCredential.swift */,
 				67F83B902D23296600B9880A /* ClientCredential.swift */,
 				6755D8A030210E4F0035EE93 /* ConnectivitySnapshot.swift */,
+				67C1A0052E5A100000B9880A /* DecodedResponse.swift */,
 				67F83BAB2D244E4900B9880A /* Endpoint.swift */,
 				67F83B922D2329B100B9880A /* GrantType.swift */,
 				67F83B4F2D20661C00B9880A /* HeaderItem.swift */,
 				67F83B512D20665100B9880A /* HTTPMethod.swift */,
 				67F83B532D20669900B9880A /* QueryItem.swift */,
+				67C1A0012E5A100000B9880A /* ResponseCaching.swift */,
 				67F83BE02D2855CD00B9880A /* ServiceConfiguration.swift */,
 				67F83BE22D2855E100B9880A /* ServiceTimeout.swift */,
 				67F83BE62D2858C100B9880A /* SessionConfiguration.swift */,
@@ -557,6 +567,7 @@
 				67F83BB32D2451F700B9880A /* HTTPMethod+Extensions.swift */,
 				67F83BDE2D28546B00B9880A /* Interceptor+Extensions.swift */,
 				678BEE7A2D2C4B930084E003 /* Requestable+Extensions.swift */,
+				67C1A0032E5A100000B9880A /* ResponseCaching+Extensions.swift */,
 				67F83BE42D2857DB00B9880A /* ServiceConfiguration+Extensions.swift */,
 				67F83BA72D244D5500B9880A /* TokenCredential+Extensions.swift */,
 				67F83BB52D24522E00B9880A /* URLPath+Extensions.swift */,
@@ -674,6 +685,7 @@
 		67D40A232E5A010000AA0023 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				67D40A0B2E5A010000AA000B /* ServiceActorDecodingTests.swift */,
 				67D40A082E5A010000AA0008 /* ServiceActorDeduplicationTests.swift */,
 				67D40A062E5A010000AA0006 /* ServiceActorPluginsTests.swift */,
 				67D40A0A2E5A010000AA000A /* ServiceActorRefreshTests.swift */,
@@ -882,6 +894,9 @@
 				67F83B672D230BD800B9880A /* Data+Extensions.swift in Sources */,
 				67F83B462D205BE300B9880A /* String+Extensions.swift in Sources */,
 				67F83B1D2D1F780A00B9880A /* AtomResponse.swift in Sources */,
+				67C1A0062E5A100000B9880A /* DecodedResponse.swift in Sources */,
+				67C1A0042E5A100000B9880A /* ResponseCaching+Extensions.swift in Sources */,
+				67C1A0022E5A100000B9880A /* ResponseCaching.swift in Sources */,
 				67B191B42E942CD300E892F6 /* RequestableQueueManager.swift in Sources */,
 				67F83C062D28A59900B9880A /* URLSession+Extensions.swift in Sources */,
 				67F83BAA2D244DA500B9880A /* TokenCredential.swift in Sources */,
@@ -948,6 +963,7 @@
 				67D40A152E5A010000AA0015 /* NextHandlerTests.swift in Sources */,
 				67D40A162E5A010000AA0016 /* ServiceActorPluginsTests.swift in Sources */,
 				67D40A172E5A010000AA0017 /* ServiceActorTransportTests.swift in Sources */,
+				67D40A1B2E5A010000AA001B /* ServiceActorDecodingTests.swift in Sources */,
 				67D40C012E5A010000CC0001 /* AuthorizedRequestableEndpoint.swift in Sources */,
 				67D40C022E5A010000CC0002 /* ConnectivityEndpoint.swift in Sources */,
 				67D40C032E5A010000CC0003 /* NextHandlerEndpoint.swift in Sources */,

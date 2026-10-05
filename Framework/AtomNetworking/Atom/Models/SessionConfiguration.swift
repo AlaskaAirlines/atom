@@ -24,9 +24,10 @@ public enum SessionConfiguration: Equatable, Sendable {
     /// The background session configuration is suitable for transferring data files while the app runs in the background.
     case background(String)
 
-    /// The default session configuration that uses a persistent disk-based cache.
+    /// The default session configuration, persisting credential and session data to disk rather than RAM.
+    /// Response caching is not part of it - the cache is supplied to `ServiceConfiguration` separately.
     case `default`
 
-    /// Ephemeral configuration doesn’t store caches, credential stores, or any session-related data on disk (RAM only).
+    /// Ephemeral configuration doesn’t store credential stores or any session-related data on disk (RAM only).
     case ephemeral
 }

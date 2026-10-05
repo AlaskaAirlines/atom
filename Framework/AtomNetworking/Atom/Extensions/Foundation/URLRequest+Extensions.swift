@@ -61,6 +61,7 @@ extension URLRequest {
 
         // Set additional values.
         self.allHTTPHeaderFields = requestable.headerItems?.dictionary
+        self.cachePolicy = requestable.caching.cachePolicy
         self.httpBody = requestable.method.body
         self.httpMethod = requestable.method.stringValue
     }

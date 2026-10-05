@@ -42,6 +42,10 @@ public protocol Requestable: Sendable {
     /// between two otherwise-identical concurrent calls.
     var allowsDeduplication: Bool { get }
 
+    /// The `ResponseCaching` case indicating whether this request may be served from the cache
+    /// supplied to `ServiceConfiguration`. This value has no effect when no cache was supplied.
+    var caching: ResponseCaching { get }
+
     /// The base url to initialize `URLRequest` with.
     ///
     /// The URL host must begin and end with a word.
@@ -87,6 +91,9 @@ extension Requestable {
 
     /// The default value is `true`.
     public var allowsDeduplication: Bool { true }
+
+    /// The default value is `.disabled`.
+    public var caching: ResponseCaching { .disabled }
 
     /// The default valus is `URLPath.default`.
     public func path() throws(AtomError) -> URLPath { URLPath.default }

@@ -12,6 +12,7 @@ Atom is a wrapper library built around a subset of features offered by `URLSessi
 - [x] Handles object decoding from data returned by the service
 - [x] Handles token refresh
 - [x] De-duplicates identical in-flight GET requests
+- [x] Serves responses from a cache you supply and own, opted in per endpoint, off by default
 - [x] Supports composable plugins wrapped around request execution
 - [x] Fails fast, with a typed error, when the device has no network path, once `ConnectivityPlugin` is installed
 - [x] Handles and applies authorization headers on behalf of the client
@@ -25,6 +26,12 @@ Atom is a wrapper library built around a subset of features offered by `URLSessi
 * Xcode 16.0+
 * Swift 6.0+
 
+
+## What is new in 5.1
+
+Atom no longer inherits a response cache. Until 5.1 Atom never set the session's cache, so every consumer silently got whichever cache their `SessionConfiguration` happened to carry. `.ephemeral`, the default, carried a private cache of 512,000 bytes. `.default` carried `URLCache.shared`, the same instance as the rest of the host app. Atom 5.1 assigns the cache you supply, and `nil` when you supply none, so responses are not cached unless you ask for them to be. Read [Response caching](#response-caching) for the new switches, and [the Atom 5.0 to 5.1 migration guide](Migrations/002-v5.0-to-v5.1.md) if you want the old behavior back.
+
+`resume(decoding:)` returns the decoded model together with the response it came from. Purely additive. Use it when you need a response header, such as `Date` or `ETag`, as well as the model.
 
 ## Migrating to 5.0
 
@@ -82,6 +89,17 @@ let seatmap = try await atom.enqueue(Endpoint.refresh).resume(expecting: Seatmap
 
 The above example demonstrates how to use `resume(expecting:)` function to get a fully decoded `Seatmap` model object.
 
+When you need a response header as well as the model, for example a `Date` or an `ETag`, use `resume(decoding:)` instead. It returns a `DecodedResponse`, which carries the decoded `model` and the `AtomResponse` it was decoded from.
+
+```swift
+let decoded = try await atom.enqueue(Endpoint.refresh).resume(decoding: Seatmap.self)
+
+let seatmap = decoded.model
+let servedAt = decoded.response.httpResponse?.value(forHTTPHeaderField: "Date")
+```
+
+Both functions decode through the same path, so a malformed payload throws `AtomError.decoder(_)` from either one, and a per-call `decoder:` argument behaves the same way. `resume(expecting:)` remains the shorter way to ask for just the model. There is a completion-based `resume(decoding:completion:)` as well.
+
 For more information, please see [documentation](https://htmlpreview.github.io/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html).
 
 ### Request de-duplication
@@ -107,6 +125,79 @@ extension Seatmap {
 ```
 
 Requests are matched on their HTTP method and fully-resolved URL - including query items, but ignoring the `Authorization` header. De-duplication therefore behaves the same across every authentication method.
+
+### Response caching
+
+Atom only serves a cached response when **both** of these are true:
+
+1. The app provides a `URLCache`.
+2. The endpoint opts into caching.
+
+If either is missing, the request goes to the service.
+
+```swift
+let responseCache = URLCache(
+    memoryCapacity: 10_000_000,
+    diskCapacity: 0,
+    directory: nil
+)
+
+let configuration = ServiceConfiguration(cache: responseCache)
+```
+
+Then opt endpoints in individually:
+
+```swift
+var caching: ResponseCaching { .whileCacheFresh }
+```
+
+There are three options:
+
+| Case | Behavior |
+| --- | --- |
+| `.disabled` | Always call the service. This is the default. |
+| `.revalidatingWithService` | Always call the service, but reuse the stored body when the service returns `304`. |
+| `.whileCacheFresh` | Use the cached response while the service says it is fresh. |
+
+### Authenticated services
+
+Use a memory-only cache:
+
+```swift
+diskCapacity: 0
+```
+
+`URLCache` does not safely separate responses by `Authorization` on its own, so clear the cache when the guest signs out:
+
+```swift
+responseCache.removeAllCachedResponses()
+```
+
+If the app has its own persistent store, clear that too.
+
+### Pull to refresh
+
+Be careful with `.whileCacheFresh`.
+
+A user can pull to refresh and still get the cached response without the service being called.
+
+For a forced refresh, use `.disabled` for that request or use `.revalidatingWithService` when every refresh must reach the service.
+
+### If the app already owns freshness
+
+If the app already persists data and decides when it is stale, avoid `.whileCacheFresh`.
+
+The two freshness policies stack:
+
+```text
+app refresh interval + HTTP cache freshness
+```
+
+That can make displayed data older than the app intended.
+
+Use `.revalidatingWithService` when the app needs its own maximum-age rule to hold.
+
+For apps that already own persistence and freshness, `cache: nil` is often the simplest and safest choice.
 
 ### Plugins
 

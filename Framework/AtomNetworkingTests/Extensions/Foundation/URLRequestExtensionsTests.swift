@@ -85,4 +85,27 @@ final class URLRequestExtensionsTests: XCTestCase {
         // Then
         XCTAssertEqual(request.httpMethod, HTTPMethod.get.stringValue)
     }
+
+    func testEveryResponseCachingCaseStampsItsOwnCachePolicyOnTheRequest() throws {
+        // Given, When
+        let disabled: URLRequest = try .init(requestable: URLRequestEndpoint.cachingDisabled)
+        let revalidating: URLRequest = try .init(requestable: URLRequestEndpoint.cachingRevalidatingWithService)
+        let whileCacheFresh: URLRequest = try .init(requestable: URLRequestEndpoint.cachingWhileCacheFresh)
+
+        // Then
+        XCTAssertEqual(disabled.cachePolicy, .reloadIgnoringLocalCacheData)
+        XCTAssertEqual(revalidating.cachePolicy, .reloadRevalidatingCacheData)
+        XCTAssertEqual(whileCacheFresh.cachePolicy, .useProtocolCachePolicy)
+    }
+
+    func testARequestableThatSaysNothingAboutCachingIsStampedToIgnoreTheLocalCache() throws {
+        // Given
+        let endpoint: TransportEndpoint = .init()
+
+        // When
+        let request: URLRequest = try .init(requestable: endpoint)
+
+        // Then
+        XCTAssertEqual(request.cachePolicy, .reloadIgnoringLocalCacheData)
+    }
 }

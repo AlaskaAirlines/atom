@@ -19,6 +19,10 @@ import Foundation
 // MARK: - Protocol Conformance
 
 extension AuthorizedRequestable: Requestable {
+    var caching: ResponseCaching {
+        requestable.caching
+    }
+
     var headerItems: [HeaderItem]? {
         var items = requestable.headerItems ?? []
         items.append(contentsOf: authorizationHeaderItems)

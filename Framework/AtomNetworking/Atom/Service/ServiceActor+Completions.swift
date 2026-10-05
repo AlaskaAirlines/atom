@@ -53,6 +53,42 @@ extension ServiceActor {
         }
     }
 
+    /// Completion-based overload of resume decoding a model type and returning it alongside the response metadata.
+    ///
+    /// This method delegates execution to the shared actor and invokes the completion asynchronously with the result. It supports non-async
+    /// contexts (e.g., UIKit) while ensuring consistent behavior under concurrent load.
+    ///
+    /// If a token refresh is required, concurrent callers automatically wait for the same refresh task before the request executes.
+    ///
+    /// - Parameters:
+    ///   - requestable: The request to execute.
+    ///   - type:        The expected model type conforming to `Model`.
+    ///   - decoder:     An optional decoder to use for this call only. Omit (or pass `nil`) to use the service-configured decoder.
+    ///   - completion:  A `@Sendable` escaping closure called with the result.
+    func resume<T: Model>(
+        for requestable: any Requestable,
+        decoding type: T.Type,
+        decoder: JSONDecoder? = nil,
+        completion: @Sendable @escaping (Result<DecodedResponse<T>, AtomError>) -> Void
+    ) {
+        Task {
+            do {
+                // Perform the async resume operation on the session actor.
+                let value = try await resume(for: requestable, decoding: type, decoder: decoder)
+
+                // Dispatch the success completion asynchronously to the specified queue (e.g., for UI/main thread safety).
+                serviceConfiguration.dispatchQueue.async {
+                    completion(.success(value))
+                }
+            } catch {
+                // Map and dispatch the failure completion asynchronously, converting generic errors to AtomError.
+                serviceConfiguration.dispatchQueue.async {
+                    completion(.failure((error as? AtomError) ?? .unexpected))
+                }
+            }
+        }
+    }
+
     /// Completion-based overload of resume for a raw response.
     ///
     /// This method delegates execution to the shared actor and invokes the completion asynchronously with the result. It allows use in non-async

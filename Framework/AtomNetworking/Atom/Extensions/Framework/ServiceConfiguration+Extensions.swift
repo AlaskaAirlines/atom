@@ -35,6 +35,7 @@ extension ServiceConfiguration {
         sessionConfiguration.timeoutIntervalForRequest = timeout.request
         sessionConfiguration.timeoutIntervalForResource = timeout.resource
         sessionConfiguration.multipathServiceType = multipathServiceType
+        sessionConfiguration.urlCache = cache
 
         return sessionConfiguration
     }
