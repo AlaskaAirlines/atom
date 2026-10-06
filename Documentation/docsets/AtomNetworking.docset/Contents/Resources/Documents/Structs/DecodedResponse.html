@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Service Actor Reference</title>
+    <title>DecodedResponse Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Actor/Service" class="dashAnchor"></a>
-    <a title="Service Actor Reference"></a>
+    <a name="//apple_ref/swift/Struct/DecodedResponse" class="dashAnchor"></a>
+    <a title="DecodedResponse Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">AtomNetworking Docs</a> (100% documented)</p>
@@ -29,9 +29,9 @@
       <p id="breadcrumbs">
         <a href="../index.html">AtomNetworking</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        <a href="../Actors.html">Actors</a>
+        <a href="../Structs.html">Structures</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        Service Actor Reference
+        DecodedResponse Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -41,10 +41,15 @@
             <a href="../Actors.html">Actors</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Actors/Atom.html">Atom</a>
+                <a href="../Actors/PathMonitor.html">PathMonitor</a>
               </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Actors/Service.html">Service</a>
+                <a href="../Classes/Service.html">Service</a>
               </li>
             </ul>
           </li>
@@ -68,6 +73,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/RequestableError.html">RequestableError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ResponseCaching.html">ResponseCaching</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/SessionConfiguration.html">SessionConfiguration</a>
@@ -98,10 +106,16 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/AtomPlugin.html">AtomPlugin</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/BasicCredentialConvertible.html">BasicCredentialConvertible</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/ClientCredentialConvertible.html">ClientCredentialConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ConnectivityMonitoring.html">ConnectivityMonitoring</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a>
@@ -121,6 +135,9 @@
             <a href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/Atom.html">Atom</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/AtomResponse.html">AtomResponse</a>
               </li>
               <li class="nav-group-task">
@@ -136,7 +153,31 @@
                 <a href="../Structs/ClientCredential.html">ClientCredential</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Structs/ConnectivityError.html">ConnectivityError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ConnectivityError/Reason.html">– Reason</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ConnectivityPlugin.html">ConnectivityPlugin</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ConnectivitySnapshot.html">ConnectivitySnapshot</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ConnectivitySnapshot/Status.html">– Status</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ConnectivitySnapshot/Interface.html">– Interface</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DecodedResponse.html">DecodedResponse</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/HeaderItem.html">HeaderItem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/NextHandler.html">NextHandler</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/QueryItem.html">QueryItem</a>
@@ -160,91 +201,43 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Service</h1>
+            <h1>DecodedResponse</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">actor</span> <span class="kt">Service</span> <span class="p">:</span> <span class="kt">Sendable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">DecodedResponse</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Sendable</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a></span></code></pre>
 
                 </div>
               </div>
-            <p><code>Service</code> is a public facing class responsible for managing <code>URLSession</code> configuration,
-network calls, and decoding instances of a data type into internal models.</p>
-
-<p><code>Service</code> is available through the <code><a href="../Actors/Atom.html">Atom</a></code> instance only and cannot be initialized dirrectly. This
-behavior is intentional to allow for better separation of responsibilities such as creating a request,
-network call, and data decoding.</p>
+            <p>A decoded model together with the response metadata it was decoded from.</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Functions"></a>
-                <a name="//apple_ref/swift/Section/Functions" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Functions"></a>
-                  <h3 class="section-name"><span>Functions</span>
-</h3>
-                </div>
-              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AtomNetworking7ServiceC6resume9expectingxxm_tYaAA0A5ErrorOYKAA5ModelRzlF"></a>
-                    <a name="//apple_ref/swift/Method/resume(expecting:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AtomNetworking7ServiceC6resume9expectingxxm_tYaAA0A5ErrorOYKAA5ModelRzlF">resume(expecting:<wbr>)</a>
+                    <a name="/s:14AtomNetworking15DecodedResponseV5modelxvp"></a>
+                    <a name="//apple_ref/swift/Property/model" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AtomNetworking15DecodedResponseV5modelxvp">model</a>
                     </code>
-                      <span class="declaration-note">
-                        Asynchronous
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates and resumes <code>URLRequest</code> initialized from <code><a href="../Protocols/Requestable.html">Requestable</a></code>.</p>
-
-<p>Use this method to make network requests where you expect data returned by the
-service and require that data to be decoded into internal representations - models.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/AtomError.html">AtomError</a></code> instance if an error occurred.</p>
-
-</div>
+                        <p>The decoded model.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">resume</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">expecting</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="k">async</span> <span class="nf">throws</span><span class="p">(</span><span class="kt"><a href="../Enums/AtomError.html">AtomError</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">model</span><span class="p">:</span> <span class="kt">T</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>type</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The type to decode.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>Decoded <code><a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a></code> instance.</p>
                       </div>
                     </section>
                   </div>
@@ -252,44 +245,26 @@ service and require that data to be decoded into internal representations - mode
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AtomNetworking7ServiceC6resumeAA0A8ResponseVyYaAA0A5ErrorOYKF"></a>
-                    <a name="//apple_ref/swift/Method/resume()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AtomNetworking7ServiceC6resumeAA0A8ResponseVyYaAA0A5ErrorOYKF">resume()</a>
+                    <a name="/s:14AtomNetworking15DecodedResponseV8responseAA0aD0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/response" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AtomNetworking15DecodedResponseV8responseAA0aD0Vvp">response</a>
                     </code>
-                      <span class="declaration-note">
-                        Asynchronous
-                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates and resumes <code>URLRequest</code> initialized from <code><a href="../Protocols/Requestable.html">Requestable</a></code>.</p>
-
-<p>Use this method to make network requests where you don&rsquo;t expect any data returned
-and are only interested in knowing if the network call succeeded or failed.</p>
-
-<p><code><a href="../Actors/Atom.html">Atom</a></code> framework uses a convenience computed variable on <code><a href="../Structs/AtomResponse.html">AtomResponse</a></code> - <code>isSuccessful</code>
-to determine success or a failure of a response based on a status code returned by the service.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    <p><code><a href="../Enums/AtomError.html">AtomError</a></code> instance if an error occurred.</p>
-
-</div>
+                        <p>The response the model was decoded from, carrying status code and headers.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">resume</span><span class="p">()</span> <span class="k">async</span> <span class="nf">throws</span><span class="p">(</span><span class="kt"><a href="../Enums/AtomError.html">AtomError</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/AtomResponse.html">AtomResponse</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">response</span><span class="p">:</span> <span class="kt"><a href="../Structs/AtomResponse.html">AtomResponse</a></span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p><code><a href="../Structs/AtomResponse.html">AtomResponse</a></code> instance.</p>
                       </div>
                     </section>
                   </div>
@@ -299,7 +274,7 @@ to determine success or a failure of a response based on a status code returned 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2025 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2025-04-14)</p>
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-10-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

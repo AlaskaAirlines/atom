@@ -70,6 +70,9 @@
                 <a href="Enums/RequestableError.html">RequestableError</a>
               </li>
               <li class="nav-group-task">
+                <a href="Enums/ResponseCaching.html">ResponseCaching</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums/SessionConfiguration.html">SessionConfiguration</a>
               </li>
             </ul>
@@ -163,6 +166,9 @@
                 <a href="Structs/ConnectivitySnapshot/Interface.html">– Interface</a>
               </li>
               <li class="nav-group-task">
+                <a href="Structs/DecodedResponse.html">DecodedResponse</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/HeaderItem.html">HeaderItem</a>
               </li>
               <li class="nav-group-task">
@@ -205,6 +211,7 @@
 <li>[x] Handles object decoding from data returned by the service</li>
 <li>[x] Handles token refresh</li>
 <li>[x] De-duplicates identical in-flight GET requests</li>
+<li>[x] Serves responses from a cache you supply and own, opted in per endpoint, off by default</li>
 <li>[x] Supports composable plugins wrapped around request execution</li>
 <li>[x] Fails fast, with a typed error, when the device has no network path, once <code><a href="Structs/ConnectivityPlugin.html">ConnectivityPlugin</a></code> is installed</li>
 <li>[x] Handles and applies authorization headers on behalf of the client</li>
@@ -219,6 +226,15 @@
 <li>Xcode 16.0+</li>
 <li>Swift 6.0+</li>
 </ul>
+<h2 id='what-is-new-in-5-1' class='heading'>What is new in 5.1</h2>
+
+<p>Atom 5.1 changes one behavior for every consumer and adds two pieces of API. No public API changes shape, so nothing you have written stops compiling.</p>
+
+<p><strong>Atom no longer inherits a response cache.</strong> Until 5.1 Atom never set the session&rsquo;s cache, so every consumer silently got whichever cache their <code><a href="Enums/SessionConfiguration.html">SessionConfiguration</a></code> happened to carry. <code>.ephemeral</code>, the default, carried a private cache of 512,000 bytes. <code>.default</code> carried <code>URLCache.shared</code>, the same instance as the rest of the host app. Atom 5.1 assigns the cache you supply, and <code>nil</code> when you supply none, so responses are not cached unless you ask for them to be. Read <a href="#response-caching">Response caching</a> for the new switches, and <a href="Migrations/002-v5.0-to-v5.1.md">the Atom 5.0 to 5.1 migration guide</a> if you want the old behavior back.</p>
+
+<p><strong><code>resume(decoding:)</code> returns the decoded model together with the response it came from.</strong> Purely additive. Reach for it when you need a response header, such as <code>Date</code> or <code>ETag</code>, as well as the model.</p>
+
+<p><strong><code><a href="Structs/DecodedResponse.html">DecodedResponse</a></code> is the type it returns</strong>, carrying <code>model</code> and <code>response</code>.</p>
 <h2 id='migrating-to-5-0' class='heading'>Migrating to 5.0</h2>
 
 <p>Atom 5.0 raises the deployment target to iOS 17 and reports being offline as its own <code><a href="Enums/AtomError.html">AtomError</a></code> case. Both are breaking changes. See <a href="Migrations/001-v4-to-v5.md">the Atom 4.x to 5.0 migration guide</a> for what changed and what to do about it.</p>
@@ -265,6 +281,15 @@
 
 <p>The above example demonstrates how to use <code>resume(expecting:)</code> function to get a fully decoded <code>Seatmap</code> model object.</p>
 
+<p>When you need a response header as well as the model, for example a <code>Date</code> or an <code>ETag</code>, use <code>resume(decoding:)</code> instead. It returns a <code><a href="Structs/DecodedResponse.html">DecodedResponse</a></code>, which carries the decoded <code>model</code> and the <code><a href="Structs/AtomResponse.html">AtomResponse</a></code> it was decoded from.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">decoded</span> <span class="o">=</span> <span class="k">try</span> <span class="k">await</span> <span class="n">atom</span><span class="o">.</span><span class="nf">enqueue</span><span class="p">(</span><span class="kt">Endpoint</span><span class="o">.</span><span class="n">refresh</span><span class="p">)</span><span class="o">.</span><span class="nf">resume</span><span class="p">(</span><span class="nv">decoding</span><span class="p">:</span> <span class="kt">Seatmap</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">seatmap</span> <span class="o">=</span> <span class="n">decoded</span><span class="o">.</span><span class="n">model</span>
+<span class="k">let</span> <span class="nv">servedAt</span> <span class="o">=</span> <span class="n">decoded</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">httpResponse</span><span class="p">?</span><span class="o">.</span><span class="nf">value</span><span class="p">(</span><span class="nv">forHTTPHeaderField</span><span class="p">:</span> <span class="s">"Date"</span><span class="p">)</span>
+</code></pre>
+
+<p>Both functions decode through the same path, so a malformed payload throws <code>AtomError.decoder(_)</code> from either one, and a per-call <code>decoder:</code> argument behaves the same way. <code>resume(expecting:)</code> remains the shorter way to ask for just the model. There is a completion-based <code>resume(decoding:completion:)</code> as well.</p>
+
 <p>For more information, please see <a href="https://htmlpreview.github.io/?https://github.com/AlaskaAirlines/atom/blob/master/Documentation/index.html">documentation</a>.</p>
 <h3 id='request-de-duplication' class='heading'>Request de-duplication</h3>
 
@@ -287,6 +312,157 @@
 </code></pre>
 
 <p>Requests are matched on their HTTP method and fully-resolved URL - including query items, but ignoring the <code>Authorization</code> header. De-duplication therefore behaves the same across every authentication method.</p>
+<h3 id='response-caching' class='heading'>Response caching</h3>
+
+<p>Atom can answer a request from a stored response instead of calling the service. Two switches control that, and a response comes from storage only when both are on.</p>
+
+<ol>
+<li><strong>Storage.</strong> You build a <code>URLCache</code> and hand it to the configuration. Atom assigns it to the session and does nothing else with it. Supply nothing and there is no caching at all.</li>
+<li><strong>Authority.</strong> Each endpoint declares whether it may be served from that cache. An endpoint that has not opted in always reaches the service, whatever headers the service returns.</li>
+</ol>
+
+<p>The second switch is what makes the first one safe. With storage alone, installing a cache hands every endpoint the client serves to whatever the service decides to send, including headers added long after you shipped.</p>
+
+<p><strong>What Atom did before 5.1.</strong> Atom never set the session&rsquo;s cache, so the behavior came from whichever <code><a href="Enums/SessionConfiguration.html">SessionConfiguration</a></code> you picked, and nothing in the name said so:</p>
+
+<table><thead>
+<tr>
+<th><code><a href="Enums/SessionConfiguration.html">SessionConfiguration</a></code></th>
+<th>The cache it carried</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>.ephemeral</code>, the default</td>
+<td>a private <code>URLCache</code> of 512,000 bytes in memory</td>
+</tr>
+<tr>
+<td><code>.default</code></td>
+<td><code>URLCache.shared</code>, the same instance as the rest of the host app</td>
+</tr>
+<tr>
+<td><code>.background</code></td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<p>Atom now assigns whatever you supply, and <code>nil</code> when you supply nothing. <code>nil</code> is not a partial opt out. It is the whole thing off, on every session configuration. See <a href="Migrations/002-v5.0-to-v5.1.md">the Atom 5.0 to 5.1 migration guide</a>.</p>
+<h4 id='supplying-a-cache' class='heading'>Supplying a cache</h4>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">responseCache</span> <span class="o">=</span> <span class="kt">URLCache</span><span class="p">(</span><span class="nv">memoryCapacity</span><span class="p">:</span> <span class="mi">10_000_000</span><span class="p">,</span> <span class="nv">diskCapacity</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">directory</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">atom</span> <span class="o">=</span> <span class="kt">Atom</span><span class="p">(</span>
+    <span class="nv">serviceConfiguration</span><span class="p">:</span> <span class="kt">ServiceConfiguration</span><span class="p">(</span><span class="nv">cache</span><span class="p">:</span> <span class="n">responseCache</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre>
+
+<p>Hold on to that reference. Atom keeps no handle to the cache and offers no way to clear it, so clearing is a call on the object you built. The sign out obligation below depends on that, and it is the reason the parameter takes a <code>URLCache</code> rather than a description of one.</p>
+
+<p>Size it with room to spare. A single response larger than roughly a twentieth of <code>memoryCapacity</code> is not cached at all, so a 10,000,000 byte cache stores responses up to about 500,000 bytes and silently skips anything above that.</p>
+<h4 id='opting-an-endpoint-in' class='heading'>Opting an endpoint in</h4>
+
+<p>Nothing is served from the cache until an endpoint asks for it. Set <code>caching</code>:</p>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Seatmap</span> <span class="p">{</span>
+    <span class="kd">enum</span> <span class="kt">Endpoint</span><span class="p">:</span> <span class="kt">Requestable</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">refresh</span>
+
+        <span class="kd">func</span> <span class="nf">baseURL</span><span class="p">()</span> <span class="nf">throws</span><span class="p">(</span><span class="kt">AtomError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">BaseURL</span> <span class="p">{</span>
+            <span class="k">try</span> <span class="kt">BaseURL</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="s">"api.alaskaair.net"</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="k">var</span> <span class="nv">caching</span><span class="p">:</span> <span class="kt">ResponseCaching</span> <span class="p">{</span> <span class="o">.</span><span class="n">whileCacheFresh</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>There are three cases.</p>
+
+<table><thead>
+<tr>
+<th>Case</th>
+<th>What it does</th>
+<th>Choose it when</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>.disabled</code></td>
+<td>Always calls the service and never reads the cache. The default.</td>
+<td>you have not thought about this endpoint, or its data must never come from storage</td>
+</tr>
+<tr>
+<td><code>.revalidatingWithService</code></td>
+<td>Always calls the service, asking whether the stored copy is still good. When the service answers <code>304 Not Modified</code>, the stored body is returned and no body crosses the network.</td>
+<td>staleness is unacceptable and failing when offline is acceptable</td>
+</tr>
+<tr>
+<td><code>.whileCacheFresh</code></td>
+<td>Reads the stored copy for as long as the cache judges it fresh, and calls the service only once it does not.</td>
+<td>you know the service&rsquo;s freshness headers for this endpoint, and you want reads to work offline</td>
+</tr>
+</tbody></table>
+
+<p><strong><code>.revalidatingWithService</code> fails offline exactly where <code>.disabled</code> already fails.</strong> With no network it throws rather than falling back to the copy sitting in the cache. Read beside <code>.whileCacheFresh</code> that looks like a drawback. Read beside the default it is not, because <code>.disabled</code> fails in the same two ways, on a refused connection and on a stalled one. <code>.revalidatingWithService</code> is the default with the body bytes removed when nothing changed. For an endpoint that must never show stale data, it is a straight improvement over not caching at all.</p>
+
+<p><strong>Why the default is <code>.disabled</code> when <code>allowsDeduplication</code> defaults to <code>true</code>.</strong> The two point the same direction even though they look opposite. Collapsing two identical calls that are in flight at the same moment cannot hand a caller stale data, so that one is safe on. A cache can, so this one is safe off. Both defaults land where somebody who has not thought about an endpoint cannot be surprised by it.</p>
+<h4 id='turning-it-off-without-shipping-a-build' class='heading'>Turning it off without shipping a build</h4>
+
+<p><code>caching</code> is a computed property on a type you own, and Atom reads it fresh on every call. Nothing is remembered between the endpoint and the request Atom builds from it, so the property can read a remote feature flag:</p>
+<pre class="highlight swift"><code><span class="k">var</span> <span class="nv">caching</span><span class="p">:</span> <span class="kt">ResponseCaching</span> <span class="p">{</span> <span class="kt">FeatureFlags</span><span class="o">.</span><span class="n">responseCachingEnabled</span> <span class="p">?</span> <span class="o">.</span><span class="nv">whileCacheFresh</span> <span class="p">:</span> <span class="o">.</span><span class="n">disabled</span> <span class="p">}</span>
+</code></pre>
+
+<p>A flag flipped remotely takes effect on the next call, with no restart and no rebuilt client. Flipping it stops reads and does not evict anything, so the second step of an incident response is <code>responseCache.removeAllCachedResponses()</code>. The storage switch is not a lever here, because <code>cache:</code> is fixed when the client is built.</p>
+
+<p>The same property answers pull to refresh, which is the most likely way <code>.whileCacheFresh</code> reaches production and then gets reverted. A user initiated refresh is answered from the cache like any other call. The guest pulls down, the spinner turns, the same data comes back, and nothing reports that the service was never asked. Let the endpoint know why it is being called:</p>
+<pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">FlightStatusEndpoint</span><span class="p">:</span> <span class="kt">Requestable</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="k">let</span> <span class="nv">isUserInitiated</span><span class="p">:</span> <span class="kt">Bool</span>
+
+    <span class="k">var</span> <span class="nv">caching</span><span class="p">:</span> <span class="kt">ResponseCaching</span> <span class="p">{</span>
+        <span class="n">isUserInitiated</span> <span class="p">?</span> <span class="o">.</span><span class="nv">disabled</span> <span class="p">:</span> <span class="o">.</span><span class="n">whileCacheFresh</span>
+    <span class="p">}</span>
+
+    <span class="kd">func</span> <span class="nf">baseURL</span><span class="p">()</span> <span class="nf">throws</span><span class="p">(</span><span class="kt">AtomError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">BaseURL</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="kt">BaseURL</span><span class="p">(</span><span class="nv">host</span><span class="p">:</span> <span class="s">"api.alaskaair.net"</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The forced call also refreshes the stored copy, so the next background read starts from the new response rather than the old one. <code>.revalidatingWithService</code> needs none of this, since every call under it already reaches the service.</p>
+<h4 id='memory-disk-and-signing-out' class='heading'>Memory, disk, and signing out</h4>
+
+<p><strong><code>URLCache</code> does not vary on the <code>Authorization</code> header, and no configuration changes that.</strong> Two calls to one URL with two different bearer tokens produce one call to the service, and the second caller receives the first caller&rsquo;s body. Atom cannot fix this from where it stands.</p>
+
+<p><strong>Clearing the cache when a guest signs out is your obligation, not Atom&rsquo;s.</strong> Atom will not reach into an object the app owns:</p>
+<pre class="highlight swift"><code><span class="n">responseCache</span><span class="o">.</span><span class="nf">removeAllCachedResponses</span><span class="p">()</span>
+</code></pre>
+
+<p>Clearing is best effort rather than a guarantee. <code>URLCache</code> has no concept of a reserved entry and there is an acknowledged race in the API, so it cannot be made airtight from outside. Where the service can help, <code>Vary: Authorization</code> on the response is the stronger fix, because it stops the two callers sharing an entry in the first place while still allowing the response to be cached.</p>
+
+<p><strong>For an authenticated service, use a memory only cache.</strong> Pass <code>diskCapacity: 0</code>. A memory only cache writes nothing to disk and does not survive the process, so a missed <code>removeAllCachedResponses()</code> leaks for one run of the app rather than until somebody deletes it. That matters more than it first looks, for the reason in the next section.</p>
+
+<p>If your app also keeps a store of its own holding the same responses, that is a second copy of the same guest data, on disk by default, surviving the app kill that empties a memory only <code>URLCache</code>. Sign out has to clear both. Atom owns neither.</p>
+<h4 id='what-this-does-not-protect-you-from' class='heading'>What this does not protect you from</h4>
+
+<p>Three things stay true once an endpoint is opted in.</p>
+
+<p><strong>Duration under <code>.whileCacheFresh</code> is the service&rsquo;s call, not yours.</strong> If the service sends <code>max-age=86400</code> where you assumed sixty seconds, you get a day. If it sends no freshness headers at all but does send <code>Last-Modified</code>, the cache invents a window of roughly a tenth of the document&rsquo;s age, which for an old document is a long time. That is why the case is picked per endpoint, with the service&rsquo;s headers in hand, and why <code>.revalidatingWithService</code> exists.</p>
+
+<p><strong>A caller cannot tell a response from the cache apart from a response from the service.</strong> The status code, the headers and the errors are the same either way. On an opted in endpoint, stale data in the app and stale data at the service look identical from the call site.</p>
+
+<p><strong>Opting an endpoint out stops it being read from the cache. It does not stop it being written there.</strong> <code>.disabled</code> is a bypass on the read path rather than a barrier on the write path. Every response the client fetches is stored if the service made it cacheable, whatever the endpoint declared. Three things follow:</p>
+
+<ol>
+<li>The sign out obligation above covers the whole cache, not only the endpoints you opted in.</li>
+<li>Memory only is the standing advice for any authenticated service rather than a nicety. It is the only thing keeping an unserved stored response off the disk.</li>
+<li><strong>Supplying a cache and opting nothing in is worse than supplying no cache at all.</strong> It stores and it serves nothing. &ldquo;Install it now and opt endpoints in later&rdquo; is the natural reading of a two switch design, and it is the wrong move.</li>
+</ol>
+<h4 id='if-your-app-keeps-its-own-store' class='heading'>If your app keeps its own store</h4>
+
+<p>An app that persists responses itself, and refreshes them on its own schedule, has a second cache on the far side of Atom from <code>URLCache</code>. The two do not choose between each other. They add. Only your code can start a call, and <code>URLCache</code> can only answer a call that was started, so the worst case age of what a guest sees is your refresh interval plus the service&rsquo;s freshness window.</p>
+
+<p><strong>So an app that promises a hard maximum age must not opt its endpoints in to <code>.whileCacheFresh</code>.</strong> The staleness check fires on time, the call goes out on time, the stored copy is still inside the service&rsquo;s <code>max-age</code>, and the cache answers without reaching the service. Every step behaves correctly and the bound is gone, with nothing at the call site revealing it. Use <code>.revalidatingWithService</code> where the bound has to hold, because every call under it reaches the service.</p>
+
+<p>It also gets quietly worse the more the service cooperates. The day a service starts sending <code>max-age</code>, or starts sending a <code>Last-Modified</code>, the bound widens in response to a change nobody in your app made or saw.</p>
+
+<p><code>cache: nil</code> is a legitimate and often correct answer for such an app. It has the least to gain from a second cache and the same amount to lose.</p>
 <h3 id='plugins' class='heading'>Plugins</h3>
 
 <p>A plugin wraps request execution. It receives the request and a <code>next</code> handler, and may inspect or replace the request, refuse it outright, or reclassify whatever comes back. Plugins run in the order they are listed, the first one outermost, and they run outside de-duplication and authorization, so a plugin that refuses a request never wakes a token refresh.</p>
@@ -468,7 +644,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-09-09)</p>
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-10-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ServiceTimeout Structure Reference</title>
+    <title>ResponseCaching Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -13,8 +13,8 @@
     <script src="../js/jazzy.search.js" defer></script>
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/ServiceTimeout" class="dashAnchor"></a>
-    <a title="ServiceTimeout Structure Reference"></a>
+    <a name="//apple_ref/swift/Enum/ResponseCaching" class="dashAnchor"></a>
+    <a title="ResponseCaching Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">AtomNetworking Docs</a> (100% documented)</p>
@@ -29,9 +29,9 @@
       <p id="breadcrumbs">
         <a href="../index.html">AtomNetworking</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        <a href="../Structs.html">Structures</a>
+        <a href="../Enums.html">Enumerations</a>
         <img id="carat" src="../img/carat.png" alt=""/>
-        ServiceTimeout Structure Reference
+        ResponseCaching Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -201,35 +201,28 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ServiceTimeout</h1>
+            <h1>ResponseCaching</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ServiceTimeout</span> <span class="p">:</span> <span class="kt">Sendable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ResponseCaching</span> <span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">Sendable</span></code></pre>
 
                 </div>
               </div>
-            <p>Model object representing <code>URLSessionConfiguration</code> timeout intervals.</p>
+            <p>The caching behavior for a request, applied against the cache supplied to <code><a href="../Structs/ServiceConfiguration.html">ServiceConfiguration</a></code>.</p>
+
+<p>Has no effect when no cache was supplied.</p>
 
           </section>
           <section class="section task-group-section">
             <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Lifecycle"></a>
-                <a name="//apple_ref/swift/Section/Lifecycle" class="dashAnchor"></a>
-                <div class="section-name-container">
-                  <a class="section-name-link" href="#/Lifecycle"></a>
-                  <h3 class="section-name"><span>Lifecycle</span>
-</h3>
-                </div>
-              </div>
               <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AtomNetworking14ServiceTimeoutV7request8resourceACSd_Sdtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(request:resource:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AtomNetworking14ServiceTimeoutV7request8resourceACSd_Sdtcfc">init(request:<wbr>resource:<wbr>)</a>
+                    <a name="/s:14AtomNetworking15ResponseCachingO8disabledyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/disabled" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AtomNetworking15ResponseCachingO8disabledyA2CmF">disabled</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -237,47 +230,76 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a <code>ServiceTimeout</code> instance given the provided parameter(s).</p>
+                        <p>Never serve this request from the cache. The default.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">request</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">30.0</span><span class="p">,</span> <span class="nv">resource</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mf">30.0</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">disabled</span></code></pre>
 
                         </div>
                       </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>request</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The timeout interval to use when waiting for additional data.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>resource</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The maximum amount of time that a resource request should be allowed to take.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AtomNetworking15ResponseCachingO23revalidatingWithServiceyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/revalidatingWithService" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AtomNetworking15ResponseCachingO23revalidatingWithServiceyA2CmF">revalidatingWithService</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Ask the service on every call, and use the stored response when it returns <code>304 Not Modified</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">revalidatingWithService</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14AtomNetworking15ResponseCachingO15whileCacheFreshyA2CmF"></a>
+                    <a name="//apple_ref/swift/Element/whileCacheFresh" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AtomNetworking15ResponseCachingO15whileCacheFreshyA2CmF">whileCacheFresh</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Use the stored response while the cache considers it fresh. Freshness comes from the service&rsquo;s cache headers.</p>
+<div class="aside aside-important">
+    <p class="aside-title">Important</p>
+    The service controls how long data can remain fresh. Use <code><a href="../Enums/ResponseCaching.html#/s:14AtomNetworking15ResponseCachingO23revalidatingWithServiceyA2CmF">revalidatingWithService</a></code> if
+the caller needs to verify with the service.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">whileCacheFresh</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
