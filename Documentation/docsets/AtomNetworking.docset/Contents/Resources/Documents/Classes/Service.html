@@ -75,6 +75,9 @@
                 <a href="../Enums/RequestableError.html">RequestableError</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/ResponseCaching.html">ResponseCaching</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/SessionConfiguration.html">SessionConfiguration</a>
               </li>
             </ul>
@@ -166,6 +169,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ConnectivitySnapshot/Interface.html">– Interface</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DecodedResponse.html">DecodedResponse</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/HeaderItem.html">HeaderItem</a>
@@ -316,6 +322,74 @@ occurs and all concurrent callers wait for it.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14AtomNetworking7ServiceC6resume8decoding7decoderAA15DecodedResponseVyxGxm_10Foundation11JSONDecoderCSgtYaAA0A5ErrorOYKAA5ModelRzlF"></a>
+                    <a name="//apple_ref/swift/Method/resume(decoding:decoder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AtomNetworking7ServiceC6resume8decoding7decoderAA15DecodedResponseVyxGxm_10Foundation11JSONDecoderCSgtYaAA0A5ErrorOYKAA5ModelRzlF">resume(decoding:<wbr>decoder:<wbr>)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Asynchronous
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes the request using async/await, decodes the result, and returns it with the response metadata.</p>
+
+<p>Use this rather than <code>resume(expecting:)</code> when the caller needs response headers,
+for example a <code>Date</code> or <code>ETag</code>, alongside the decoded model.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">resume</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">decoding</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">JSONDecoder</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">async</span> <span class="nf">throws</span><span class="p">(</span><span class="kt"><a href="../Enums/AtomError.html">AtomError</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/DecodedResponse.html">DecodedResponse</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The expected response model type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>decoder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional decoder to use for this call only. Omit (or pass <code>nil</code>) to use the service-configured decoder.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The decoded response and the response it was decoded from.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14AtomNetworking7ServiceC6resumeAA0A8ResponseVyYaAA0A5ErrorOYKF"></a>
                     <a name="//apple_ref/swift/Method/resume()" class="dashAnchor"></a>
                     <a class="token" href="#/s:14AtomNetworking7ServiceC6resumeAA0A8ResponseVyYaAA0A5ErrorOYKF">resume()</a>
@@ -423,6 +497,83 @@ behavior with async/await usage.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14AtomNetworking7ServiceC6resume8decoding7decoder10completionyxm_10Foundation11JSONDecoderCSgys6ResultOyAA15DecodedResponseVyxGAA0A5ErrorOGYbctAA5ModelRzlF"></a>
+                    <a name="//apple_ref/swift/Method/resume(decoding:decoder:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AtomNetworking7ServiceC6resume8decoding7decoder10completionyxm_10Foundation11JSONDecoderCSgys6ResultOyAA15DecodedResponseVyxGAA0A5ErrorOGYbctAA5ModelRzlF">resume(decoding:<wbr>decoder:<wbr>completion:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Executes the request using a completion handler, decoding the result and returning it with the response metadata.</p>
+
+<p>Use this rather than <code>resume(expecting:completion:)</code> when the caller needs response headers,
+for example a <code>Date</code> or <code>ETag</code>, alongside the decoded model.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">resume</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">decoding</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span>
+    <span class="nv">decoder</span><span class="p">:</span> <span class="kt">JSONDecoder</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="nv">completion</span><span class="p">:</span> <span class="kd">@Sendable</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Result</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/DecodedResponse.html">DecodedResponse</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Enums/AtomError.html">AtomError</a></span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span>
+<span class="p">)</span> <span class="k">where</span> <span class="kt">T</span><span class="p">:</span> <span class="kt"><a href="../Protocols.html#/s:14AtomNetworking5ModelP">Model</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The expected response model type.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>decoder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional decoder to use for this call only. Omit (or pass <code>nil</code>) to use the service-configured decoder.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Called with the result.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14AtomNetworking7ServiceC6resumeyyys6ResultOyAA0A8ResponseVAA0A5ErrorOGYbcF"></a>
                     <a name="//apple_ref/swift/Method/resume(_:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:14AtomNetworking7ServiceC6resumeyyys6ResultOyAA0A8ResponseVAA0A5ErrorOGYbcF">resume(_:<wbr>)</a>
@@ -471,7 +622,7 @@ behavior with async/await usage.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-09-09)</p>
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-10-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

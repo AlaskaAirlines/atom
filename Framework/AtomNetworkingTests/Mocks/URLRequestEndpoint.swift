@@ -24,6 +24,10 @@ enum URLRequestEndpoint: Requestable {
     case invalidBaseURL
     case invalidURLPath
 
+    case cachingDisabled
+    case cachingRevalidatingWithService
+    case cachingWhileCacheFresh
+
     case validBaseURLPath
     case validHeaderValues
     case validHTTPBody
@@ -38,6 +42,17 @@ enum URLRequestEndpoint: Requestable {
     static let headers = [HeaderItem(name: "name", value: "value")]
 
     // MARK: - Computed Properties
+
+    var caching: ResponseCaching {
+        switch self {
+        case .cachingRevalidatingWithService:
+            return .revalidatingWithService
+        case .cachingWhileCacheFresh:
+            return .whileCacheFresh
+        default:
+            return .disabled
+        }
+    }
 
     var headerItems: [HeaderItem]? { URLRequestEndpoint.headers }
 

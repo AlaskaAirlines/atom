@@ -82,6 +82,20 @@ public final class Service: Sendable {
         try await serviceActor.resume(for: requestable, expecting: type, decoder: decoder)
     }
 
+    /// Executes the request using async/await, decodes the result, and returns it with the response metadata.
+    ///
+    /// Use this rather than `resume(expecting:)` when the caller needs response headers,
+    /// for example a `Date` or `ETag`, alongside the decoded model.
+    ///
+    /// - Parameters:
+    ///   - type:    The expected response model type.
+    ///   - decoder: An optional decoder to use for this call only. Omit (or pass `nil`) to use the service-configured decoder.
+    ///
+    /// - Returns: The decoded response and the response it was decoded from.
+    public func resume<T>(decoding type: T.Type, decoder: JSONDecoder? = nil) async throws(AtomError) -> DecodedResponse<T> where T: Model {
+        try await serviceActor.resume(for: requestable, decoding: type, decoder: decoder)
+    }
+
     /// Executes the request using async/await and returns the raw response.
     ///
     /// - Returns: The raw `AtomResponse`.
@@ -100,6 +114,23 @@ public final class Service: Sendable {
     ///   - completion: Called with the result.
     public func resume<T>(expecting type: T.Type, decoder: JSONDecoder? = nil, completion: @Sendable @escaping (Result<T, AtomError>) -> Void) where T: Model {
         Task { await serviceActor.resume(for: requestable, expecting: type, decoder: decoder, completion: completion) }
+    }
+
+    /// Executes the request using a completion handler, decoding the result and returning it with the response metadata.
+    ///
+    /// Use this rather than `resume(expecting:completion:)` when the caller needs response headers,
+    /// for example a `Date` or `ETag`, alongside the decoded model.
+    ///
+    /// - Parameters:
+    ///   - type:       The expected response model type.
+    ///   - decoder:    An optional decoder to use for this call only. Omit (or pass `nil`) to use the service-configured decoder.
+    ///   - completion: Called with the result.
+    public func resume<T>(
+        decoding type: T.Type,
+        decoder: JSONDecoder? = nil,
+        completion: @Sendable @escaping (Result<DecodedResponse<T>, AtomError>) -> Void
+    ) where T: Model {
+        Task { await serviceActor.resume(for: requestable, decoding: type, decoder: decoder, completion: completion) }
     }
 
     /// Executes the request using a completion handler and returns the raw response.

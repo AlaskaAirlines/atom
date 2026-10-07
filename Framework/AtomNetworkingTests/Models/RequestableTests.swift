@@ -17,6 +17,8 @@
 @testable import AtomNetworking
 import XCTest
 
+// MARK: - RequestableTests
+
 final class RequestableTests: XCTestCase {
     func testRequestableProvidesExpectedDefaultImplementation() {
         // Given, When
@@ -27,5 +29,31 @@ final class RequestableTests: XCTestCase {
         XCTAssertEqual(try? endpoint.path().stringValue, URLPath.default.stringValue)
         XCTAssertNil(endpoint.headerItems)
         XCTAssertNil(endpoint.queryItems)
+    }
+
+    func testAConformanceDeclaringNoOptionalMembersInheritsCachingDisabled() {
+        // Given, When
+        let endpoint: MinimalRequestable = .init()
+
+        // Then
+        XCTAssertTrue(endpoint.allowsDeduplication)
+
+        guard case .disabled = endpoint.caching else {
+            return XCTFail("A requestable declaring no caching member must inherit `.disabled`.")
+        }
+    }
+}
+
+// MARK: - MinimalRequestable
+
+/// A conformance declaring none of the optional `Requestable` members, standing in for a consumer
+/// endpoint written before any of them existed.
+private struct MinimalRequestable: Requestable {
+    func baseURL() throws(AtomError) -> BaseURL {
+        try .init(host: "api.alaskaair.com")
+    }
+
+    func path() throws(AtomError) -> URLPath {
+        try .init("/path")
     }
 }

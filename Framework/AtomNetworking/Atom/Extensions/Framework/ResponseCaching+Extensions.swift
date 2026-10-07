@@ -14,27 +14,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import AtomNetworking
 import Foundation
 
-enum JokeEndpoint: Requestable {
-    /// Get a random, single, Chuck Norris joke.
-    case random
+// MARK: - Helper Properties and Methods
 
-    // MARK: - Computed Properties
-
-    /// The per-request caching option.
-    var caching: ResponseCaching {
-        .revalidatingWithService
-    }
-
-    // MARK: - Functions
-
-    func baseURL() throws(AtomError) -> BaseURL {
-        try BaseURL(host: "api.chucknorris.io")
-    }
-
-    func path() throws(AtomError) -> URLPath {
-        try URLPath("/jokes/random")
+extension ResponseCaching {
+    /// The cache policy Atom stamps on every `URLRequest` built from a `Requestable` declaring this case.
+    var cachePolicy: URLRequest.CachePolicy {
+        switch self {
+        case .disabled:
+            return .reloadIgnoringLocalCacheData
+        case .revalidatingWithService:
+            return .reloadRevalidatingCacheData
+        case .whileCacheFresh:
+            return .useProtocolCachePolicy
+        }
     }
 }

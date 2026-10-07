@@ -17,10 +17,28 @@
 import AtomNetworking
 import Foundation
 
+/// The response cache handed to AtomNetworking.
+///
+/// Memory only, `diskCapacity: 0`, which is the recommendation for any authenticated service. Opting an endpoint
+/// out stops Atom reading its responses from the cache but does not stop them being written there, so a disk-backed
+/// cache would hold responses from endpoints nobody opted in.
+///
+/// Holding this reference here is the point of the example rather than the sizing. Atom keeps no handle to the
+/// cache and offers no way to clear it, so clearing at sign out is a one-line call on this object:
+///
+/// responseCache.removeAllCachedResponses()
+let responseCache: URLCache = .init(memoryCapacity: 10_000_000, diskCapacity: 0, directory: nil)
+
 /// Global instance of AtomNetworking library.
 let atom: Atom = {
     let method: AuthenticationMethod = .basic(BasicCredential(password: "password", username: "username"))
-    let configuration: ServiceConfiguration = .init(authenticationMethod: method, plugins: [ConnectivityPlugin()], isLogEnabled: true)
+
+    let configuration: ServiceConfiguration = .init(
+        authenticationMethod: method,
+        cache: responseCache,
+        plugins: [ConnectivityPlugin()],
+        isLogEnabled: true
+    )
 
     return .init(serviceConfiguration: configuration)
 }()

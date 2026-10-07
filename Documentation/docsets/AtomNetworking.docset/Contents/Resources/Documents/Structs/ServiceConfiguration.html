@@ -75,6 +75,9 @@
                 <a href="../Enums/RequestableError.html">RequestableError</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/ResponseCaching.html">ResponseCaching</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/SessionConfiguration.html">SessionConfiguration</a>
               </li>
             </ul>
@@ -166,6 +169,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/ConnectivitySnapshot/Interface.html">– Interface</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/DecodedResponse.html">DecodedResponse</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/HeaderItem.html">HeaderItem</a>
@@ -274,9 +280,9 @@ connection attempt will fail if the process does not have the required entitleme
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14AtomNetworking20ServiceConfigurationV20authenticationMethod13configuration7decoder13dispatchQueue09multipathC4Type7plugins7timeout12isLogEnabledAcA014AuthenticationF0O_AA07SessionD0O10Foundation11JSONDecoderCSo03OS_I6_queueCSo021NSURLSessionMultipathcL0VSayAA0A6Plugin_pGAA0C7TimeoutVSbtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(authenticationMethod:configuration:decoder:dispatchQueue:multipathServiceType:plugins:timeout:isLogEnabled:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14AtomNetworking20ServiceConfigurationV20authenticationMethod13configuration7decoder13dispatchQueue09multipathC4Type7plugins7timeout12isLogEnabledAcA014AuthenticationF0O_AA07SessionD0O10Foundation11JSONDecoderCSo03OS_I6_queueCSo021NSURLSessionMultipathcL0VSayAA0A6Plugin_pGAA0C7TimeoutVSbtcfc">init(authenticationMethod:<wbr>configuration:<wbr>decoder:<wbr>dispatchQueue:<wbr>multipathServiceType:<wbr>plugins:<wbr>timeout:<wbr>isLogEnabled:<wbr>)</a>
+                    <a name="/s:14AtomNetworking20ServiceConfigurationV20authenticationMethod5cache13configuration7decoder13dispatchQueue09multipathC4Type7plugins7timeout12isLogEnabledAcA014AuthenticationF0O_So10NSURLCacheCSgAA07SessionD0O10Foundation11JSONDecoderCSo03OS_J6_queueCSo021NSURLSessionMultipathcM0VSayAA0A6Plugin_pGAA0C7TimeoutVSbtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(authenticationMethod:cache:configuration:decoder:dispatchQueue:multipathServiceType:plugins:timeout:isLogEnabled:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14AtomNetworking20ServiceConfigurationV20authenticationMethod5cache13configuration7decoder13dispatchQueue09multipathC4Type7plugins7timeout12isLogEnabledAcA014AuthenticationF0O_So10NSURLCacheCSgAA07SessionD0O10Foundation11JSONDecoderCSo03OS_J6_queueCSo021NSURLSessionMultipathcM0VSayAA0A6Plugin_pGAA0C7TimeoutVSbtcfc">init(authenticationMethod:<wbr>cache:<wbr>configuration:<wbr>decoder:<wbr>dispatchQueue:<wbr>multipathServiceType:<wbr>plugins:<wbr>timeout:<wbr>isLogEnabled:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -293,6 +299,7 @@ connection attempt will fail if the process does not have the required entitleme
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
     <span class="nv">authenticationMethod</span><span class="p">:</span> <span class="kt"><a href="../Enums/AuthenticationMethod.html">AuthenticationMethod</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">none</span><span class="p">,</span>
+    <span class="nv">cache</span><span class="p">:</span> <span class="kt">URLCache</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
     <span class="nv">configuration</span><span class="p">:</span> <span class="kt"><a href="../Enums/SessionConfiguration.html">SessionConfiguration</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">ephemeral</span><span class="p">,</span>
     <span class="nv">decoder</span><span class="p">:</span> <span class="kt">JSONDecoder</span> <span class="o">=</span> <span class="o">.</span><span class="nf">init</span><span class="p">(),</span>
     <span class="nv">dispatchQueue</span><span class="p">:</span> <span class="kt">DispatchQueue</span> <span class="o">=</span> <span class="o">.</span><span class="n">main</span><span class="p">,</span>
@@ -317,6 +324,18 @@ connection attempt will fail if the process does not have the required entitleme
                               <td>
                                 <div>
                                   <p>The authentication method indicating how authorization header will be handled in Atom.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cache</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The cache for responses - default value is <code>nil</code>, meaning responses are not cached.</p>
                                 </div>
                               </td>
                             </tr>
@@ -415,7 +434,7 @@ connection attempt will fail if the process does not have the required entitleme
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-09-09)</p>
+          <p>&copy; 2026 <a class="link" href="" target="_blank" rel="external noopener"></a>. All rights reserved. (Last updated: 2026-10-05)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </article>

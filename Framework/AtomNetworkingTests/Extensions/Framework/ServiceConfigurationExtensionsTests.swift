@@ -27,10 +27,10 @@ final class ServiceConfigurationExtensionsTests: XCTestCase {
 
         // Then
         XCTAssertNil(sessionConfiguration.identifier)
-        XCTAssertFalse(sessionConfiguration.urlCache === URLCache.shared)
+        XCTAssertNil(sessionConfiguration.urlCache)
     }
 
-    func testDefaultConfigurationResolvesToASessionBackedByTheSharedCache() {
+    func testDefaultConfigurationResolvesToASessionWithNoCacheRatherThanTheSharedOne() {
         // Given
         let serviceConfiguration: ServiceConfiguration = .init(configuration: .default)
 
@@ -39,7 +39,36 @@ final class ServiceConfigurationExtensionsTests: XCTestCase {
 
         // Then
         XCTAssertNil(sessionConfiguration.identifier)
-        XCTAssertTrue(sessionConfiguration.urlCache === URLCache.shared)
+        XCTAssertNil(sessionConfiguration.urlCache)
+    }
+
+    func testNoSuppliedCacheLeavesEverySessionConfigurationWithoutACache() {
+        // Given
+        let configurations: [SessionConfiguration] = [.background("com.alaskaair.atom.tests"), .default, .ephemeral]
+
+        for configuration in configurations {
+            // When
+            let serviceConfiguration: ServiceConfiguration = .init(cache: nil, configuration: configuration)
+            let sessionConfiguration: URLSessionConfiguration = serviceConfiguration.sessionConfiguration
+
+            // Then
+            XCTAssertNil(sessionConfiguration.urlCache, "\(configuration) inherited a cache nobody asked for.")
+        }
+    }
+
+    func testTheSuppliedCacheIsTheSameInstanceOnTheSessionConfiguration() {
+        // Given
+        let cache: URLCache = .init(memoryCapacity: 512_000, diskCapacity: 0, directory: nil)
+        let configurations: [SessionConfiguration] = [.background("com.alaskaair.atom.tests"), .default, .ephemeral]
+
+        for configuration in configurations {
+            // When
+            let serviceConfiguration: ServiceConfiguration = .init(cache: cache, configuration: configuration)
+            let sessionConfiguration: URLSessionConfiguration = serviceConfiguration.sessionConfiguration
+
+            // Then
+            XCTAssertTrue(sessionConfiguration.urlCache === cache, "\(configuration) did not receive the supplied instance.")
+        }
     }
 
     func testBackgroundConfigurationCarriesTheIdentifierItWasGiven() {

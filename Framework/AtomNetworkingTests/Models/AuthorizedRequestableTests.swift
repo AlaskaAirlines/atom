@@ -15,6 +15,7 @@
 // limitations under the License.
 
 @testable import AtomNetworking
+import Foundation
 import XCTest
 
 // MARK: - AuthorizedRequestableTests
@@ -38,5 +39,26 @@ final class AuthorizedRequestableTests: XCTestCase {
         XCTAssertEqual(endpoint.requiresAuthorization, authorizedRequestable.requiresAuthorization)
         XCTAssertEqual(try endpoint.baseURL(), try authorizedRequestable.baseURL())
         XCTAssertEqual(try endpoint.path(), try authorizedRequestable.path())
+
+        guard case .whileCacheFresh = authorizedRequestable.caching else {
+            return XCTFail("`caching` is missing from the forwarding list in AuthorizedRequestable+Extensions.")
+        }
+    }
+
+    func testCachingIsForwardedFromTheWrappedRequestableRatherThanFallingBackToTheProtocolDefault() {
+        // Given
+        let endpoint: AuthorizedRequestableEndpoint = .init()
+        let method: AuthenticationMethod = .basic(.init(password: "password", username: "username"))
+
+        // When
+        let authorizedRequestable: AuthorizedRequestable = .init(requestable: endpoint, authorizationHeaderItems: [method.authorizationHeaderItem])
+        let request: URLRequest? = try? .init(requestable: authorizedRequestable)
+
+        // Then
+        guard case .whileCacheFresh = authorizedRequestable.caching else {
+            return XCTFail("`caching` is missing from the forwarding list in AuthorizedRequestable+Extensions.")
+        }
+
+        XCTAssertEqual(request?.cachePolicy, .useProtocolCachePolicy)
     }
 }

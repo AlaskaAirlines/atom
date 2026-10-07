@@ -38,6 +38,9 @@ public struct ServiceConfiguration: Sendable {
     /// The authentication method indicating how authorization header will be handled.
     let authenticationMethod: AuthenticationMethod
 
+    /// The cache for responses - default value is `nil`, meaning responses are not cached.
+    let cache: URLCache?
+
     /// The `SessionConfiguration` - default value is `.ephemeral`.
     let configuration: SessionConfiguration
 
@@ -65,6 +68,7 @@ public struct ServiceConfiguration: Sendable {
     ///
     /// - Parameters:
     ///   - authenticationMethod: The authentication method indicating how authorization header will be handled in Atom.
+    ///   - cache:                The cache for responses - default value is `nil`, meaning responses are not cached.
     ///   - configuration:        The `ServiceConfiguration.Configuration` - default value is `.ephemeral`.
     ///   - decoder:              The `JSONDecoder` for decoding data into models.
     ///   - dispatchQueue:        The queue to dispatch `Result` object on.
@@ -74,6 +78,7 @@ public struct ServiceConfiguration: Sendable {
     ///   - isLogEnabled:         A `Bool` indicating whether or not all service requests should be logged to the console.
     public init(
         authenticationMethod: AuthenticationMethod = .none,
+        cache: URLCache? = nil,
         configuration: SessionConfiguration = .ephemeral,
         decoder: JSONDecoder = .init(),
         dispatchQueue: DispatchQueue = .main,
@@ -83,6 +88,7 @@ public struct ServiceConfiguration: Sendable {
         isLogEnabled: Bool = false
     ) {
         self.authenticationMethod = authenticationMethod
+        self.cache = cache
         self.configuration = configuration
         self.decoder = decoder
         self.dispatchQueue = dispatchQueue
